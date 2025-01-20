@@ -1,0 +1,22 @@
+/* Button Default */
+.mth-btn-default{
+    background-color: #6D00FF;
+    color: #fff;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.mth-btn-border{
+  background-color: #fff;
+  color: #6D00FF;
+  border: 1px solid #6D00FF;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.mth-btn{
+  border-radius: 15px;
+  padding: 10px;
+}
+  
+.mth-btn-full{
+  width: 100%;
+}
