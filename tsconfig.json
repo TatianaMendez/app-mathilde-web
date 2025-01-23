@@ -15,7 +15,12 @@
     "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],                    // Para importar con ~/...
+      "@components/*": ["./app/components/*"],
+      "@utils/*": ["./app/utils/*"],
+      "@hooks/*": ["./app/hooks/*"],
+      "@assets/*": ["./app/assets/*"],
+      "@pages/*": ["./app/pages/*"]          // Si tienes páginas en app/pages
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

@@ -83,7 +83,8 @@ const RegisterForm: React.FC = () => {
 
           <div className='flex justify-end'>
             <Link to="/" className="mr-2 flex items-center" >Cancelar</Link>
-            <ButtonFormat txtBtn={'Continuar'} type={'default'} full={false} />
+            <ButtonFormat txtBtn={'Continuar'} type={'default'} full={false} label={''} 
+            disabled={false} className={''} />
           </div>
         </form>
       </div>
