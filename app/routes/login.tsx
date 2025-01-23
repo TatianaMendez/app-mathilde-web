@@ -39,16 +39,16 @@ const LoginForm: React.FC = () => {
             <button type="button" onClick={toggleModal}>Olvide la contraseña</button>
           </div>
           <div className='flex justify-end my-3'>
-            <ButtonFormat txtBtn={'Continuar'} type={'default'} full={true} />
+            <ButtonFormat txtBtn={'Continuar'} type={'default'} full={true} label={''} disabled={false} className={''} />
           </div>
           <div className="flex items-center">
             <hr className="mth-line mr-0.5"/><p> o </p><hr className="mth-line ml-0.5" />
           </div>
           <div className='flex justify-end mt-3'>
-            <ButtonFormat txtBtn={'Continuar con Google'} type={'border'} full={true} />
+            <ButtonFormat txtBtn={'Continuar con Google'} type={'border'} full={true} label={''} disabled={false} className={''} />
           </div>
           <div className='flex justify-end my-3'>
-            <ButtonFormat txtBtn={'Continuar con Microsoft'} type={'border'} full={true} />
+            <ButtonFormat txtBtn={'Continuar con Microsoft'} type={'border'} full={true} label={''} disabled={false} className={''} />
           </div>
           <div className='flex'>
             <p>¿Aún no tienes una cuenta de Mathilde Ads? &nbsp; </p> 
@@ -62,7 +62,7 @@ const LoginForm: React.FC = () => {
             <InputForm type='email' placeholder='Correo electronico' />
           </div>
           <div className='flex justify-end'>
-            <ButtonFormat txtBtn={'Continuar'} type={'default'} full={false} onClick={handleClick}/>
+            <ButtonFormat txtBtn={'Continuar'} type={'default'} full={false} onClick={handleClick} label={''} disabled={false} className={''}/>
           </div>
         </ModalFormat>
       </div>

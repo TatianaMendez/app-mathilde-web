@@ -1,0 +1,45 @@
+.mth_shadow {
+    box-shadow: 5px -1px 11px 2px #d8d8d8;
+    height: 1000px;
+  }
+  
+  .diflex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+  }
+  
+  .borderMathi {
+    border: 2px solid darkgrey;
+    border-style: dotted;
+  }
+  
+  .divPresupuesto {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .btnForm {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+  
+  .continuarBtn {
+    background-color: blue;
+    color: white;
+  }
+  
+  .continuarBtn:hover {
+    background-color: rgba(0, 0, 255, 0.488);
+  }
+  

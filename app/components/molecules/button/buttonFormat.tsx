@@ -5,6 +5,9 @@ interface ButtonFormatProps {
   txtBtn: string;
   type: string;
   full: boolean;
+  label: string;
+  disabled: boolean;
+  className: string;
   onClick?: () => void; 
 }
 
