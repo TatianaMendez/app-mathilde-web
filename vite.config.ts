@@ -1,24 +1,48 @@
-import { reactRouter } from "@react-router/dev/vite";
-import autoprefixer from "autoprefixer";
-import path from "path";
-import tailwindcss from "tailwindcss";
-import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from 'vite';
+import React from '@vitejs/plugin-react';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path';
+import federation from '@originjs/vite-plugin-federation';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  css: {
-    postcss: {
-      plugins: [tailwindcss, autoprefixer],
-    },
-  },
+  plugins: [
+    React(),
+    tsconfigPaths(),
+    tailwindcss(),
+    federation({
+      name: 'appmathildeweb', // Nombre del remoto
+      filename: 'remoteEntry.js',
+      exposes: {
+        './CampaignForm': './src/components/organisms/FormSocial/FormSocial.tsx',
+        './LoginForm': './src/components/organisms/Login/Login.tsx',
+        './RegisterForm': './src/components/organisms/Register/Register.tsx',
+        './ResetPass': './src/components/organisms/Login/ResetPassword/ResetPassword.tsx',
+      },
+      remotes: {},
+      shared: ['react', 'react-dom', 'react-router-dom'],
+    }),
+  ],
   resolve: {
     alias: {
-      '@components': path.resolve(__dirname, './app/components'),
-      '@pages': path.resolve(__dirname, './app/pages'),
-      '@utils': path.resolve(__dirname, './app/utils'),
-      '@hooks': path.resolve(__dirname, './app/hooks'),
-      '@assets': path.resolve(__dirname, './app/assets'),
-    },
+      '@components': path.resolve(__dirname, './src/components'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@utils': path.resolve(__dirname, './src/utils'),
+      '@hooks': path.resolve(__dirname, './src/hooks'),
+      '@assets': path.resolve(__dirname, './src/assets'),
+      '@style': path.resolve(__dirname, './src/styles'),
+
+    }
   },
-  plugins: [reactRouter(), tsconfigPaths()],
+  build: {
+    target: 'esnext',
+    minify: false,
+    cssCodeSplit: false
+  },
+  server: {
+    port: 5173,
+    cors: true
+  }
 });
+
+
