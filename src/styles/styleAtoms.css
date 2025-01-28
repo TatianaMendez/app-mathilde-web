@@ -1,5 +1,9 @@
   /* Mensajes alertas */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
   .mth-msg{
     color: #380182;
     margin-bottom: 1em;
