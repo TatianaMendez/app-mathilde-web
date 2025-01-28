@@ -3,9 +3,9 @@ import type { optionSelect } from "./model/optionSelect";
 export const RegisterFormService = {
   roles: [
     { value: 'Administrador', label: 'Administrador' },
-    { value: 'Anunciante', label: 'Anunciante' },
-    { value: 'Account Manager', label: 'Account Manager' },
-    { value: 'Diseñador', label: 'Diseñador' },
+    { value: 'Gestor de campañas', label: 'Gestor de campañas' },
+    { value: 'Analista', label: 'Analista' },
+    { value: 'Creativo', label: 'Creativo' },
   ] as optionSelect[],
 
   getRoles() {

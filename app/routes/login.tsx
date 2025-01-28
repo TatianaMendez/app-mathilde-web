@@ -5,6 +5,7 @@ import ButtonFormat from '../components/molecules/button/buttonFormat';
 import VisualStart from '../components/organisms/visualStart';
 import ModalFormat from '../components/organisms/modal/modalFormat';
 import '../styles/styleAtoms.css';
+import PasswordInput from '~/components/molecules/input/passwordInput';
 
 const LoginForm: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -14,7 +15,7 @@ const LoginForm: React.FC = () => {
 
   const handleClick = () => {
     console.log('Botón clickeado!');
-    navigate('/reset'); 
+    navigate('/validation'); 
   };
 
   return (
@@ -32,11 +33,11 @@ const LoginForm: React.FC = () => {
           </div>
           <div className='flex justify-between'>
             <div className='w-full'>
-              <InputForm type='password' placeholder='Contraseña' />
+              <PasswordInput placeholder='Contraseña'/>
             </div>
           </div>
           <div className='flex justify-between'>
-            <button type="button" onClick={toggleModal}>Olvide la contraseña</button>
+            <button type="button" className='mt-3' onClick={toggleModal}>Olvide la contraseña</button>
           </div>
           <div className='flex justify-end my-3'>
             <ButtonFormat txtBtn={'Continuar'} type={'default'} full={true} label={''} disabled={false} className={''} />

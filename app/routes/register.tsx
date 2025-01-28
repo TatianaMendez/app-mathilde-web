@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import InputForm from '../components/molecules/input/inputForm';
 import SelectForm from '../components/molecules/select/selectForm';
 import ButtonFormat from '../components/molecules/button/buttonFormat';
@@ -7,21 +7,40 @@ import VisualStart from '../components/organisms/visualStart';
 import { RegisterFormService } from '../domain/register-form/RegisterFormService';
 import '../styles/styleAtoms.css';
 import { Link } from 'react-router-dom';
-
+import PasswordInput from '~/components/molecules/input/passwordInput';
+import usePasswordValidation from '../hooks/ usePasswordValidation';
+import ModalFormat from '~/components/organisms/modal/modalFormat';
 
 const RegisterForm: React.FC = () => {
   const { roles } = RegisterFormService;
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
+  const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  
+  const {
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    showError,
+  } = usePasswordValidation();
 
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const toggleModal = () => setIsModalOpen(prev => !prev);
 
-    const isPasswordValid = () => {
-      return password.trim() && confirmPassword.trim() && password === confirmPassword;
-    };
-    
-    const showError = () => {
-      return !isPasswordValid() && password.trim() && confirmPassword.trim();
-    };
+  const handleScroll = () => {
+    if (modalRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = modalRef.current;
+      if (scrollTop + clientHeight >= scrollHeight && !buttonEnabled) {
+        setButtonEnabled(true);
+      }
+    }
+  };
+
+  const handleAcceptTerms = () => {
+    setTermsAccepted(true);
+    toggleModal(); 
+  };
 
   return (
     <div className="min-h-screen flex w-full">
@@ -58,28 +77,36 @@ const RegisterForm: React.FC = () => {
           </div>
           <div className='flex justify-between'>
             <div className='w-2/3 mr-2'>
-              <InputForm type='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder='Contraseña' />
+              <PasswordInput 
+                placeholder='Contraseña'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className='w-2/3 ml-2'>
-              <InputForm type='password'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder='Confirmar contraseña' />
+              <PasswordInput 
+                placeholder='Confirmar contraseña'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
             </div>
           </div>
         
-              {
-                showError() && (
-                  <div className="mth-msg">
-                    <label>Las contraseñas no coinciden.</label>
-                  </div>
-                )
-              }
-          
-           <TermsCheckbox />
+          {
+            showError() && (
+              <div className="mth-msg">
+                <label>Las contraseñas no coinciden.</label>
+              </div>
+            )
+          }
+
+          <div className='flex mt-5'>
+            <TermsCheckbox 
+              checked={termsAccepted} 
+              onOpenModal={toggleModal} 
+              onChange={setTermsAccepted} 
+            />
+          </div> 
 
           <div className='flex justify-end'>
             <Link to="/" className="mr-2 flex items-center" >Cancelar</Link>
@@ -87,6 +114,46 @@ const RegisterForm: React.FC = () => {
             disabled={false} className={''} />
           </div>
         </form>
+
+        <ModalFormat isOpen={isModalOpen} onClose={toggleModal}>
+          <div ref={modalRef} onScroll={handleScroll} style={{ maxHeight: '70vh', overflowY: 'auto', padding: '20px' }} >
+            <h2><b>Términos de Uso de la plataforma Mathilde Ads</b></h2><br/>
+            <ul>
+              <strong> 1. Definiciones y Alcance General </strong> <br/>
+              <ol>
+                El uso de los términos "nosotros" y "nos" en este documento significa acciones realizadas
+                por Mathilde Ads. El uso del término "Sitio" significa el sitio web mathilde-ads.com. "Cuenta"
+                es una cuenta registrada de un anunciante o editor de un sitio web en el sitio Mathilde Ads.
+                El uso del término "Términos" significa los términos y condiciones que se describen a continuación.
+                "Contenido”: datos, texto, imágenes, sonido, video y otra información y materiales.
+                "Información de derechos de autor": el contenido, la organización, los gráficos, el diseño,
+                la compilación y otros asuntos relacionados con Mathilde Ads y el Sitio. "Marcas comerciales":
+                todas las marcas comerciales, marcas de servicio, logotipos, nombres comerciales y cualquier otra
+                designación de propiedad de Mathilde Ads. Mathilde Ads proporcionará a los anunciantes y editores
+                de sitios web acceso al Sitio, donde pueden comprar y vender anuncios. Al utilizar el Sitio o al crear
+                una Cuenta, acepta cumplir y estar sujeto a estos Términos de uso. Lea estos Términos detenidamente
+                antes de registrarse para obtener una cuenta. Si no está de acuerdo con los Términos, no debe
+                utilizar este Sitio ni crear una Cuenta. Estos términos están sujetos a cambios en cualquier
+                momento con un aviso previo de 7 días hábiles al socio. El usuario es responsable de revisar los términos
+                de este Acuerdo de vez en cuando para asegurarse de que continúa aceptando sus términos y cualquier
+                cambio aplicable. Su uso continuado del Sitio constituye su aceptación de los nuevos Términos de uso.
+              </ol><br/>
+              <strong> 2. Cuenta </strong> <br/>
+              <ol>
+                Tras la ejecución de los términos, todos los anunciantes y editores de sitios web crearán una Cuenta única protegida por contraseña. Al crear una Cuenta, el usuario declara y garantiza que tiene al menos 18 años de edad y que posee el derecho legal y la capacidad de aceptar y estar sujeto a estos Términos. El usuario acepta ser financieramente responsable de su Cuenta y cumplir con sus responsabilidades y obligaciones según se establece en estos Términos y en cualquier política o procedimiento publicado en el Sitio, incluidos, entre otros, los relativos a depósitos de fondos, retiros de cuentas, métodos de pago, y reembolsos. Para registrar una cuenta, se le pedirá que envíe una dirección de correo electrónico y una contraseña y que proporcione información de contacto y facturación. El usuario acepta que no seleccionará ni utilizará a sabiendas la dirección de correo electrónico de otra persona ni se hará pasar por otra parte, ni utilizará una dirección de correo electrónico que Mathilde Ads pueda considerar inapropiada u ofensiva. Mathilde Ads puede negarse a permitirle utilizar un nombre de cuenta o una dirección de correo electrónico específicos por cualquier motivo. El usuario es responsable de salvaguardar y mantener la confidencialidad de la cuenta / información de contacto y la contraseña asociada. El usuario es totalmente responsable de la exactitud de su información y de mantenerla actualizada; El no hacerlo constituirá un incumplimiento de estos Términos y Mathilde Ads se reserva el derecho de cancelar su Cuenta. Debe notificar inmediatamente a Mathilde Ads sobre cualquier uso no autorizado de la Cuenta o cualquier otra violación de seguridad de la que tenga conocimiento. El usuario acepta que será responsable de cualquier actividad realizada por cualquier persona que utilice el Sitio con su Cuenta.
+              </ol>
+            </ul>
+          </div>
+          <div className='flex justify-center'>
+            <ButtonFormat 
+              txtBtn={'Acepto'} 
+              type={'default'} 
+              full={false} 
+              disabled={!buttonEnabled} 
+              onClick={handleAcceptTerms} 
+            />
+          </div>
+        </ModalFormat>
       </div>
     </div>
   );
