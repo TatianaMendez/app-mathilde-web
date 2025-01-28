@@ -5,11 +5,10 @@ interface ButtonFormatProps {
   txtBtn: string;
   type: string;
   full: boolean;
-  label: string;
-  disabled: boolean;
-  className: string;
+  label?: string;
+  disabled?: boolean;
+  className?: string;
   onClick?: () => void; 
-  disabled?: boolean; 
 }
 
 const ButtonFormat: React.FC<ButtonFormatProps> = ({ txtBtn, type, full, onClick, disabled }) => {
