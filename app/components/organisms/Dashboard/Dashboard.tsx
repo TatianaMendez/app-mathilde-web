@@ -2,9 +2,9 @@ import React from 'react';
 import '@styles/styleAtoms.css';
 import { Line } from 'react-chartjs-2';
 // import Sidebar from '../components/organisms/sidebar/sidebar-pro';
-import Sidebar from 'app/components/organisms/sidebar/sidebar';
-import Chart from 'app/components/organisms/chart/chart';
-import TableComponent from 'app/components/organisms/table/table';
+import Sidebar from '@components/organisms/sidebar/sidebar';
+import Chart from '~/components/organisms/chart/chart';
+import TableComponent from '~/components/organisms/table/table';
 
 const Dashboard: React.FC = () => {
   return (
