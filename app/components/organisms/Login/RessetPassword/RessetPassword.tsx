@@ -1,9 +1,9 @@
 import React from 'react';
-import VisualStart from '../components/organisms/visualStart';
-import '../styles/styleAtoms.css';
+import VisualStart from '@components/organisms/visualStart';
+import '../../../../styles/styleAtoms.css';
 import { useNavigate } from 'react-router-dom';
 import PasswordInput from '~/components/molecules/input/passwordInput';
-import usePasswordValidation from '../hooks/ usePasswordValidation';
+import usePasswordValidation from '../../../../hooks/ usePasswordValidation';
 import ButtonFormat from '~/components/molecules/button/buttonFormat';
 
 const ResetPass: React.FC = () => {
