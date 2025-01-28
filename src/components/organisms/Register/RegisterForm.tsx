@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import InputForm from '../components/molecules/input/inputForm';
-import SelectForm from '../components/molecules/select/selectForm';
-import ButtonFormat from '../components/molecules/button/buttonFormat';
-import TermsCheckbox from '../components/molecules/checkbox/termsCheckbox';
-import VisualStart from '../components/organisms/visualStart';
-import { RegisterFormService } from '../domain/register-form/RegisterFormService';
-import '../styles/styleAtoms.css';
+import InputForm from '@components/molecules/input/inputForm';
+import SelectForm from '@components/molecules/select/selectForm';
+import ButtonFormat from '@components/molecules/button/buttonFormat';
+import TermsCheckbox from '@components/molecules/checkbox/termsCheckbox';
+import VisualStart from '@components/organisms/visualStart';
+import { RegisterFormService } from '../../../domain/register-form/RegisterFormService';
+import '@styles/styleAtoms.css';
 import { Link } from 'react-router-dom';
 
 

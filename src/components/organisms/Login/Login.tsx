@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import InputForm from '../components/molecules/input/inputForm';
-import ButtonFormat from '../components/molecules/button/buttonFormat';
-import VisualStart from '../components/organisms/visualStart';
-import ModalFormat from '../components/organisms/modal/modalFormat';
-import '../styles/styleAtoms.css';
+import InputForm from '@components/molecules/input/inputForm';
+import ButtonFormat from '@components/molecules/button/buttonFormat';
+import VisualStart from '@components/organisms/visualStart';
+import ModalFormat from '@components/organisms/modal/modalFormat';
+import '@styles/styleAtoms.css';
 
 const LoginForm: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
