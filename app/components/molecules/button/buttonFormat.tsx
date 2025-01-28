@@ -9,15 +9,18 @@ interface ButtonFormatProps {
   disabled: boolean;
   className: string;
   onClick?: () => void; 
+  disabled?: boolean; 
 }
 
-const ButtonFormat: React.FC<ButtonFormatProps> = ({ txtBtn, type, full, onClick }) => {
+const ButtonFormat: React.FC<ButtonFormatProps> = ({ txtBtn, type, full, onClick, disabled }) => {
   return (
     <div className={`${full ? styles['mth-btn-full'] : ''}`}>
       <button 
+        type="button"
         className={`${styles['mth-btn']} ${styles[`mth-btn-${type}`]} ${full ? styles['mth-btn-full'] : ''}`}
         onClick={onClick} 
-        >
+        disabled={disabled} 
+      >
         {txtBtn}
       </button>
     </div>

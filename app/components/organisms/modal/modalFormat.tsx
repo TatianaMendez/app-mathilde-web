@@ -1,21 +1,23 @@
 // components/Modal.tsx
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styles from './modal.module.css'; 
 import type { ModalProps } from '../../../domain/login/model/modalFormat';
 
-const ModalFormat: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
-  if (!isOpen) return null;
+const ModalFormat = forwardRef<HTMLDivElement, ModalProps>(
+  ({ isOpen, onClose, children }, ref) => {
+    if (!isOpen) return null;
 
-  return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <button onClick={onClose} className={styles.closeButton}>
-          &times;
-        </button>
-        {children}
+    return (
+      <div className={styles.overlay}>
+        <div ref={ref} className={styles.modal}>
+          <button onClick={onClose} className={styles.closeButton}>
+            &times;
+          </button>
+          {children}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default ModalFormat;

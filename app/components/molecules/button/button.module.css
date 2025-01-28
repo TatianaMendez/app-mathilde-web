@@ -20,3 +20,7 @@
 .mth-btn-full{
   width: 100%;
 }
+
+button:disabled{
+  background-color: #aba8b0;;
+}

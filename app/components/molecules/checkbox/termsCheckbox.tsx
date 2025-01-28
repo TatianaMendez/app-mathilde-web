@@ -4,6 +4,19 @@ import styles from './checkbox.module.css';
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
+interface TermsCheckboxProps {
+  onOpenModal: () => void;
+  checked: boolean;
+  onChange: (accepted: boolean) => void;
+}
+
+const TermsCheckbox: React.FC<TermsCheckboxProps> = ({ onOpenModal, checked, onChange }) => {
+  const handleCheckboxChange = () => {
+    if (!checked) {
+      onOpenModal(); 
+    }
+    onChange(!checked);
+  };
 
 /**
  * Checkbox que funciona con React Hook Form, recibiendo onChange, value, etc. vía props.
@@ -16,6 +29,9 @@ const TermsCheckbox: React.FC<CheckboxProps> = ({ label, ...props }) => {
         <input
           type="checkbox"
           {...props}
+          checked={checked}
+          onChange={handleCheckboxChange}
+          required
         />
         <span className={styles['checkmark']}></span>
 
