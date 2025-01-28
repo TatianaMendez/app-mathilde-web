@@ -14,7 +14,7 @@ import Input from '@components/molecules/input/inputForm';
 import Select from '@components/molecules/select/selectForm';
 
 // Importa tu módulo de CSS personalizado
-import  './FormSocial.css';
+import styles from './FormSocial.module.css';
 import axios from 'axios';
 
 interface ICampaignForm {
@@ -355,7 +355,7 @@ const CampaignForm: React.FC = () => {
   return (
     <div className="flex min-h-screen">
       {/* Columna izquierda (Imagen + sombra) */}
-      <div className="mth_shadow">
+      <div className={`hidden md:flex flex-col items-center w-64 ${styles.mth_shadow}`}>
         <img
           className="mt-5 w-32 h-auto"
           src="https://ftp.mathilde-ads.com/132-203328616252f6103ab8de6d71fe3bea.png"
@@ -372,7 +372,7 @@ const CampaignForm: React.FC = () => {
           Completa los campos del formulario para crear tu campaña:
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" style={{ marginRight:"2rem" }}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           {/* PLATAFORMAS SUGERIDAS */}
           <div className="border border-dotted border-gray-300 p-4 flex flex-col gap-2">
             <p className="font-semibold">Plataformas sugeridas</p>
@@ -404,7 +404,7 @@ const CampaignForm: React.FC = () => {
           />
 
           {/* FILA SELECTS: ESTADO, OBJETIVO, PAÍS */}
-          <div className="grid grid-cols-3 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Select
               label="Estado Inicial"
               error={validatedFields.has('estadoInicial') ? errors.estadoInicial?.message : undefined}
@@ -448,7 +448,7 @@ const CampaignForm: React.FC = () => {
           </div>
 
           {/* FECHAS */}
-          <div className="grid grid-cols-3 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               label="Fecha inicio"
               type="datetime-local"
@@ -461,6 +461,7 @@ const CampaignForm: React.FC = () => {
               error={errors.fechaFin?.message}
               {...register('fechaFin')}
             />
+          </div>
 
           {/* PRESUPUESTO */}
           <Input
@@ -472,9 +473,9 @@ const CampaignForm: React.FC = () => {
               onChange: handleFieldChange('presupuestoCop')
             })}
           />
-        </div>
+
           {/* DESTINO */}
-          <div className="grid grid-cols-3 md:grid-cols-2 gap-4">
+          <div>
             <p className="font-semibold">Destino:</p>
             <div className="flex flex-col gap-1 mt-1">
               <label className="flex items-center gap-2">
@@ -537,7 +538,7 @@ const CampaignForm: React.FC = () => {
           )}
 
           {/* PAGO & OBJETIVO DE OPTIMIZACIÓN */}
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Select
               label="Pago por"
               error={errors.pagoPor?.message}
@@ -565,7 +566,7 @@ const CampaignForm: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading || Object.keys(errors).length > validatedFields.size}
-              className={`.btnForm ${isLoading || Object.keys(errors).length > validatedFields.size
+              className={`${styles.btnForm} ${isLoading || Object.keys(errors).length > validatedFields.size
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-blue-600 hover:bg-blue-500'
                 } text-white px-4 py-2 rounded`}

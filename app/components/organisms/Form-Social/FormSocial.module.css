@@ -1,8 +1,8 @@
 .mth_shadow {
-  box-shadow: 5px -1px 11px 2px #d8d8d8 !important;
-  height: auto !important;
-  width: 300px;
-}
+    box-shadow: 5px -1px 11px 2px #d8d8d8;
+    height: 1000px;
+  }
+  
   .diflex {
     display: flex;
     flex-direction: row;
