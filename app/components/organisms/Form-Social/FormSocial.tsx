@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 
 // COMPONENTES CUSTOM
 import Button from '@components/molecules/button/buttonFormat';
-import Checkbox from '@components/molecules/checkbox/termsCheckbox';
+import Checkbox from '@components/molecules/checkbox/Checkbox';
 import Input from '@components/molecules/input/inputForm';
 import Select from '@components/molecules/select/selectForm';
 
@@ -30,6 +30,7 @@ interface ICampaignForm {
   pagoPor: string;
   objetivoOptimizacion: string;
   plataformas: string[];
+  accepted: boolean;
 }
 
 const schema = yup.object().shape({
