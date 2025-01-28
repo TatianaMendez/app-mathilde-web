@@ -90,6 +90,7 @@ const defaultFormValues: ICampaignForm = {
   pagoPor: '1',
   objetivoOptimizacion: '1',
   plataformas: [],
+  accepted: false
 };
 
 const CampaignForm: React.FC = () => {

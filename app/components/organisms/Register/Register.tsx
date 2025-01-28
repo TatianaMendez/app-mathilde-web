@@ -31,7 +31,7 @@ const RegisterForm: React.FC = () => {
   const handleScroll = () => {
     if (modalRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = modalRef.current;
-      if (scrollTop + clientHeight >= scrollHeight && !buttonEnabled) {
+      if (scrollTop + clientHeight >= scrollHeight - 5 && !buttonEnabled) {
         setButtonEnabled(true);
       }
     }
