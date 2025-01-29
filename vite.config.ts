@@ -18,6 +18,8 @@ export default defineConfig({
         './LoginForm': './src/components/organisms/Login/Login.tsx',
         './RegisterForm': './src/components/organisms/Register/Register.tsx',
         './ResetPass': './src/components/organisms/Login/ResetPassword/ResetPassword.tsx',
+        './ValidationPass': './src/components/organisms/Login/ResetPassword/Validation.tsx',
+        './Dashboard': './src/components/organisms/Dashboard/Dashboard.tsx',
       },
       remotes: {},
       shared: ['react', 'react-dom', 'react-router-dom'],
@@ -31,7 +33,6 @@ export default defineConfig({
       '@hooks': path.resolve(__dirname, './src/hooks'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@style': path.resolve(__dirname, './src/styles'),
-
     }
   },
   build: {
