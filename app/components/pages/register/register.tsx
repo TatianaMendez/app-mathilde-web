@@ -109,6 +109,7 @@ const RegisterForm: React.FC = () => {
 
           <div className='flex mt-5'>
             <TermsCheckbox 
+              label={'Acepto los términos y condiciones de la plataforma y la política de privacidad.'}
               checked={termsAccepted} 
               onOpenModal={toggleModal} 
               onChange={setTermsAccepted} 

@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
             </div>
           </div>
           <div className='flex justify-between'>
-            <button type="button" className='mt-3' onClick={toggleModal}>Olvide la contraseña</button>
+            <button type="button" className='mt-3' onClick={toggleModal}>Olvidaste la contraseña</button>
           </div>
           <div className='flex justify-end my-3'>
             <ButtonFormat txtBtn={'Continuar'} type={'default'} full={true} label={''} disabled={false} className={''} />
