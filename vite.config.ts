@@ -14,12 +14,12 @@ export default defineConfig({
       name: 'appmathildeweb', // Nombre del remoto
       filename: 'remoteEntry.js',
       exposes: {
-        './CampaignForm': './app/components/organisms/FormSocial/FormSocial.tsx',
-        './LoginForm': './app/components/organisms/Login/Login.tsx',
-        './RegisterForm': './app/components/organisms/Register/Register.tsx',
-        './ResetPass': './app/components/organisms/Login/ResetPassword/ResetPassword.tsx',
-        './ValidationPass': './app/components/organisms/Login/ResetPassword/Validation.tsx',
-        './Dashboard': './app/components/organisms/Dashboard/Dashboard.tsx',
+        './CampaignForm': './app/pages/formSocial/formSocial.tsx',
+        './LoginForm': './app/pages/login/login.tsx',
+        './RegisterForm': './app/pages/register/register.tsx',
+        './ResetPass': './app/pages/Login/resetPassword/resetPassword.tsx',
+        './ValidationPass': './app/pages/login/resetPassword/validation.tsx',
+        './Dashboard': './app/pages/dashboard/dashboard.tsx',
       },
       remotes: {},
       shared: ['react', 'react-dom', 'react-router-dom'],
