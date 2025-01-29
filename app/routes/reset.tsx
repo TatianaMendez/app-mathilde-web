@@ -1,5 +1,5 @@
 import React from 'react';
-import ResetPassComponent from '~/components/organisms/Login/ResetPassword/ResetPassword';
+import ResetPassComponent from 'app/components/organisms/Login/ResetPassword/ResetPassword';
 
 const ResetPass: React.FC = () => {
   

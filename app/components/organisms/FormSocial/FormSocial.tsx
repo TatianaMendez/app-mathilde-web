@@ -8,10 +8,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 
 // COMPONENTES CUSTOM
-import Button from '@components/molecules/button/buttonFormat';
-import Checkbox from '@components/molecules/checkbox/Checkbox';
-import Input from '@components/molecules/input/inputForm';
-import Select from '@components/molecules/select/selectForm';
+import Button from 'app/components/molecules/button/buttonFormat';
+import Checkbox from 'app/components/molecules/checkbox/Checkbox';
+import Input from 'app/components/molecules/input/inputForm';
+import Select from 'app/components/molecules/select/selectForm';
 
 // Importa tu módulo de CSS personalizado
 import styles from './FormSocial.module.css';

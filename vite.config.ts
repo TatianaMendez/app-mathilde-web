@@ -14,12 +14,12 @@ export default defineConfig({
       name: 'appmathildeweb', // Nombre del remoto
       filename: 'remoteEntry.js',
       exposes: {
-        './CampaignForm': './src/components/organisms/FormSocial/FormSocial.tsx',
-        './LoginForm': './src/components/organisms/Login/Login.tsx',
-        './RegisterForm': './src/components/organisms/Register/Register.tsx',
-        './ResetPass': './src/components/organisms/Login/ResetPassword/ResetPassword.tsx',
-        './ValidationPass': './src/components/organisms/Login/ResetPassword/Validation.tsx',
-        './Dashboard': './src/components/organisms/Dashboard/Dashboard.tsx',
+        './CampaignForm': './app/components/organisms/FormSocial/FormSocial.tsx',
+        './LoginForm': './app/components/organisms/Login/Login.tsx',
+        './RegisterForm': './app/components/organisms/Register/Register.tsx',
+        './ResetPass': './app/components/organisms/Login/ResetPassword/ResetPassword.tsx',
+        './ValidationPass': './app/components/organisms/Login/ResetPassword/Validation.tsx',
+        './Dashboard': './app/components/organisms/Dashboard/Dashboard.tsx',
       },
       remotes: {},
       shared: ['react', 'react-dom', 'react-router-dom'],
@@ -27,12 +27,12 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@components': path.resolve(__dirname, './src/components'),
-      '@pages': path.resolve(__dirname, './src/pages'),
-      '@utils': path.resolve(__dirname, './src/utils'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@assets': path.resolve(__dirname, './src/assets'),
-      '@style': path.resolve(__dirname, './src/styles'),
+      '@components': path.resolve(__dirname, './app/components'),
+      '@routes': path.resolve(__dirname, './app/routes'),
+      '@utils': path.resolve(__dirname, './app/utils'),
+      '@hooks': path.resolve(__dirname, './app/hooks'),
+      '@assets': path.resolve(__dirname, './app/assets'),
+      '@style': path.resolve(__dirname, './app/styles'),
     }
   },
   build: {

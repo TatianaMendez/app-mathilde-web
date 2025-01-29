@@ -1,5 +1,5 @@
 import React from 'react';
-import ValidationPassComponent from '~/components/organisms/Login/ResetPassword/Validation';
+import ValidationPassComponent from 'app/components/organisms/Login/ResetPassword/Validation';
 
 const ValidationPass: React.FC = () => {
   return (

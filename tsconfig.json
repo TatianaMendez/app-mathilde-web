@@ -8,13 +8,13 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"],                    // Para importar con ~/...
-      "@components/*": ["./src/components/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@styles/*": ["./src/styles/*"]      
+      "~/*": ["app/*"],                    // Para importar con ~/...
+      "@components/*": ["app/components/*"],
+      "@utils/*": ["app/utils/*"],
+      "@hooks/*": ["app/hooks/*"],
+      "@assets/*": ["app/assets/*"],
+      "@pages/*": ["app/pages/*"],
+      "@styles/*": ["app/styles/*"]      
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,
