@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import InputForm from 'app/components/molecules/input/inputForm';
-import ButtonFormat from 'app/components/molecules/button/buttonFormat';
-import VisualStart from 'app/components/organisms/visualStart';
-import ModalFormat from 'app/components/organisms/modal/modalFormat';
-import '../../../styles/styleAtoms.css';
-import PasswordInput from 'app/components/molecules/input/passwordInput';
+import InputForm from '@components/molecules/input/inputForm';
+import ButtonFormat from '@components/molecules/button/buttonFormat';
+import VisualStart from '@components/organisms/visualStart';
+import ModalFormat from '@components/organisms/modal/modalFormat';
+import '@styles/styleAtoms.css';
+import PasswordInput from '~/components/molecules/input/passwordInput';
 
 const LoginForm: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
             </div>
           </div>
           <div className='flex justify-between'>
-            <button type="button" className='mt-3' onClick={toggleModal}>Olvide la contraseña</button>
+            <button type="button" className='mt-3' onClick={toggleModal}>Olvidaste la contraseña</button>
           </div>
           <div className='flex justify-end my-3'>
             <ButtonFormat txtBtn={'Continuar'} type={'default'} full={true} label={''} disabled={false} className={''} />

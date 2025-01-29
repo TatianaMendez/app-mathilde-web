@@ -33,7 +33,6 @@ const TermsCheckbox: React.FC<TermsCheckboxProps> = ({ onOpenModal, checked, onC
 
         {/* Si hay label, la renderizamos (puede ser "Acepto términos", etc.) */}
         {label && <span className="ml-2">{label}</span>}
-        Acepto los términos y condiciones de la plataforma y la política de privacidad.
       </label>
     </div>
   );

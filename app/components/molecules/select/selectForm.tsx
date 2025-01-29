@@ -16,8 +16,9 @@ const SelectForm = forwardRef<HTMLSelectElement, SelectFormProps>(({
         ref={ref}
         className="w-full p-2 border rounded"
         {...rest}
+        defaultValue=""
       >
-        <option disabled value="">
+        <option disabled  value="">
           Seleccione una opción
         </option>
         {options?.map((option) => (

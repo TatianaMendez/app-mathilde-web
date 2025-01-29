@@ -1,10 +1,10 @@
 import React from "react";
-import CampaignForm from "~/components/organisms/Form-Social/FormSocial";
+import FormSocialComponent from '../components/pages/formSocial/formSocial';
 
 
 const FormSocial: React.FC = () => {
     return ( 
-        <CampaignForm />
+        <FormSocialComponent />
     )
 };
 
