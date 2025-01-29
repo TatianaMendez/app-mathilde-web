@@ -2,12 +2,12 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // Importa los componentes remotos
-import  CampaignForm from "app/components/organisms/FormSocial/FormSocial";
-import  LoginForm from "app/components/organisms/Login/Login";
-import  RegisterForm from "app/components/organisms/Register/Register";
-import  ResetPass from "app/components/organisms/Login/ResetPassword/ResetPassword";
-import  ValidationForm from "app/components/organisms/Login/ResetPassword/Validation";
-import  DashbaordComp from "app/components/organisms/Dashboard/Dashboard";
+import  CampaignForm from "./components/pages/formSocial/formSocial";
+import  LoginForm from "./components/pages/login/login";
+import  RegisterForm from "./components/pages/register/register";
+import  ResetPass from "./components/pages/login/resetPassword/resetPassword";
+import  ValidationForm from "./components/pages/login/resetPassword/validation";
+import  DashbaordComp from "./components/pages/dashboard/dashboard";
 
 const App = () => {
   return (
