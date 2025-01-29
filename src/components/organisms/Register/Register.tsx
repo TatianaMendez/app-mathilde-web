@@ -26,7 +26,14 @@ const RegisterForm: React.FC = () => {
     showError,
   } = usePasswordValidation();
 
-  const toggleModal = () => setIsModalOpen(prev => !prev);
+  const toggleModal = (forceClose = false ) => {
+    setIsModalOpen((_prev)  => {
+      if(_prev == true && !forceClose){
+        setTermsAccepted(false);
+      }
+      return !_prev;
+    });
+  };
 
   const handleScroll = () => {
     if (modalRef.current) {
@@ -39,7 +46,7 @@ const RegisterForm: React.FC = () => {
 
   const handleAcceptTerms = () => {
     setTermsAccepted(true);
-    toggleModal(); 
+    toggleModal(true); 
   };
 
   return (
@@ -153,7 +160,7 @@ const RegisterForm: React.FC = () => {
               onClick={handleAcceptTerms} 
             />
           </div>
-        </ModalFormat>
+          </ModalFormat>
       </div>
     </div>
   );

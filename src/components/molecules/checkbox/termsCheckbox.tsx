@@ -9,11 +9,12 @@ interface TermsCheckboxProps {
 }
 
 const TermsCheckbox: React.FC<TermsCheckboxProps> = ({ onOpenModal, checked, onChange, label, ...props }) => {
+
   const handleCheckboxChange = () => {
     if (!checked) {
       onOpenModal(); 
     }
-    onChange(!checked);
+    onChange(false);
   };
 
 
