@@ -1,15 +1,15 @@
 import React, { useState, useRef } from 'react';
-import InputForm from '@components/molecules/input/inputForm';
-import SelectForm from '@components/molecules/select/selectForm';
-import ButtonFormat from '@components/molecules/button/buttonFormat';
-import TermsCheckbox from '@components/molecules/checkbox/termsCheckbox';
-import VisualStart from '@components/organisms/visualStart';
+import InputForm from 'app/components/molecules/input/inputForm';
+import SelectForm from 'app/components/molecules/select/selectForm';
+import ButtonFormat from 'app/components/molecules/button/buttonFormat';
+import TermsCheckbox from 'app/components/molecules/checkbox/termsCheckbox';
+import VisualStart from 'app/components/organisms/visualStart';
 import { RegisterFormService } from '../../../domain/register-form/RegisterFormService';
 import '../../../styles/styleAtoms.css';
 import { Link } from 'react-router-dom';
-import PasswordInput from '~/components/molecules/input/passwordInput';
+import PasswordInput from 'app/components/molecules/input/passwordInput';
 import usePasswordValidation from '../../../hooks/ usePasswordValidation';
-import ModalFormat from '~/components/organisms/modal/modalFormat';
+import ModalFormat from 'app/components/organisms/modal/modalFormat';
 
 const RegisterForm: React.FC = () => {
   const { roles } = RegisterFormService;
