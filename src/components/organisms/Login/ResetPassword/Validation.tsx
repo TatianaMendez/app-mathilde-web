@@ -2,7 +2,7 @@ import React from 'react';
 import VisualStart from '@components/organisms/visualStart';
 import '@styles/styleAtoms.css';
 import InputForm from '@components/molecules/input/inputForm';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const ValidationPass: React.FC = () => {
 
