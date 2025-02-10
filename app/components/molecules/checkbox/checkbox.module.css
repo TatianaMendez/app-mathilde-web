@@ -30,7 +30,6 @@
     width: 20px;
     background-color: #fff;
     border: 1px solid #380182;
-    border-radius: 5px;
   }
   
   .checkbox-container:hover input ~ .checkmark {
@@ -38,7 +37,7 @@
   }
   
   .checkbox-container input:checked ~ .checkmark {
-    background-color: #6D00FF;
+    background-color: #563CFE;
   }
   
   .checkmark:after {

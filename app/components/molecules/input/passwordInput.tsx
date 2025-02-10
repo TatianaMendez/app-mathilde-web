@@ -20,7 +20,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ placeholder, onChange, va
       <input
         type={showPassword ? 'text' : 'password'}
         value={value} 
-        className='w-full pr-10 p-2 border rounded'
+        className='w-full pr-10 p-2 border'
         onChange={onChange} 
         placeholder={placeholder}
       />
