@@ -118,7 +118,7 @@ const RegisterForm: React.FC = () => {
 
           <div className='flex justify-end'>
             <Link to="/" className="mr-2 flex items-center" >Cancelar</Link>
-            <ButtonFormat txtBtn={'Continuar'} type={'default'} full={false} label={''} 
+            <ButtonFormat txtBtn={'Continuar'} typeButton={'default'} full={false} type={'button'} label={''} 
             disabled={false} className={''} />
           </div>
         </form>
@@ -155,10 +155,11 @@ const RegisterForm: React.FC = () => {
           <div className='flex justify-center'>
             <ButtonFormat 
               txtBtn={'Acepto'} 
-              type={'default'} 
+              typeButton={'default'} 
               full={false} 
               disabled={!buttonEnabled} 
               onClick={handleAcceptTerms} 
+              type='button'
             />
           </div>
           </ModalFormat>

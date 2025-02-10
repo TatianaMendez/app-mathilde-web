@@ -1,4 +1,4 @@
-  /* Mensajes alertas */
+/* Mensajes alertas */
 
   .mth-msg{
     color: #380182;
@@ -13,7 +13,7 @@
 
   .mth-line{
     width: 48%;
-    border: 0.5px solid #6d01ff;
+    border: 0.5px solid #563CFE;;
   }
 
 /* Input */
@@ -29,5 +29,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 input[type=number] {
-    -moz-appearance: textfield; 
+    -moz-appearance: textfield;
+    appearance: textfield;
 }

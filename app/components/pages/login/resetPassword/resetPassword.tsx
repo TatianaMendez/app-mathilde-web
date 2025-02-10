@@ -52,7 +52,7 @@ const ResetPass: React.FC = () => {
                 )
               }
           <div className='flex mt-3'>
-            <ButtonFormat txtBtn={'Confirmar'} type={'default'} full={true} onClick={handleClickTo}/>
+            <ButtonFormat txtBtn={'Confirmar'} typeButton={'default'} full={true} type={'button'} onClick={handleClickTo}/>
           </div>
         </form>
       </div>

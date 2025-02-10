@@ -24,6 +24,7 @@ export default defineConfig({
       remotes: {},
       shared: ['react', 'react-dom', 'react-router-dom'],
     }),
+    
   ],
   resolve: {
     alias: {
@@ -43,7 +44,7 @@ export default defineConfig({
   server: {
     port: 5173,
     cors: true
-  }
+  },
 });
 
 

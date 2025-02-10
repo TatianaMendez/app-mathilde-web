@@ -18,7 +18,7 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(({
         ref={ref}
         type={type}
         placeholder={placeholder}
-        className={`w-full p-2 border rounded ${classInclude || ''}`}
+        className={`w-full p-2 border ${classInclude || ''}`}
         {...rest}
       />
 

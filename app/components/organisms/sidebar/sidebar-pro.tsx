@@ -1,23 +1,29 @@
-import { Sidebar, Menu, MenuItem, SubMenu, sidebarClasses } from 'react-pro-sidebar';
+import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
+import { useAuth } from '~/hooks/useAutentication';
 
 const SidebarMth = () => {
-  return (
+  const { logout } = useAuth();
 
-      <div>
-        <Sidebar rootStyles={{
-            [`.${sidebarClasses.container}`]: {
-              backgroundColor: '#483FFF',
-            }
-          }}>
-          <Menu>
-            <MenuItem> Campañas </MenuItem>
-            <MenuItem> Audiencias </MenuItem>
-            <MenuItem> Reportes </MenuItem>
-            <MenuItem> Facturación </MenuItem>
-            <MenuItem> Configuración </MenuItem>
-          </Menu>
-        </Sidebar>
-      </div>
+  return (
+    <div>
+      <Sidebar
+        rootStyles={{
+          [`.${sidebarClasses.container}`]: {
+            backgroundColor: '#483FFF',
+          },
+        }}
+      >
+        <Menu>
+          <MenuItem> Campañas </MenuItem>
+          <MenuItem> Audiencias </MenuItem>
+          <MenuItem> Reportes </MenuItem>
+          <MenuItem> Facturación </MenuItem>
+          <MenuItem> Configuración </MenuItem>
+        </Menu>
+      </Sidebar>
+
+      <button onClick={logout}>Cerrar sesión</button>
+    </div>
   );
 };
 

@@ -3,20 +3,21 @@ import styles from './button.module.css';
 
 interface ButtonFormatProps {
   txtBtn: string;
-  type: string;
+  typeButton: string;
   full: boolean;
   label?: string;
   disabled?: boolean;
   className?: string;
+  type: string;
   onClick?: () => void; 
 }
 
-const ButtonFormat: React.FC<ButtonFormatProps> = ({ txtBtn, type, full, onClick, disabled }) => {
+const ButtonFormat: React.FC<ButtonFormatProps> = ({ txtBtn, typeButton, full, onClick, disabled, type}) => {
   return (
     <div className={`${full ? styles['mth-btn-full'] : ''}`}>
       <button 
-        type="button"
-        className={`${styles['mth-btn']} ${styles[`mth-btn-${type}`]} ${full ? styles['mth-btn-full'] : ''}`}
+        type={type as "submit" | "reset" | "button"}
+        className={`${styles['mth-btn']} ${styles[`mth-btn-${typeButton}`]} ${full ? styles['mth-btn-full'] : ''}`}
         onClick={onClick} 
         disabled={disabled} 
       >
