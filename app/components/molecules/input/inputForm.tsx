@@ -7,6 +7,8 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(({
   error,
   type,
   classInclude,
+  maxLength,
+  onChange,
   ...rest
 }, ref) => {
   return (
@@ -19,6 +21,8 @@ const InputForm = forwardRef<HTMLInputElement, InputFormProps>(({
         type={type}
         placeholder={placeholder}
         className={`w-full p-2 border ${classInclude || ''}`}
+        maxLength={maxLength}
+        onChange={onChange}
         {...rest}
       />
 

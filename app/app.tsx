@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '~/hooks/useAutentication'; 
-import ProtectedRoute  from '~/hooks/useRouterLogin'; 
+import { AuthProvider } from '@domain/services/autenticationService'; 
+import ProtectedRoute  from '@hooks/useRouterLogin'; 
 
 // Importa los componentes remotos
 import CampaignForm from "@components/pages/formSocial/formSocial";

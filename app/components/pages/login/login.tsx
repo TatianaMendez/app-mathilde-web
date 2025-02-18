@@ -5,15 +5,15 @@ import ButtonFormat from '@components/molecules/button/buttonFormat';
 import VisualStart from '@components/organisms/visualStart';
 import ModalFormat from '@components/organisms/modal/modalFormat';
 import '@styles/styleAtoms.css';
-import PasswordInput from '~/components/molecules/input/passwordInput';
-import { useAuth } from '~/hooks/useAutentication';
+import PasswordInput from '@components/molecules/input/passwordInput';
+import { useAuth } from '@domain/services/autenticationService';
 
 const LoginForm: React.FC = () => {
 
   const { login } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  const [email, setEmail] = useState('');
   const handleSubmit = (e: { preventDefault: () => void; }) => {
       e.preventDefault();
       console.log(username, password);
@@ -27,7 +27,9 @@ const LoginForm: React.FC = () => {
   const toggleModal = () => setIsModalOpen(prev => !prev);
 
   const handleClick = () => {
-    console.log('Botón clickeado!');
+    // Servicio para enviar correo de cambio de contraseña 
+    alert(email);
+    sessionStorage.setItem('previousPath', window.location.pathname);
     navigate('/validation'); 
   };
 
@@ -44,13 +46,13 @@ const LoginForm: React.FC = () => {
               <div className='flex justify-between'>
                 <div className='w-full'>
                   <InputForm type='email' value={username}
-                    onChange={(e) => setUsername(e.target.value)} placeholder='Correo electronico' />
+                    onChange={(e) => setUsername(e.target.value)} placeholder='Correo electronico' required/>
                 </div>
               </div>
               <div className='flex justify-between'>
                 <div className='w-full'>
                   <PasswordInput value={password}
-                    onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña'/>
+                    onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' required/>
                 </div>
               </div>
               <div className='flex justify-between'>
@@ -78,7 +80,11 @@ const LoginForm: React.FC = () => {
         <ModalFormat isOpen={isModalOpen} onClose={toggleModal}>
           <p>Si deseas cambiar tu contraseña ingresa el <b>correo eléctronico</b> registrado en la plataforma.</p>
           <div className='w-full my-3'>
-            <InputForm type='email' placeholder='Correo electronico' />
+            <InputForm type='email' placeholder='Correo electronico' 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} 
+              required
+              />
           </div>
           <div className='flex justify-end'>
             <ButtonFormat txtBtn={'Continuar'} typeButton={'default'} full={false} onClick={handleClick} type={'button'} label={''} disabled={false} className={''}/>

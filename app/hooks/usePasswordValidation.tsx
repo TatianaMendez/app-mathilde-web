@@ -18,7 +18,6 @@ const usePasswordValidation = () => {
     setPassword,
     confirmPassword,
     setConfirmPassword,
-    isPasswordValid,
     showError,
   };
 };

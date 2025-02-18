@@ -1,5 +1,5 @@
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
-import { useAuth } from '~/hooks/useAutentication';
+import { useAuth } from '@domain/services/autenticationService';
 
 const SidebarMth = () => {
   const { logout } = useAuth();

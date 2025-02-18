@@ -47,12 +47,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
                 localStorage.setItem('user', JSON.stringify({ username: response.data.username }));
                 navigate('/dashboard');
                 setError(null);
-                Swal.fire({
-                    title: 'Inicio de sesión exitoso',
-                    text: `Bienvenido, ${response.data.username}!`,
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                });
             } else {
                 throw new Error("El nombre de usuario no está disponible en la respuesta.");
             }

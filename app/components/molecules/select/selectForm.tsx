@@ -1,4 +1,3 @@
-// selectForm.tsx
 import React, { forwardRef } from 'react';
 import type { SelectFormProps } from '../../../domain/register-form/model/selectForm';
 
@@ -6,6 +5,8 @@ const SelectForm = forwardRef<HTMLSelectElement, SelectFormProps>(({
   options,
   label,
   error,
+  value, 
+  onChange,
   ...rest
 }, ref) => {
   return (
@@ -15,10 +16,11 @@ const SelectForm = forwardRef<HTMLSelectElement, SelectFormProps>(({
       <select
         ref={ref}
         className="w-full p-2 border rounded"
+        value={value} 
+        onChange={onChange} 
         {...rest}
-        defaultValue=""
       >
-        <option disabled  value="">
+        <option disabled value="">
           Seleccione una opción
         </option>
         {options?.map((option) => (

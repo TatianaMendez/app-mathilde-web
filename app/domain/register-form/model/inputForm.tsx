@@ -10,4 +10,5 @@ export interface InputFormProps extends React.InputHTMLAttributes<HTMLInputEleme
     classInclude?: string;
     min?: number | string;
     max?: number | string;
+    maxLength?: number;
 }
