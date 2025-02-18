@@ -14,6 +14,7 @@
       "@hooks/*": ["app/hooks/*"],
       "@assets/*": ["app/assets/*"],
       "@pages/*": ["app/pages/*"],
+      "@domain/*": ["app/domain/*"],
       "@styles/*": ["app/styles/*"]      
     },
     "esModuleInterop": true,

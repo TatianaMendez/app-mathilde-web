@@ -1,23 +1,23 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import InputForm from '@components/molecules/input/inputForm';
 import SelectForm from '@components/molecules/select/selectForm';
 import ButtonFormat from '@components/molecules/button/buttonFormat';
 import TermsCheckbox from '@components/molecules/checkbox/termsCheckbox';
 import VisualStart from '@components/organisms/visualStart';
-import { RegisterFormService } from '~/domain/register-form/RegisterFormService';
+import { RegisterFormService, registerUser } from '@domain/services/registerService';
 import '@styles/styleAtoms.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PasswordInput from '~/components/molecules/input/passwordInput';
-import usePasswordValidation from '~/hooks/ usePasswordValidation';
+import usePasswordValidation from '~/hooks/usePasswordValidation';
 import ModalFormat from '~/components/organisms/modal/modalFormat';
+import useModal from '~/hooks/useModalTerminos';
+import Swal from 'sweetalert2';
 
 const RegisterForm: React.FC = () => {
   const { roles } = RegisterFormService;
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
-  const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
-  const modalRef = useRef<HTMLDivElement>(null);
-  
+  const navigate = useNavigate(); 
+
+  // Hook para validar contraseñas
   const {
     password,
     setPassword,
@@ -26,60 +26,107 @@ const RegisterForm: React.FC = () => {
     showError,
   } = usePasswordValidation();
 
-  const toggleModal = (forceClose = false ) => {
-    setIsModalOpen((_prev)  => {
-      if(_prev == true && !forceClose){
-        setTermsAccepted(false);
-      }
-      return !_prev;
-    });
-  };
+  // Hook para control de modal de términos y condiciones
+  const {
+    isModalOpen,
+    toggleModal,
+    termsAccepted,
+    handleAcceptTerms,
+    buttonEnabled,
+    handleScroll,
+    modalRef,
+    setTermsAccepted,
+  } = useModal();
 
-  const handleScroll = () => {
-    if (modalRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = modalRef.current;
-      if (scrollTop + clientHeight >= scrollHeight - 5 && !buttonEnabled) {
-        setButtonEnabled(true);
-      }
+  const [formRegister, setFormRegister] = useState({
+    name: '', 
+    firtsName: '',
+    company: '',
+    phone: '', 
+    role: '', 
+    email: '',
+    term: termsAccepted
+  });
+  
+  const { name, firtsName, company, phone, role, email } = formRegister;
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!termsAccepted) {
+      Swal.fire({
+        text: 'Debes aceptar los términos y condiciones.',
+        icon: 'warning',
+        showConfirmButton: true,
+      });
+      return; 
+    }
+
+    const updatedFormRegister = { ...formRegister, term: termsAccepted, password: password };
+
+    try {
+      const response = await registerUser({ formRegister: updatedFormRegister });
+      console.log(response);
+      sessionStorage.setItem('previousPath', window.location.pathname);
+      sessionStorage.setItem('email', email);
+      sessionStorage.setItem('password', password);
+      navigate('/validation'); 
+      
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        text: err instanceof Error ? err.message : 'Ha ocurrido un error.',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500
+      });
     }
   };
-
-  const handleAcceptTerms = () => {
-    setTermsAccepted(true);
-    toggleModal(true); 
-  };
-
+  
   return (
     <div className="min-h-screen flex w-full">
       <div className='w-2/4 border-container'>
         <VisualStart />
       </div>
       <div className="w-2/4">
-        <form className="w-9/12 px-10 bg-white mt-28 mx-auto rounded-lg">
+        <form className="w-9/12 px-10 bg-white mt-28 mx-auto rounded-lg" onSubmit={handleRegister}>
           <h2 className="text-2xl mb-6">REGISTRO DE USUARIOS</h2>
           <p className='my-3'>Bienvenido a Mathilde, completa los datos y empieza a transformar tu estrategia digital.</p>
           <div className='flex justify-between'>
             <div className='w-2/4 mr-2'>
-              <InputForm type='text' placeholder='Nombres'/>
+              <InputForm type='text' placeholder='Nombres' name='name' value={name}
+                onChange={(e) => setFormRegister({...formRegister, name: e.target.value})} required/>
             </div>
             <div className='w-2/4 ml-2'>
-              <InputForm type='text' placeholder='Apellidos' />
+              <InputForm type='text' placeholder='Apellidos' name='firtsName' 
+              value={firtsName}
+              onChange={(e) => setFormRegister({...formRegister, firtsName: e.target.value})} required/>
             </div>
           </div>
           <div className='flex justify-between'>
             <div className='w-2/3 mr-2'>
-              <InputForm type='text' placeholder='Empresa' />
+              <InputForm type='text' placeholder='Empresa' name='company'
+              value={company}
+              onChange={(e) => setFormRegister({...formRegister, company: e.target.value})} required/>
             </div>
             <div className='w-2/3 ml-2'>
-              <InputForm type='number' placeholder='Celular' />
+              <InputForm type='number' placeholder='Celular' name='phone'
+              value={phone}
+              onChange={(e) => setFormRegister({...formRegister, phone: e.target.value})} required/>
             </div>
           </div>
           <div className='flex justify-between'>
             <div className='w-2/3 mr-2'>
-              <SelectForm options={roles} />
+              <SelectForm options={roles} 
+              value={role}
+              onChange={(e) => setFormRegister({...formRegister, role: e.target.value})}
+              />
             </div>
             <div className='w-2/3 ml-2'>
-              <InputForm type='email' placeholder='Correo electronico' />
+              <InputForm type='email' 
+              value={email}
+              onChange={(e) => setFormRegister({...formRegister, email: e.target.value})}
+              placeholder='Correo electrónico' required />
             </div>
           </div>
           <div className='flex justify-between'>
@@ -88,6 +135,7 @@ const RegisterForm: React.FC = () => {
                 placeholder='Contraseña'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
             <div className='w-2/3 ml-2'>
@@ -95,10 +143,11 @@ const RegisterForm: React.FC = () => {
                 placeholder='Confirmar contraseña'
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                required
               />
             </div>
           </div>
-        
+         
           {
             showError() && (
               <div className="mth-msg">
@@ -117,8 +166,8 @@ const RegisterForm: React.FC = () => {
           </div> 
 
           <div className='flex justify-end'>
-            <Link to="/" className="mr-2 flex items-center" >Cancelar</Link>
-            <ButtonFormat txtBtn={'Continuar'} typeButton={'default'} full={false} type={'button'} label={''} 
+            <Link to="/" className="mr-2 flex items-center">Cancelar</Link>
+            <ButtonFormat txtBtn={'Continuar'} typeButton={'default'} full={false} type={'submit'} label={''} 
             disabled={false} className={''} />
           </div>
         </form>
@@ -162,7 +211,7 @@ const RegisterForm: React.FC = () => {
               type='button'
             />
           </div>
-          </ModalFormat>
+        </ModalFormat>
       </div>
     </div>
   );

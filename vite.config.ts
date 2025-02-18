@@ -32,6 +32,7 @@ export default defineConfig({
       '@routes': path.resolve(__dirname, './app/routes'),
       '@utils': path.resolve(__dirname, './app/utils'),
       '@hooks': path.resolve(__dirname, './app/hooks'),
+      '@domain': path.resolve(__dirname, './app/domain'),
       '@assets': path.resolve(__dirname, './app/assets'),
       '@style': path.resolve(__dirname, './app/styles'),
     }

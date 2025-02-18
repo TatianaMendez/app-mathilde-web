@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '@hooks/useAutentication';
+import { useAuth } from '@domain/services/autenticationService';
 
 const Logout: React.FC = () => {
     const { logout } = useAuth();
