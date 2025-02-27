@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import type { InputFormProps } from '../../../domain/register-form/model/inputForm';
+import type { InputFormProps } from './inputForm.types';
 
 const InputForm = forwardRef<HTMLInputElement, InputFormProps>(({
   placeholder,

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { optionSelect } from "../register-form/model/optionSelect";
+import type { optionSelect } from "@components/molecules/select/optionSelect";
 // import Swal from 'sweetalert2';
 
 const API_URL = 'http://ec2-54-145-77-26.compute-1.amazonaws.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/register';

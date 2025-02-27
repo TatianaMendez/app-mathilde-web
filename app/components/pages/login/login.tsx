@@ -6,7 +6,7 @@ import VisualStart from '@components/organisms/visualStart';
 import ModalFormat from '@components/organisms/modal/modalFormat';
 import '@styles/styleAtoms.css';
 import PasswordInput from '@components/molecules/input/passwordInput';
-import { useAuth } from '@domain/services/autenticationService';
+import { useAuth } from '~/services/autenticationService';
 
 const LoginForm: React.FC = () => {
 
@@ -38,9 +38,9 @@ const LoginForm: React.FC = () => {
       <div className='w-2/4 border-container'>
         <VisualStart />
       </div>
-      <div className="w-2/4">
+      <div className="w-2/4 flex items-center ">
 
-        <div className="w-9/12 px-10 bg-white mt-28 mx-auto rounded-lg">
+        <div className="w-9/12 px-10 bg-white mx-auto rounded-lg flex flex-col item-center">
             <form onSubmit={handleSubmit}>
               <h2 className="text-2xl text-center mb-6">INICIAR SESIÓN</h2>
               <div className='flex justify-between'>
@@ -56,13 +56,13 @@ const LoginForm: React.FC = () => {
                 </div>
               </div>
               <div className='flex justify-between'>
-                <button type="button" className='mt-3' onClick={toggleModal}>Olvidaste la contraseña</button>
+                <span className='mt-3 cursor-pointer' onClick={toggleModal}>Olvidaste la contraseña</span>
               </div>
               <div className='flex justify-end my-3'>
                 <ButtonFormat txtBtn={'Continuar'} typeButton={'default'} full={true} type={'submit'} disabled={false} className={''} />
               </div>
             </form>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <hr className="mth-line mr-0.5"/><p> o </p><hr className="mth-line ml-0.5" />
             </div>
             <div className='flex justify-end mt-3'>
@@ -70,14 +70,14 @@ const LoginForm: React.FC = () => {
             </div>
             <div className='flex justify-end my-3'>
               <ButtonFormat txtBtn={'Continuar con Microsoft'} typeButton={'border'} full={true} type={'button'} disabled={false} className={''} />
-            </div>
+            </div> */}
             <div className='flex'>
               <p>¿Aún no tienes una cuenta de Mathilde Ads? &nbsp; </p>
               <p className='font-bold'><Link to="/register">Regístrate</Link></p>
             </div>
         </div>
 
-        <ModalFormat isOpen={isModalOpen} onClose={toggleModal}>
+        <ModalFormat width="40%" isOpen={isModalOpen} onClose={toggleModal}>
           <p>Si deseas cambiar tu contraseña ingresa el <b>correo eléctronico</b> registrado en la plataforma.</p>
           <div className='w-full my-3'>
             <InputForm type='email' placeholder='Correo electronico' 

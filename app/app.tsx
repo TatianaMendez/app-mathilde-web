@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '@domain/services/autenticationService'; 
+import { AuthProvider } from '~/services/autenticationService'; 
 import ProtectedRoute  from '@hooks/useRouterLogin'; 
 
 // Importa los componentes remotos
