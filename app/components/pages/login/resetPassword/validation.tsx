@@ -3,8 +3,8 @@ import VisualStart from '@components/organisms/visualStart';
 import '@styles/styleAtoms.css';
 import InputForm from '@components/molecules/input/inputForm';
 import { useNavigate } from 'react-router-dom';
-import { verifyOtp } from '@domain/services/codeOTPService'; 
-import { useAuth } from '@domain/services/autenticationService';
+import { verifyOtp } from '~/services/codeOTPService'; 
+import { useAuth } from '~/services/autenticationService';
 
 const ValidationPass: React.FC = () => {
   const { login } = useAuth();

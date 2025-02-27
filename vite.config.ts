@@ -35,6 +35,7 @@ export default defineConfig({
       '@domain': path.resolve(__dirname, './app/domain'),
       '@assets': path.resolve(__dirname, './app/assets'),
       '@style': path.resolve(__dirname, './app/styles'),
+      '@services': path.resolve(__dirname, './app/services'),
     }
   },
   build: {

@@ -6,6 +6,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --font-family: 'Poppins', sans-serif;
+  --font-family-text: 'Open-sand';
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,5 +39,15 @@ body {
 }
 
 .border-container{
-  border-right: 2px solid #6c10ff;
+  border-right: 2px solid #B5B5B5;
+}
+
+ul{
+  list-style-type: disc; 
+  padding-left: 20px;
+}
+
+ul>li{
+  font-size: 15px;
+  margin-bottom: 7px;
 }

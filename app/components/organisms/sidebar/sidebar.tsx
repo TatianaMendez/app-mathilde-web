@@ -1,5 +1,5 @@
 import styles from './sidebar.module.css'; 
-import { useAuth } from '@domain/services/autenticationService';
+import { useAuth } from '~/services/autenticationService';
 import ImageFormat from '../../molecules/image/imageFormat';
 
 const imagesPath = import.meta.env.VITE_MICROFRONENT_URL;

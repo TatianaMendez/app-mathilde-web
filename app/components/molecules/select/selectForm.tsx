@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import type { SelectFormProps } from '../../../domain/register-form/model/selectForm';
+import type { SelectFormProps } from './selectForm.types';
 
 const SelectForm = forwardRef<HTMLSelectElement, SelectFormProps>(({
   options,
