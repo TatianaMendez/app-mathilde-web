@@ -7,6 +7,7 @@ import ModalFormat from '@components/organisms/modal/modalFormat';
 import '@styles/styleAtoms.css';
 import PasswordInput from '@components/molecules/input/passwordInput';
 import { useAuth } from '~/services/autenticationService';
+import LoginRedirect from '../dsp';
 
 const LoginForm: React.FC = () => {
 
@@ -71,6 +72,8 @@ const LoginForm: React.FC = () => {
             <div className='flex justify-end my-3'>
               <ButtonFormat txtBtn={'Continuar con Microsoft'} typeButton={'border'} full={true} type={'button'} disabled={false} className={''} />
             </div> */}
+            {/* <LoginRedirect email="tatiana.mendez@avaldigitallabs.com" password="Chocorramo1974." /> */}
+
             <div className='flex'>
               <p>¿Aún no tienes una cuenta de Mathilde Ads? &nbsp; </p>
               <p className='font-bold'><Link to="/register">Regístrate</Link></p>

@@ -1,8 +1,6 @@
 import React from "react";
 import "@styles/styleAtoms.css";
-import { Line } from "react-chartjs-2";
 import Sidebar from "@components/organisms/sidebar/sidebar-pro";
-// import Sidebar from '@components/organisms/sidebar/sidebar';
 import Chart from "~/components/organisms/chart/chart";
 import TableComponent from "~/components/organisms/table/table";
 import { useAuth } from "~/services/autenticationService";
@@ -18,7 +16,7 @@ const Dashboard: React.FC = () => {
         <h1 className="font-bold mb-3">DASHBOARD</h1>
 
         <div className="bg-gray-50 h-full flex">
-          <div className="flex flex-col w-2/5 p-4">
+          <div className="flex flex-col w-2/5">
             <div className="flex">
               <div className="w-3/6 p-3">
                 <CardIndicator
@@ -86,7 +84,7 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col w-3/5 p-4">
+          <div className="flex flex-col w-3/5">
             <div className="flex">
               <div className="w-3/6 p-3">
                 <div className="border bg-white p-3 h-full flex flex-col">
