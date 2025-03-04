@@ -6,7 +6,7 @@ import VisualStart from '@components/organisms/visualStart';
 import ModalFormat from '@components/organisms/modal/modalFormat';
 import '@styles/styleAtoms.css';
 import PasswordInput from '@components/molecules/input/passwordInput';
-import { useAuth } from '~/services/autenticationService';
+import { useAuth } from '@services/autenticationService';
 import LoginRedirect from '../dsp';
 
 const LoginForm: React.FC = () => {
