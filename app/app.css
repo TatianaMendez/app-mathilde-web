@@ -7,6 +7,7 @@
   --foreground: #171717;
   --font-family: 'Poppins', sans-serif;
   --font-family-text: 'Open-sand';
+  --text-color: #483FFF;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +21,16 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-family);
+}
+
+h1{
+  font-size: 28px;
+  font-weight: 700;
+}
+
+h2{
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .m-image-container {
@@ -50,4 +61,16 @@ ul{
 ul>li{
   font-size: 15px;
   margin-bottom: 7px;
+}
+
+.css-1occx1k{
+  width: 78% !important;
+}
+
+.css-w2fuvf{
+  width: 93% !important;
+}
+
+.css-1occx1k >.ps-menu-button{
+  padding-left: 13px !important;
 }

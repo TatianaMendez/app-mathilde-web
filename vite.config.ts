@@ -20,9 +20,10 @@ export default defineConfig({
         './ResetPass': './app/components/pages/login/resetPassword/resetPassword.tsx',
         './ValidationPass': './app/components/pages/login/resetPassword/validation.tsx',
         './Dashboard': './app/components/pages/dashboard/dashboard.tsx',
+        './Configuration': './app/components/pages/configuration/configuration.tsx',
       },
       remotes: {},
-      shared: ['react', 'react-dom', 'react-router-dom'],
+      shared: ['react', 'react-dom', 'react-router-dom', 'react-icons'],
     }),
     
   ],

@@ -10,7 +10,7 @@ import RegisterForm from "@components/pages/register/register";
 import ResetPass from "@components/pages/login/resetPassword/resetPassword";
 import ValidationForm from "@components/pages/login/resetPassword/validation";
 import DashbaordComp from "@components/pages/dashboard/dashboard";
-
+import Configuration from "~/components/pages/settings/settings";
 const App = () => {
   return (
     <AuthProvider>
@@ -21,14 +21,8 @@ const App = () => {
           <Route path="/reset" element={<ResetPass />} />
           <Route path="/form-social" element={<CampaignForm />} />
           <Route path="/validation" element={<ValidationForm />} />
-          <Route 
-            path="/dashboard" 
-            element={
-              <ProtectedRoute>
-                <DashbaordComp />
-              </ProtectedRoute>
-            } 
-          />
+          <Route path="/dashboard" element={<ProtectedRoute><DashbaordComp /></ProtectedRoute>} />
+          <Route path="/configuration" element={ <ProtectedRoute><Configuration /></ProtectedRoute>} />
         </Routes>
       </Suspense>
     </AuthProvider>

@@ -1,14 +1,19 @@
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
-import { useAuth } from '~/services/autenticationService';
 import { useState } from 'react';
 import ModalFormat from '@components/organisms/modal/modalFormat';
 import ImageFormat from '../../molecules/image/imageFormat';
 import CardFormat from '../card/cardFormat';
-
+import Logout from '~/components/molecules/button/logout';
 const imagesPath = import.meta.env.VITE_MICROFRONENT_URL;
+import { FaListAlt } from "react-icons/fa";
+import { BsFillBoxSeamFill } from "react-icons/bs";
+import { FaUsers } from "react-icons/fa";
+import { AiFillPieChart } from "react-icons/ai";
+import { BsFillFileTextFill } from "react-icons/bs";
+import { IoSettingsSharp } from "react-icons/io5";
+import { Link, useNavigate } from 'react-router-dom';
 
 const SidebarMth = () => {
-  const { logout } = useAuth();
   const [collapsed, setCollapsed] = useState(true);
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
@@ -31,34 +36,107 @@ const SidebarMth = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 h-full z-40"> {/* Ajusta el z-index del sidebar */}
+    <div className="fixed top-0 left-0 h-full z-40"> 
       <div className='flex flex-col' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Sidebar 
           collapsed={collapsed}
           rootStyles={{
             [`.${sidebarClasses.container}`]: {
               backgroundColor: '#483FFF',
-              color: 'white',
+              color: '#483FFF',
               height: '100vh',
               display: 'flex',
               flexDirection: 'column',
             },
           }}
         >
+          <Link to="/dashboard">
           <div> 
              <ImageFormat classIm='mx-auto' src={`${imagesPath}/assets/images/logo mathilde.png`} alt='Logo Mathilde ads' width={74} height={74}/>
           </div>
+          </Link>
           <Menu>
-            <MenuItem onClick={() => handleModalToggle('campanas')}> Campañas </MenuItem>
-            <MenuItem onClick={() => handleModalToggle('medios')}> Medios </MenuItem>
-            <MenuItem onClick={() => handleModalToggle('audiencias')}> Audiencias </MenuItem>
-            <MenuItem onClick={() => handleModalToggle('reportes')}> Reportes </MenuItem>
-            <MenuItem onClick={() => handleModalToggle('facturacion')}> Facturación </MenuItem>
-            <MenuItem onClick={() => handleModalToggle('configuracion')}> Configuración </MenuItem>
+            <MenuItem 
+              icon={<FaListAlt className="text-2xl" />}
+              onClick={() => handleModalToggle('campanas')}
+              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              rootStyles={{
+                button: {
+                  width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
+                  margin: collapsed ? '0 0.25rem' : '0 0.5rem',
+                  color: '#483FFF',
+                  '&:hover': {
+                    color: '#483FFF',
+                  },
+                },
+              }}
+            > Campañas </MenuItem>
+            <MenuItem 
+              icon={<BsFillBoxSeamFill className="text-xl" />}
+              onClick={() => handleModalToggle('medios')}
+              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              rootStyles={{
+                button: {
+                  width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
+                  margin: collapsed ? '0 0.25rem' : '0 0.5rem',
+                  color: '#483FFF',
+                  '&:hover': {
+                    color: '#483FFF',
+                  },
+                },
+              }}
+            > Medios </MenuItem>
+            <MenuItem 
+              icon={<FaUsers className="text-xl" />} 
+              onClick={() => handleModalToggle('audiencias')}
+              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              rootStyles={{
+                button: {
+                  width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
+                  margin: collapsed ? '0 0.25rem' : '0 0.5rem',
+                  color: '#483FFF',
+                  '&:hover': {
+                    color: '#483FFF',
+                  },
+                },
+              }}
+            > Audiencias </MenuItem>
+            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+              button: {
+                width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
+                margin: collapsed ? '0 0.25rem' : '0 0.5rem',
+                color: '#483FFF',
+                '&:hover': {
+                  color: '#483FFF',
+                },
+              },
+            }}> Reportes </MenuItem>
+            <MenuItem icon={<BsFillFileTextFill className="text-xl"/>} onClick={() => handleModalToggle('facturacion')} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+              button: {
+                width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
+                margin: collapsed ? '0 0.25rem' : '0 0.5rem',
+                color: '#483FFF',
+                '&:hover': {
+                  color: '#483FFF',
+                },
+              },
+            }}> Facturación </MenuItem>
+           <Link to="/configuration">
+           <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+              button: {
+                width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
+                margin: collapsed ? '0 0.25rem' : '0 0.5rem',
+                color: '#483FFF',
+                '&:hover': {
+                  color: '#483FFF',
+                },
+              },
+            }}>  Configuración </MenuItem>
+            </Link>
           </Menu>
 
           <div className='mt-auto self-end p-4'>
-            <button onClick={logout} className="text-white">Cerrar sesión</button>
+            <Logout/>
           </div>
         </Sidebar>
 
