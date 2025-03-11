@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react';  
+import style from './progressBar.module.css';
 
 const ProgressBar = ({ start, end, current } : { start:number, end:number, current:number }) => {
   const percentage = ((current - start) / (end - start)) * 100;
@@ -7,7 +8,7 @@ const ProgressBar = ({ start, end, current } : { start:number, end:number, curre
     <div className="relative w-full h-4 bg-gray-200 rounded-full overflow-hidden">
       <div
         className={`absolute top-0 left-0 h-full rounded-full ${
-          percentage < 50 ? 'bg-red-500' : 'bg-green-500'
+          percentage < 50 ? style['progress-no-check'] : style['progress-check']
         }`}
         style={{ width: `${Math.min(percentage, 100)}%` }}
       ></div>

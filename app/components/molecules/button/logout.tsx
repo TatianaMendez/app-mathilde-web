@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '~/services/autenticationService';
+// import { useAuth } from '~/services/authService';
 import { IoIosExit } from "react-icons/io";
 
 const Logout: React.FC = () => {

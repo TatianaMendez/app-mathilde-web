@@ -15,6 +15,8 @@ import usePasswordValidation from "@hooks/usePasswordValidation";
 import ModalFormat from "@components/organisms/modal/modalFormat";
 import useModal from "@hooks/useModalTerminos";
 import Swal from "sweetalert2";
+import { Formik, Form,  } from "formik";
+import { registerValidationSchema } from "~/validations/registerValidations";
 
 const RegisterForm: React.FC = () => {
   const { roles } = RegisterFormService;
@@ -41,44 +43,43 @@ const RegisterForm: React.FC = () => {
     setTermsAccepted,
   } = useModal();
 
-  const [formRegister, setFormRegister] = useState({
+  const initialValues = {
     name: "",
     firtsName: "",
     company: "",
     phone: "",
     role: "",
     email: "",
-    term: termsAccepted,
-  });
+    password: "",
+    confirmPassword: "",
+    termsAccepted: false,
+  };
 
-  const { name, firtsName, company, phone, role, email } = formRegister;
-
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSubmit = async (values: any, { setSubmitting }: any) => {
+    console.log(values);
     if (!termsAccepted) {
       Swal.fire({
         text: "Debes aceptar los términos y condiciones.",
         icon: "warning",
         showConfirmButton: true,
       });
+      setSubmitting(false);
       return;
     }
 
-    const updatedFormRegister = {
-      ...formRegister,
+    const formData = {
+      ...values,
       term: termsAccepted,
-      password: password,
     };
 
     try {
       const response = await registerUser({
-        formRegister: updatedFormRegister,
+        formRegister: formData,
       });
       console.log(response);
       sessionStorage.setItem("previousPath", window.location.pathname);
-      sessionStorage.setItem("email", email);
-      sessionStorage.setItem("password", password);
+      sessionStorage.setItem("email", values.email);
+      sessionStorage.setItem("password", values.password);
       navigate("/validation");
     } catch (err) {
       console.log(err);
@@ -89,6 +90,7 @@ const RegisterForm: React.FC = () => {
         timer: 1500,
       });
     }
+    setSubmitting(false);
   };
 
   return (
@@ -97,143 +99,167 @@ const RegisterForm: React.FC = () => {
         <VisualStart />
       </div>
       <div className="w-2/4">
-        <form
-          className="w-9/12 px-10 bg-white mt-28 mx-auto rounded-lg"
-          onSubmit={handleRegister}
+        <Formik
+          initialValues={initialValues}
+          validationSchema={registerValidationSchema}
+          onSubmit={handleSubmit}
         >
-          <h2 className="text-2xl mb-6">REGISTRO DE USUARIOS</h2>
-          <p className="my-3">
-            Bienvenido a Mathilde, completa los datos y empieza a transformar tu
-            estrategia digital.
-          </p>
-          <div className="flex justify-between">
-            <div className="w-2/4 mr-2">
-              <InputForm
-                type="text"
-                placeholder="Nombres"
-                name="name"
-                value={name}
-                onChange={(e) =>
-                  setFormRegister({ ...formRegister, name: e.target.value })
-                }
-                required
-              />
-            </div>
-            <div className="w-2/4 ml-2">
-              <InputForm
-                type="text"
-                placeholder="Apellidos"
-                name="firtsName"
-                value={firtsName}
-                onChange={(e) =>
-                  setFormRegister({
-                    ...formRegister,
-                    firtsName: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-          </div>
-          <div className="flex justify-between">
-            <div className="w-2/3 mr-2">
-              <InputForm
-                type="text"
-                placeholder="Empresa"
-                name="company"
-                value={company}
-                onChange={(e) =>
-                  setFormRegister({ ...formRegister, company: e.target.value })
-                }
-                required
-              />
-            </div>
-            <div className="w-2/3 ml-2">
-              <InputForm
-                type="number"
-                placeholder="Celular"
-                name="phone"
-                value={phone}
-                onChange={(e) =>
-                  setFormRegister({ ...formRegister, phone: e.target.value })
-                }
-                required
-              />
-            </div>
-          </div>
-          <div className="flex justify-between">
-            <div className="w-2/3 mr-2">
-              <SelectForm
-                options={roles}
-                value={role}
-                onChange={(e) =>
-                  setFormRegister({ ...formRegister, role: e.target.value })
-                }
-              />
-            </div>
-            <div className="w-2/3 ml-2">
-              <InputForm
-                type="email"
-                value={email}
-                onChange={(e) =>
-                  setFormRegister({ ...formRegister, email: e.target.value })
-                }
-                placeholder="Correo electrónico"
-                required
-              />
-            </div>
-          </div>
-          <div className="flex justify-between">
-            <div className="w-2/3 mr-2">
-              <PasswordInput
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <div className="w-2/3 ml-2">
-              <PasswordInput
-                placeholder="Confirmar contraseña"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-          </div>
+          {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+            <Form className="w-9/12 px-10 bg-white mt-28 mx-auto rounded-lg">
+              <h2 className="text-2xl mb-6">REGISTRO DE USUARIOS</h2>
+              <p className="my-3">
+                Bienvenido a Mathilde, completa los datos y empieza a transformar tu
+                estrategia digital.
+              </p>
+              <div className="flex justify-between">
+                <div className="w-2/4 mr-2">
+                  <InputForm
+                    type="text"
+                    placeholder="Nombres"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                  />
+                  {errors.name && touched.name && (
+                    <div className="text-red-500 text-sm my-2">{errors.name}</div>
+                  )}
+                </div>
+                <div className="w-2/4 ml-2">
+                  <InputForm
+                    type="text"
+                    placeholder="Apellidos"
+                    name="firtsName"
+                    value={values.firtsName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                  />
+                  {errors.firtsName && touched.firtsName && (
+                    <div className="text-red-500 text-sm my-2">{errors.firtsName}</div>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div className="w-2/3 mr-2">
+                  <InputForm
+                    type="text"
+                    placeholder="Empresa"
+                    name="company"
+                    value={values.company}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                  />
+                  {errors.company && touched.company && (
+                    <div className="text-red-500 text-sm my-2">{errors.company}</div>
+                  )}
+                </div>
+                <div className="w-2/3 ml-2">
+                  <InputForm
+                    type="number"
+                    placeholder="Celular"
+                    name="phone"
+                    value={values.phone}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                  />
+                  {errors.phone && touched.phone && (
+                    <div className="text-red-500 text-sm my-2">{errors.phone}</div>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div className="w-2/3 mr-2">
+                  <SelectForm
+                    name="role"
+                    options={roles}
+                    value={values.role}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {errors.role && touched.role && (
+                    <div className="text-red-500 text-sm my-2">{errors.role}</div>
+                  )}
+                </div>
+                <div className="w-2/3 ml-2">
+                  <InputForm
+                    type="email"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder="Correo electrónico"
+                    required
+                  />
+                  {errors.email && touched.email && (
+                    <div className="text-red-500 text-sm my-2">{errors.email}</div>
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div className="w-2/3 mr-2">
+                  <PasswordInput
+                    name="password"
+                    placeholder="Contraseña"
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                  />
+                  {errors.password && touched.password && (
+                    <div className="text-red-500 text-sm my-2">{errors.password}</div>
+                  )}
+                </div>
+                <div className="w-2/3 ml-2">
+                  <PasswordInput
+                    name="confirmPassword"
+                    placeholder="Confirmar contraseña"
+                    value={values.confirmPassword}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    required
+                  />
+                  {errors.confirmPassword && touched.confirmPassword && (
+                    <div className="text-red-500 text-sm my-2">{errors.confirmPassword}</div>
+                  )}
+                </div>
+              </div>
 
-          {showError() && (
-            <div className="mth-msg">
-              <label>Las contraseñas no coinciden.</label>
-            </div>
+              {showError() && (
+                <div className="mth-msg">
+                  <label>Las contraseñas no coinciden.</label>
+                </div>
+              )}
+
+              <div className="flex mt-5">
+                <TermsCheckbox
+                  label="Acepto los términos y condiciones de la plataforma y la política de privacidad."
+                  checked={termsAccepted}
+                  onOpenModal={toggleModal}
+                  onChange={setTermsAccepted}
+                />
+              </div>
+
+              <div className="flex justify-end">
+                <Link to="/" className="mr-2 flex items-center">
+                  Cancelar
+                </Link>
+                <ButtonFormat
+                  txtBtn="Continuar"
+                  typeButton="default"
+                  full={false}
+                  type="submit"
+                  label=""
+                  disabled={isSubmitting}
+                  className=""
+                />
+              </div>
+            </Form>
           )}
-
-          <div className="flex mt-5">
-            <TermsCheckbox
-              label={
-                "Acepto los términos y condiciones de la plataforma y la política de privacidad."
-              }
-              checked={termsAccepted}
-              onOpenModal={toggleModal}
-              onChange={setTermsAccepted}
-            />
-          </div>
-
-          <div className="flex justify-end">
-            <Link to="/" className="mr-2 flex items-center">
-              Cancelar
-            </Link>
-            <ButtonFormat
-              txtBtn={"Continuar"}
-              typeButton={"default"}
-              full={false}
-              type={"submit"}
-              label={""}
-              disabled={false}
-              className={""}
-            />
-          </div>
-        </form>
+        </Formik>
 
         <ModalFormat isOpen={isModalOpen} onClose={toggleModal}>
           <div
@@ -250,8 +276,8 @@ const RegisterForm: React.FC = () => {
                 <strong>1. Disposiciones generales.</strong> <br />
                 <br />
                 ADL DIGITAL LAB S.A.S (en adelante ADL) es la sociedad titular
-                de la Plataforma Mathilde Ads (en adelante “Plataforma
-                Mathilde”), cuyo propósito es poner a disposición de sus
+                de la Plataforma Mathilde Ads (en adelante "Plataforma
+                Mathilde"), cuyo propósito es poner a disposición de sus
                 clientes una plataforma de Pauta Digital, bajo los lineamientos
                 y parámetros establecidos en estos términos y condiciones.
               </ol>
@@ -267,43 +293,43 @@ const RegisterForm: React.FC = () => {
                 de anuncios y procesamiento de data. Plataforma Mathilde:
                 Elementos del Software usado por ADL para la prestación de los
                 servicios de marketing tech. Plataforma de Datos Augusta
-                (“PDA”): Es la Plataforma corporativa Multicloud de Datos que
+                ("PDA"): Es la Plataforma corporativa Multicloud de Datos que
                 entrega valor y enriquece los procesos de negocio; facilitando
                 el acceso, análisis y uso compartido de la información en
                 proyectos que apliquen analítica en la nube. Data Management
-                Platform (“DMP”): Es la plataforma de datos en donde se albergan
+                Platform ("DMP"): Es la plataforma de datos en donde se albergan
                 las audiencias disponibles según el servicio adquirido. Para el
                 caso particular es el DMP Bluekai de Oracle que se aloja en
                 Augusta. Las audiencias son bases de datos anonimizadas.
                 Segmentación: Grupos de audiencias de públicos traídos desde el
                 DMP hacia el ecosistema de publicidad. Demand Side Platform
-                (“DSP”): Es la plataforma de compra programática en donde se
+                ("DSP"): Es la plataforma de compra programática en donde se
                 realiza la activación de campañas publicitarias. Supply Site
-                Platform (“SSP”): Es la plataforma de venta programática que
+                Platform ("SSP"): Es la plataforma de venta programática que
                 dispone los espacios publicitarios de propiedad de terceros.
                 Pujas de Anuncios: Intención de compra de un anuncio de
                 publicidad por un anunciante desde el DSP. Comprador: Anunciante
                 que dispone una publicidad dentro del DSP para la generación de
                 campañas publicitarias. Recolección de Data: Recolección de data
                 que pasa desde la plataforma de datos corporativa Augusta hacia
-                el DSP y el SSP. Smart Owned Media (“SOM”): Corresponde a la
+                el DSP y el SSP. Smart Owned Media ("SOM"): Corresponde a la
                 autopauta o espacios publicitarios que se llenan con información
                 referente al mismo dueño del sitio o a marcas autorizadas por el
-                sitio para fungir como tal. Smart Paid Media (“SPM”):
+                sitio para fungir como tal. Smart Paid Media ("SPM"):
                 Corresponde a las estrategias de publicidad y marketing digital
                 que son ofrecidas por el equipo de Mathilde para cumplir
                 objetivos de tráfico, leads, desembolsos, clicks, sesiones y
                 demás que se requiera por el tomador del servicio. Costo por mil
-                impresiones (“CPM”): Costo asociado a la venta de publicidad
+                impresiones ("CPM"): Costo asociado a la venta de publicidad
                 digital por cada vez que se imprime o renderiza un anuncio en la
                 página web, el cual se gestiona por medio de la plataforma
-                Mathilde. Costo por clic (“CPC”): Costo asociado al evento de
+                Mathilde. Costo por clic ("CPC"): Costo asociado al evento de
                 clic que se genera al momento de ver un anuncio de publicidad.
-                Costo por lead (“CPL”): Costo asociado al llenado exitoso del
+                Costo por lead ("CPL"): Costo asociado al llenado exitoso del
                 formulario dispuesto en alguna página web del tomador del
-                servicio. Costo de adquisición (“CPA”): Costo por generación de
+                servicio. Costo de adquisición ("CPA"): Costo por generación de
                 desembolso en crédito de las entidades. Costo por publicación
-                (“CPP”): Costo derivado de que el usuario genere una publicación
+                ("CPP"): Costo derivado de que el usuario genere una publicación
                 de un vehículo de manera gratuita o paga. Cliente: Se refiere a
                 todas las personas naturales o jurídicas o entidades de
                 cualquier naturaleza que soliciten o contraten la prestación de

@@ -32,7 +32,7 @@ const TermsCheckbox: React.FC<TermsCheckboxProps> = ({ onOpenModal, checked, onC
         <span className={styles['checkmark']}></span>
 
         {/* Si hay label, la renderizamos (puede ser "Acepto términos", etc.) */}
-        {label && <span className="ml-2">{label}</span>}
+        {label && <span>{label}</span>}
       </label>
     </div>
   );

@@ -20,7 +20,8 @@ export default defineConfig({
         './ResetPass': './app/components/pages/login/resetPassword/resetPassword.tsx',
         './ValidationPass': './app/components/pages/login/resetPassword/validation.tsx',
         './Dashboard': './app/components/pages/dashboard/dashboard.tsx',
-        './Configuration': './app/components/pages/configuration/configuration.tsx',
+        './Settings': './app/components/pages/settings/settings.tsx',
+        './ThirdPartyCampaign': './app/components/pages/thirdPartyCampaign/thirdPartyCampaign.tsx',
       },
       remotes: {},
       shared: ['react', 'react-dom', 'react-router-dom', 'react-icons'],
@@ -36,7 +37,7 @@ export default defineConfig({
       '@domain': path.resolve(__dirname, './app/domain'),
       '@assets': path.resolve(__dirname, './app/assets'),
       '@style': path.resolve(__dirname, './app/styles'),
-      '@services': path.resolve(__dirname, './app/services'),
+      '@services': path.resolve(__dirname, './app/services'), 
     }
   },
   build: {

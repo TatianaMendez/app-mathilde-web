@@ -11,7 +11,7 @@ import { FaUsers } from "react-icons/fa";
 import { AiFillPieChart } from "react-icons/ai";
 import { BsFillFileTextFill } from "react-icons/bs";
 import { IoSettingsSharp } from "react-icons/io5";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const SidebarMth = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -71,9 +71,9 @@ const SidebarMth = () => {
                 },
               }}
             > Campañas </MenuItem>
+            <Link to='https://dsp.mathilde-ads.com/login'>
             <MenuItem 
               icon={<BsFillBoxSeamFill className="text-xl" />}
-              onClick={() => handleModalToggle('medios')}
               className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
@@ -86,6 +86,7 @@ const SidebarMth = () => {
                 },
               }}
             > Medios </MenuItem>
+            </Link>
             <MenuItem 
               icon={<FaUsers className="text-xl" />} 
               onClick={() => handleModalToggle('audiencias')}
@@ -121,7 +122,7 @@ const SidebarMth = () => {
                 },
               },
             }}> Facturación </MenuItem>
-           <Link to="/configuration">
+           <Link to="/settings">
            <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -149,15 +150,12 @@ const SidebarMth = () => {
                   <CardFormat image='medios-propios' title='Medios Propios' description='Crea y administra campañas a los usuarios que ingresan a tus canales.'/>
               </div>
               <div className="w-3/6 p-2">
+              <Link to="/thirdPartyCampaign">
                   <CardFormat image='medios-pagos' title='Medios Pagos' description='Activa campañas de Marketing Digital usando inventario de Redes Sociales y Google.'/>
+              </Link>
               </div>
             </div>
           </div>
-        </ModalFormat>
-
-        <ModalFormat isOpen={activeModal === 'medios'} onClose={() => setActiveModal(null)}>
-          <h2>Medios</h2>
-          {/* Contenido del modal de medios */}
         </ModalFormat>
 
         <ModalFormat isOpen={activeModal === 'audiencias'} onClose={() => setActiveModal(null)}>

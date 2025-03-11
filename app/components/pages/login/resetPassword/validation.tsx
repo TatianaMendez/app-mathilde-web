@@ -5,6 +5,8 @@ import InputForm from '@components/molecules/input/inputForm';
 import { useNavigate } from 'react-router-dom';
 import { verifyOtp } from '~/services/codeOTPService'; 
 import { useAuth } from '~/services/autenticationService';
+// import { useAuth } from '~/services/authService';
+
 
 const ValidationPass: React.FC = () => {
   const { login } = useAuth();

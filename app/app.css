@@ -23,14 +23,31 @@ body {
   font-family: var(--font-family);
 }
 
+h1, h2, h3, h4, h5, h6{
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
 h1{
   font-size: 28px;
-  font-weight: 700;
 }
 
 h2{
   font-size: 20px;
-  font-weight: 700;
+}
+
+h3{
+  font-size: 15px;
+}
+
+ul{
+  list-style-type: disc; 
+  padding-left: 20px;
+}
+
+ul>li{
+  font-size: 15px;
+  margin-bottom: 7px;
 }
 
 .m-image-container {
@@ -53,16 +70,6 @@ h2{
   border-right: 2px solid #B5B5B5;
 }
 
-ul{
-  list-style-type: disc; 
-  padding-left: 20px;
-}
-
-ul>li{
-  font-size: 15px;
-  margin-bottom: 7px;
-}
-
 .css-1occx1k{
   width: 78% !important;
 }
@@ -73,4 +80,15 @@ ul>li{
 
 .css-1occx1k >.ps-menu-button{
   padding-left: 13px !important;
+}
+
+/* Estilos para elementos deshabilitados */
+input:disabled,
+input[disabled],
+textarea:disabled,
+select:disabled,
+select[disabled] {
+  background-color: #f3f3f3;
+  cursor: not-allowed;
+  opacity: 0.7;
 }

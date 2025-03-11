@@ -15,7 +15,8 @@
       "@assets/*": ["app/assets/*"],
       "@pages/*": ["app/pages/*"],
       "@domain/*": ["app/domain/*"],
-      "@styles/*": ["app/styles/*"]      
+      "@styles/*": ["app/styles/*"],    
+      "@services/*": ["app/services/*"],    
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

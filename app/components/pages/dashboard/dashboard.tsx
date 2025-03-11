@@ -4,7 +4,9 @@ import Sidebar from "@components/organisms/sidebar/sidebar-pro";
 import Chart from "~/components/organisms/chart/chart";
 import TableComponent from "~/components/organisms/table/table";
 import { useAuth } from "~/services/autenticationService";
+
 import CardIndicator from "~/components/organisms/card/cardIndicator";
+// import { useAuth } from "~/services/authService";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();

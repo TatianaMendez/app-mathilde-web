@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '~/services/autenticationService'; 
+// import { AuthProvider } from '~/services/authService'; 
 import ProtectedRoute  from '@hooks/useRouterLogin'; 
 
 // Importa los componentes remotos
@@ -10,7 +11,8 @@ import RegisterForm from "@components/pages/register/register";
 import ResetPass from "@components/pages/login/resetPassword/resetPassword";
 import ValidationForm from "@components/pages/login/resetPassword/validation";
 import DashbaordComp from "@components/pages/dashboard/dashboard";
-import Configuration from "~/components/pages/settings/settings";
+import Settings from "@components/pages/settings/settings";
+import ThirdPartyCampaign from "@components/pages/thirdPartyCampaign/thirdPartyCampaign";
 const App = () => {
   return (
     <AuthProvider>
@@ -22,7 +24,8 @@ const App = () => {
           <Route path="/form-social" element={<CampaignForm />} />
           <Route path="/validation" element={<ValidationForm />} />
           <Route path="/dashboard" element={<ProtectedRoute><DashbaordComp /></ProtectedRoute>} />
-          <Route path="/configuration" element={ <ProtectedRoute><Configuration /></ProtectedRoute>} />
+          <Route path="/settings" element={ <ProtectedRoute><Settings /></ProtectedRoute>} />
+          <Route path="/thirdPartyCampaign" element={ <ProtectedRoute><ThirdPartyCampaign /></ProtectedRoute>} />
         </Routes>
       </Suspense>
     </AuthProvider>
