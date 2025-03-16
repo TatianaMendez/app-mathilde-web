@@ -51,15 +51,15 @@ const SidebarMth = () => {
           }}
         >
           <Link to="/dashboard">
-          <div> 
-             <ImageFormat classIm='mx-auto' src={`${imagesPath}/assets/images/logo mathilde.png`} alt='Logo Mathilde ads' width={74} height={74}/>
+          <div className='mt-5 mb-2'> 
+             <ImageFormat classIm='mx-auto' src={`${imagesPath}/assets/images/logo mathilde.png`} alt='Logo Mathilde ads' width={58} height={58}/>
           </div>
           </Link>
           <Menu>
             <MenuItem 
-              icon={<FaListAlt className="text-2xl" />}
+              icon={<FaListAlt className="text-xl" />}
               onClick={() => handleModalToggle('campanas')}
-              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -74,7 +74,7 @@ const SidebarMth = () => {
             <Link to='https://dsp.mathilde-ads.com/login'>
             <MenuItem 
               icon={<BsFillBoxSeamFill className="text-xl" />}
-              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mx-3 mb-2 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -90,7 +90,7 @@ const SidebarMth = () => {
             <MenuItem 
               icon={<FaUsers className="text-xl" />} 
               onClick={() => handleModalToggle('audiencias')}
-              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -102,7 +102,7 @@ const SidebarMth = () => {
                 },
               }}
             > Audiencias </MenuItem>
-            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -112,7 +112,7 @@ const SidebarMth = () => {
                 },
               },
             }}> Reportes </MenuItem>
-            <MenuItem icon={<BsFillFileTextFill className="text-xl"/>} onClick={() => handleModalToggle('facturacion')} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+            <MenuItem icon={<BsFillFileTextFill className="text-xl"/>} onClick={() => handleModalToggle('facturacion')} className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -123,7 +123,7 @@ const SidebarMth = () => {
               },
             }}> Facturación </MenuItem>
            <Link to="/settings">
-           <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+           <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',

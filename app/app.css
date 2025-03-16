@@ -74,15 +74,27 @@ ul>li{
 }
 
 .css-1occx1k{
-  width: 78% !important;
+  width: 76% !important;
 }
 
 .css-w2fuvf{
-  width: 93% !important;
+  width: 90% !important;
 }
 
-.css-1occx1k >.ps-menu-button{
-  padding-left: 13px !important;
+.css-1occx1k >.ps-menu-button, .css-w2fuvf >.ps-menu-button  {
+  height: 45px !important;
+  padding-left: 20px !important;
+}
+
+.css-w2fuvf >.ps-menu-button:hover {
+  background-color: #b6c3fb;
+  color: #4b09aa;
+  border-radius: inherit;
+}
+
+.css-ahhoty.ps-collapsed {
+  width: 100px !important;
+  min-width: 100px !important;
 }
 
 /* Estilos para elementos deshabilitados */
