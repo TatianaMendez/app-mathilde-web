@@ -59,7 +59,7 @@ const SidebarMth = () => {
             <MenuItem 
               icon={<FaListAlt className="text-xl" />}
               onClick={() => handleModalToggle('campanas')}
-              className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -74,7 +74,7 @@ const SidebarMth = () => {
             <Link to='https://dsp.mathilde-ads.com/login'>
             <MenuItem 
               icon={<BsFillBoxSeamFill className="text-xl" />}
-              className="bg-white my-1 mx-3 mb-2 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -90,7 +90,7 @@ const SidebarMth = () => {
             <MenuItem 
               icon={<FaUsers className="text-xl" />} 
               onClick={() => handleModalToggle('audiencias')}
-              className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -102,7 +102,7 @@ const SidebarMth = () => {
                 },
               }}
             > Audiencias </MenuItem>
-            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
+            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -112,7 +112,7 @@ const SidebarMth = () => {
                 },
               },
             }}> Reportes </MenuItem>
-            <MenuItem icon={<BsFillFileTextFill className="text-xl"/>} onClick={() => handleModalToggle('facturacion')} className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
+            <MenuItem icon={<BsFillFileTextFill className="text-xl"/>} onClick={() => handleModalToggle('facturacion')} className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -123,7 +123,7 @@ const SidebarMth = () => {
               },
             }}> Facturación </MenuItem>
            <Link to="/settings">
-           <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
+           <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -143,13 +143,13 @@ const SidebarMth = () => {
 
         {/* Modales */}
         <ModalFormat width="40%" isOpen={activeModal === 'campanas'} onClose={() => setActiveModal(null)}>
-          <div className='flex flex-col p-10'>
+          <div className='flex flex-col px-10 pb-5'>
             <h2 className='text-center font-bold mb-3'>Selecciona el tipo de campaña que quieres crear</h2>
             <div className='flex'>
-              <div className="w-3/6 p-2">
+              <div className="w-3/6 p-2 flex">
                   <CardFormat image='medios-propios' title='Medios Propios' description='Crea y administra campañas a los usuarios que ingresan a tus canales.'/>
               </div>
-              <div className="w-3/6 p-2">
+              <div className="w-3/6 p-2 flex">
               <Link to="/thirdPartyCampaign">
                   <CardFormat image='medios-pagos' title='Medios Pagos' description='Activa campañas de Marketing Digital usando inventario de Redes Sociales y Google.'/>
               </Link>

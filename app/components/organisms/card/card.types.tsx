@@ -1,5 +1,3 @@
-import ImageFormat from '@components/molecules/image/imageFormat';
-
 export interface CardProps {
     image: string, 
     title: string,

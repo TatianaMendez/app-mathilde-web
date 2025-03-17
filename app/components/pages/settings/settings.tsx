@@ -25,7 +25,7 @@ const SettingsUser: React.FC = () => {
   return (
     <div className="min-h-screen w-full flex">
       <Sidebar />
-      <div className="min-h-screen w-full" style={{ padding: "20px 20px 20px 100px" }}>
+      <div className="min-h-screen w-full container-space">
         <h1 className="font-bold mb-3">CONFIGURACIÓN</h1>
         <div className="flex flex-col h-3/5">
             

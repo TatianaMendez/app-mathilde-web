@@ -143,41 +143,43 @@ const LoginForm: React.FC = () => {
         </div>
 
         <ModalFormat width="40%" isOpen={isModalOpen} onClose={toggleModal}>
-          <p>Si deseas cambiar tu contraseña ingresa el <b>correo eléctronico</b> registrado en la plataforma.</p>
-          <Formik
-            initialValues={forgotPasswordInitialValues}
-            validationSchema={forgotPasswordValidationSchema}
-            onSubmit={handleForgotPassword}
-          >
-            {({ errors, touched, handleChange, handleBlur, values }) => (
-              <Form>
-                <div className='w-full my-3'>
-                  <InputForm
-                    name="email"
-                    type="email"
-                    placeholder="Correo electronico"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    required
-                  />
-                  {errors.email && touched.email && (
-                    <div className="text-red-500 text-sm my-2">{errors.email}</div>
-                  )}
-                </div>
-                <div className='flex justify-end'>
-                  <ButtonFormat
-                    txtBtn={'Continuar'}
-                    typeButton={'default'}
-                    full={false}
-                    type={'submit'}
-                    disabled={false}
-                    className={''}
-                  />
-                </div>
-              </Form>
-            )}
-          </Formik>
+          <div className='pt-6'>
+            <p>Si deseas cambiar tu contraseña ingresa el <b>correo eléctronico</b> registrado en la plataforma.</p>
+            <Formik
+              initialValues={forgotPasswordInitialValues}
+              validationSchema={forgotPasswordValidationSchema}
+              onSubmit={handleForgotPassword}
+            >
+              {({ errors, touched, handleChange, handleBlur, values }) => (
+                <Form>
+                  <div className='w-full my-3'>
+                    <InputForm
+                      name="email"
+                      type="email"
+                      placeholder="Correo electronico"
+                      value={values.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      required
+                    />
+                    {errors.email && touched.email && (
+                      <div className="text-red-500 text-sm my-2">{errors.email}</div>
+                    )}
+                  </div>
+                  <div className='flex justify-end'>
+                    <ButtonFormat
+                      txtBtn={'Continuar'}
+                      typeButton={'default'}
+                      full={false}
+                      type={'submit'}
+                      disabled={false}
+                      className={''}
+                    />
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          </div>
         </ModalFormat>
       </div>
     </div>

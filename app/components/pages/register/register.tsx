@@ -265,7 +265,7 @@ const RegisterForm: React.FC = () => {
           <div
             ref={modalRef}
             onScroll={handleScroll}
-            style={{ maxHeight: "70vh", overflowY: "auto", padding: "20px" }}
+            style={{ maxHeight: "70vh", overflowY: "auto", padding: "25px" }}
           >
             <h2 className="text-center font-bold">
               TÉRMINOS Y CONDICIONES MATHILDE ADS
@@ -1159,14 +1159,16 @@ const RegisterForm: React.FC = () => {
             </ul>
           </div>
           <div className="flex justify-center">
-            <ButtonFormat
-              txtBtn={"Acepto"}
-              typeButton={"default"}
-              full={false}
-              disabled={!buttonEnabled}
-              onClick={handleAcceptTerms}
-              type="button"
-            />
+            <div className="py-3">
+              <ButtonFormat
+                txtBtn={"Acepto"}
+                typeButton={"default"}
+                full={false}
+                disabled={!buttonEnabled}
+                onClick={handleAcceptTerms}
+                type="button"
+              />
+            </div>
           </div>
         </ModalFormat>
       </div>

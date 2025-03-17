@@ -43,14 +43,23 @@ h3{
   font-size: 15px;
 }
 
-ul{
+.list{
   list-style-type: disc; 
   padding-left: 20px;
 }
 
-ul>li{
+.list>li{
   font-size: 15px;
   margin-bottom: 7px;
+}
+
+
+.container-space{
+  padding: 20px 20px 20px 120px;
+}
+
+.container-space-top{
+  padding-top: 20px;
 }
 
 .m-image-container {
