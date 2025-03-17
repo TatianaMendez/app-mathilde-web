@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginFormComponent from '~/components/pages/login/login';
+import LoginFormComponent from '@components/pages/login/login';
 
 const LoginForm: React.FC = () => {
 

@@ -11,7 +11,7 @@ import { FaUsers } from "react-icons/fa";
 import { AiFillPieChart } from "react-icons/ai";
 import { BsFillFileTextFill } from "react-icons/bs";
 import { IoSettingsSharp } from "react-icons/io5";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const SidebarMth = () => {
   const [collapsed, setCollapsed] = useState(true);
@@ -51,15 +51,15 @@ const SidebarMth = () => {
           }}
         >
           <Link to="/dashboard">
-          <div> 
-             <ImageFormat classIm='mx-auto' src={`${imagesPath}/assets/images/logo mathilde.png`} alt='Logo Mathilde ads' width={74} height={74}/>
+          <div className='mt-5 mb-2'> 
+             <ImageFormat classIm='mx-auto' src={`${imagesPath}/assets/images/logo mathilde.png`} alt='Logo Mathilde ads' width={58} height={58}/>
           </div>
           </Link>
           <Menu>
             <MenuItem 
-              icon={<FaListAlt className="text-2xl" />}
+              icon={<FaListAlt className="text-xl" />}
               onClick={() => handleModalToggle('campanas')}
-              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -71,10 +71,10 @@ const SidebarMth = () => {
                 },
               }}
             > Campañas </MenuItem>
+            <Link to='https://dsp.mathilde-ads.com/login'>
             <MenuItem 
               icon={<BsFillBoxSeamFill className="text-xl" />}
-              onClick={() => handleModalToggle('medios')}
-              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -86,10 +86,11 @@ const SidebarMth = () => {
                 },
               }}
             > Medios </MenuItem>
+            </Link>
             <MenuItem 
               icon={<FaUsers className="text-xl" />} 
               onClick={() => handleModalToggle('audiencias')}
-              className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90"
+              className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90"
               rootStyles={{
                 button: {
                   width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
@@ -101,7 +102,7 @@ const SidebarMth = () => {
                 },
               }}
             > Audiencias </MenuItem>
-            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -111,7 +112,7 @@ const SidebarMth = () => {
                 },
               },
             }}> Reportes </MenuItem>
-            <MenuItem icon={<BsFillFileTextFill className="text-xl"/>} onClick={() => handleModalToggle('facturacion')} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+            <MenuItem icon={<BsFillFileTextFill className="text-xl"/>} onClick={() => handleModalToggle('facturacion')} className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -121,8 +122,8 @@ const SidebarMth = () => {
                 },
               },
             }}> Facturación </MenuItem>
-           <Link to="/configuration">
-           <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mx-2 rounded-lg hover:bg-opacity-90" rootStyles={{
+           <Link to="/settings">
+           <MenuItem icon={<IoSettingsSharp className="text-xl"/>} className="bg-white my-1 mb-2 mx-3 rounded-lg hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -142,22 +143,19 @@ const SidebarMth = () => {
 
         {/* Modales */}
         <ModalFormat width="40%" isOpen={activeModal === 'campanas'} onClose={() => setActiveModal(null)}>
-          <div className='flex flex-col p-10'>
+          <div className='flex flex-col px-10 pb-5'>
             <h2 className='text-center font-bold mb-3'>Selecciona el tipo de campaña que quieres crear</h2>
             <div className='flex'>
-              <div className="w-3/6 p-2">
+              <div className="w-3/6 p-2 flex">
                   <CardFormat image='medios-propios' title='Medios Propios' description='Crea y administra campañas a los usuarios que ingresan a tus canales.'/>
               </div>
-              <div className="w-3/6 p-2">
+              <div className="w-3/6 p-2 flex">
+              <Link to="/thirdPartyCampaign">
                   <CardFormat image='medios-pagos' title='Medios Pagos' description='Activa campañas de Marketing Digital usando inventario de Redes Sociales y Google.'/>
+              </Link>
               </div>
             </div>
           </div>
-        </ModalFormat>
-
-        <ModalFormat isOpen={activeModal === 'medios'} onClose={() => setActiveModal(null)}>
-          <h2>Medios</h2>
-          {/* Contenido del modal de medios */}
         </ModalFormat>
 
         <ModalFormat isOpen={activeModal === 'audiencias'} onClose={() => setActiveModal(null)}>

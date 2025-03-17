@@ -10,9 +10,9 @@ const MyDoughnutChart = () => {
     datasets: [
       {
         label: 'Presupuesto',
-        data: [11.6, 14.7],
-        backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(153, 153, 153, 0.6)'],
-        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 153, 153, 1)'],
+        data: [14.7, 11.6],
+        backgroundColor: ['#EBE1FF', '#9873e8'],
+        borderColor: ['#EBE1F9', '#9873e1'],
         borderWidth: 1,
         circumference: 180,
         rotation: -90,

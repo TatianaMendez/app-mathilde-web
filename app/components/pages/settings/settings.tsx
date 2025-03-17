@@ -5,9 +5,12 @@ import InputForm from "@components/molecules/input/inputForm";
 import SelectForm from "@components/molecules/select/selectForm";
 import PasswordInput from "@components/molecules/input/passwordInput";
 import { RegisterFormService } from "~/services/registerService";
+import { Link } from 'react-router-dom';
+import ButtonFormat from "~/components/molecules/button/buttonFormat";
 
 const SettingsUser: React.FC = () => {
   const { roles } = RegisterFormService;
+  const [isEditing, setIsEditing] = useState(false);
   const [formSetting, setformSetting] = useState({
     name: "",
     firtsName: "",
@@ -22,14 +25,14 @@ const SettingsUser: React.FC = () => {
   return (
     <div className="min-h-screen w-full flex">
       <Sidebar />
-      <div className="min-h-screen" style={{ padding: "20px 20px 20px 100px" }}>
+      <div className="min-h-screen w-full container-space">
         <h1 className="font-bold mb-3">CONFIGURACIÓN</h1>
-        <div className="flex flex-col">
+        <div className="flex flex-col h-3/5">
             
 
-          <div className="flex justify-between">
-            <div className="w-2/4 mr-2">
-              <h2>INFORMACIÓN BÁSICA</h2>
+          <div className="flex">
+            <div className="w-1/5 pr-3 mr-2">
+              <h3 className="mt-6">INFORMACIÓN BÁSICA</h3>
 
               <InputForm
                 type="text"
@@ -39,7 +42,7 @@ const SettingsUser: React.FC = () => {
                 onChange={(e) =>
                   setformSetting({ ...formSetting, name: e.target.value })
                 }
-                required
+                disabled={!isEditing}
               />
 
               <InputForm
@@ -53,7 +56,7 @@ const SettingsUser: React.FC = () => {
                     firtsName: e.target.value,
                   })
                 }
-                required
+                disabled={!isEditing}
               />
 
               <InputForm
@@ -64,7 +67,7 @@ const SettingsUser: React.FC = () => {
                 onChange={(e) =>
                   setformSetting({ ...formSetting, company: e.target.value })
                 }
-                required
+                disabled={!isEditing}
               />
 
               <SelectForm
@@ -73,9 +76,10 @@ const SettingsUser: React.FC = () => {
                 onChange={(e) =>
                   setformSetting({ ...formSetting, role: e.target.value })
                 }
+                disabled={!isEditing}
               />
 
-              <h2>INFORMACIÓN DE CONTACTO</h2>
+              <h3 className="mt-6">INFORMACIÓN DE CONTACTO</h3>
 
               <InputForm
                 type="number"
@@ -85,26 +89,49 @@ const SettingsUser: React.FC = () => {
                 onChange={(e) =>
                   setformSetting({ ...formSetting, phone: e.target.value })
                 }
-                required
+                disabled={!isEditing}
               />
             </div>
-            <div className="w-2/4 ml-2">
-              <h2>INFORMACIÓN CUENTA</h2>
+            <div className="w-1/5 ml-2 flex flex-col justify-between">
+              <div className="">
+                <h3 className="mt-6">INFORMACIÓN CUENTA</h3>
+                <InputForm
+                  type="email"
+                  value={email}
+                  onChange={(e) =>
+                    setformSetting({ ...formSetting, email: e.target.value })
+                  }
+                  placeholder="Correo electrónico"
+                  disabled={!isEditing}
+                />
+                <PasswordInput
+                  placeholder="Contraseña"
+                  disabled
+                />
+                  <Link to="/reset" className="text-sm mt-8 text-gray-600 cursor-pointer underline" > Actualizar contraseña </Link>
+              </div>
 
-              <InputForm
-                type="email"
-                value={email}
-                onChange={(e) =>
-                  setformSetting({ ...formSetting, email: e.target.value })
-                }
-                placeholder="Correo electrónico"
-                required
-              />
+            </div>            
+          </div>
 
-              <PasswordInput
-                placeholder="Contraseña"
-              />
-
+          <div className="flex">
+            <div className="w-2/5">
+                  <div className="flex w-full items-center justify-end">
+                    {isEditing && (
+                      <span onClick={() => setIsEditing(false)} className="mr-3">
+                        Cancelar
+                      </span>
+                    )}
+                    <ButtonFormat
+                      txtBtn={isEditing ? 'Guardar' : 'Editar'}
+                      typeButton={'border'}
+                      full={false}
+                      type={'button'}
+                      disabled={false}
+                      className={'ml-3'}
+                      onClick={() => setIsEditing(!isEditing)}
+                    />
+                  </div>
             </div>
           </div>
         </div>        

@@ -4,7 +4,9 @@ import Sidebar from "@components/organisms/sidebar/sidebar-pro";
 import Chart from "~/components/organisms/chart/chart";
 import TableComponent from "~/components/organisms/table/table";
 import { useAuth } from "~/services/autenticationService";
+
 import CardIndicator from "~/components/organisms/card/cardIndicator";
+// import { useAuth } from "~/services/authService";
 
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
@@ -12,7 +14,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="min-h-screen w-full flex">
       <Sidebar />
-      <div className="min-h-screen" style={{ padding: "20px 20px 20px 100px" }}>
+      <div className="min-h-screen container-space">
         <h1 className="font-bold mb-3">DASHBOARD</h1>
 
         <div className="bg-gray-50 h-full flex">
@@ -97,7 +99,7 @@ const Dashboard: React.FC = () => {
               <div className="w-3/6 p-3">
                 <div className="border bg-white p-3">
                   <h2 className="my-3 font-bold">RECOMENDACIONES</h2>
-                  <ul>
+                  <ul className="list">
                     <li>
                       El presupuesto total planeado es de 26.3M, pero solo se ha
                       ejecutado una parte. Considera aumentar la inversión para

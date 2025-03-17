@@ -20,6 +20,7 @@ export default defineConfig({
         './ResetPass': './app/components/pages/login/resetPassword/resetPassword.tsx',
         './ValidationPass': './app/components/pages/login/resetPassword/validation.tsx',
         './Dashboard': './app/components/pages/dashboard/dashboard.tsx',
+        './ThirdPartyCampaign': './app/components/pages/thirdPartyCampaign/thirdPartyCampaign.tsx',
         './SettingsUser': './app/components/pages/settings/settings.tsx',
         './autenticationService': './app/services/autenticationService.tsx',
       },
@@ -37,7 +38,7 @@ export default defineConfig({
       '@domain': path.resolve(__dirname, './app/domain'),
       '@assets': path.resolve(__dirname, './app/assets'),
       '@style': path.resolve(__dirname, './app/styles'),
-      '@services': path.resolve(__dirname, './app/services'),
+      '@services': path.resolve(__dirname, './app/services'), 
     }
   },
   build: {

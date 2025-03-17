@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 @import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
 
 :root {
   --background: #ffffff;
@@ -23,14 +26,40 @@ body {
   font-family: var(--font-family);
 }
 
+h1, h2, h3, h4, h5, h6{
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
 h1{
   font-size: 28px;
-  font-weight: 700;
 }
 
 h2{
   font-size: 20px;
-  font-weight: 700;
+}
+
+h3{
+  font-size: 15px;
+}
+
+.list{
+  list-style-type: disc; 
+  padding-left: 20px;
+}
+
+.list>li{
+  font-size: 15px;
+  margin-bottom: 7px;
+}
+
+
+.container-space{
+  padding: 20px 20px 20px 120px;
+}
+
+.container-space-top{
+  padding-top: 20px;
 }
 
 .m-image-container {
@@ -53,24 +82,37 @@ h2{
   border-right: 2px solid #B5B5B5;
 }
 
-ul{
-  list-style-type: disc; 
-  padding-left: 20px;
-}
-
-ul>li{
-  font-size: 15px;
-  margin-bottom: 7px;
-}
-
 .css-1occx1k{
-  width: 78% !important;
+  width: 76% !important;
 }
 
 .css-w2fuvf{
-  width: 93% !important;
+  width: 90% !important;
 }
 
-.css-1occx1k >.ps-menu-button{
-  padding-left: 13px !important;
+.css-1occx1k >.ps-menu-button, .css-w2fuvf >.ps-menu-button  {
+  height: 45px !important;
+  padding-left: 20px !important;
+}
+
+.css-w2fuvf >.ps-menu-button:hover {
+  background-color: #b6c3fb;
+  color: #4b09aa;
+  border-radius: inherit;
+}
+
+.css-ahhoty.ps-collapsed {
+  width: 100px !important;
+  min-width: 100px !important;
+}
+
+/* Estilos para elementos deshabilitados */
+input:disabled,
+input[disabled],
+textarea:disabled,
+select:disabled,
+select[disabled] {
+  background-color: #f3f3f3;
+  cursor: not-allowed;
+  opacity: 0.7;
 }

@@ -1,33 +1,9 @@
-/* modal */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal {
-  background: white;
-  padding: 25px;
-  border-radius: 5px;
-  width: auto; 
-  max-width: 65%; 
-  max-height: 80%;
-  /* overflow-y: auto;  */
-}
-
-.closeButton {
-  background: transparent;
-  color: red;
-  border: none;
-  font-size: 30px;
+.cardFormat:hover {
   cursor: pointer;
-  position: absolute;
-  top: 60px;
-  right: 140px;
+  box-shadow: 0px 12px 30px 0px rgba(0, 0, 0, 0.2);
+  transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cardFormat{
+  transition: all 500ms ease-in-out;
 }

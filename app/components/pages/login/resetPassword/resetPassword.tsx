@@ -30,14 +30,14 @@ const ResetPass: React.FC = () => {
       <div className="w-2/4">
         <form className="w-3/5 px-10 bg-white mx-auto rounded-lg flex flex-col justify-center h-full">
           <p className="text-2xl text-center mb-6">Crea una nueva contraseña para ingresar a la plataforma.</p>
-          <div className='flex w-full mb-5'>
+          <div className='block'>
               <PasswordInput 
                 placeholder='Contraseña'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
           </div>
-          <div className="flex">
+          <div className="block">
               <PasswordInput 
                 placeholder='Confirmar contraseña'
                 value={confirmPassword}
