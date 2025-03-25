@@ -17,6 +17,7 @@
       "@domain/*": ["app/domain/*"],
       "@styles/*": ["app/styles/*"],    
       "@services/*": ["app/services/*"],    
+      "@schema/*": ["app/schema/*"],    
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

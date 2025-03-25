@@ -76,7 +76,7 @@ const MyDoughnutChart = () => {
   };
 
   return (
-    <div className='w-full h-full min-h-[200px]'>
+    <div className='size-full min-h-[200px]'>
       <Doughnut data={data} options={options} plugins={[textCenter]} />
     </div>
   );

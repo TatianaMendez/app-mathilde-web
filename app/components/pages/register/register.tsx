@@ -16,7 +16,7 @@ import ModalFormat from "@components/organisms/modal/modalFormat";
 import useModal from "@hooks/useModalTerminos";
 import Swal from "sweetalert2";
 import { Formik, Form,  } from "formik";
-import { registerValidationSchema } from "~/validations/registerValidations";
+import { registerValidationSchema } from "@schema/registerSchema";
 
 const RegisterForm: React.FC = () => {
   const { roles } = RegisterFormService;

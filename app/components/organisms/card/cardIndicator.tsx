@@ -18,8 +18,8 @@ const CardIndicator: React.FC<CardIndicatorProps> = ({ logo, number, title, star
           <div className='flex justify-end'>
             <ImageFormat src={`${imagesPath}/assets/images/${logo}.svg`} alt='Icon' width={30} height={30}/>
           </div>
-          <h2 className='my-3 font-bold'>{title}</h2>
-          <small className='text-3xl'>{formatNumber(number)}</small>
+          <h2 className='my-3 font-bold title-dashboard'>{title}</h2>
+          <small className='text-3xl font-black'>{formatNumber(number)}</small>
           <div className='w-full mt-2'>
             <ProgressBar start={start} end={end} current={current} />
           </div>

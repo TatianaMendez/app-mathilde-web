@@ -52,7 +52,7 @@ const SidebarMth = () => {
         >
           <Link to="/dashboard">
           <div className='mt-5 mb-2'> 
-             <ImageFormat classIm='mx-auto' src={`${imagesPath}/assets/images/logo mathilde.png`} alt='Logo Mathilde ads' width={58} height={58}/>
+             <ImageFormat classIm='mx-3' src={`${imagesPath}/assets/images/logo mathilde.png`} alt='Logo Mathilde ads' width={58} height={58}/>
           </div>
           </Link>
           <Menu>
@@ -136,7 +136,7 @@ const SidebarMth = () => {
             </Link>
           </Menu>
 
-          <div className='mt-auto self-end p-4'>
+          <div className='mt-auto self-end p-4 w-full cursor-pointer'>
             <Logout/>
           </div>
         </Sidebar>

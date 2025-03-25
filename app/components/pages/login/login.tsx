@@ -6,12 +6,12 @@ import VisualStart from '@components/organisms/visualStart';
 import ModalFormat from '@components/organisms/modal/modalFormat';
 import '@styles/styleAtoms.css';
 import PasswordInput from '@components/molecules/input/passwordInput';
-import { useAuth } from '~/services/autenticationService';
+import { useAuth } from '@services/autenticationService';
 // import { useAuth } from '~/services/authService';
 import LoginRedirect from '../dsp';
 // import { AuthorizationService } from '~/services/authorizationService';
 import { Formik, Form } from 'formik';
-import { loginValidationSchema, forgotPasswordValidationSchema } from '~/validations/loginValidations';
+import { loginValidationSchema, forgotPasswordValidationSchema } from '@schema/loginSchema';
 
 const LoginForm: React.FC = () => {
 
@@ -119,7 +119,6 @@ const LoginForm: React.FC = () => {
                     full={true}
                     type={'submit'}
                     disabled={false}
-                    className={''}
                   />
                 </div>
               </Form>
