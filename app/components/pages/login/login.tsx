@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import InputForm from '@components/molecules/input/inputForm';
-import ButtonFormat from '@components/molecules/button/buttonFormat';
-import VisualStart from '@components/organisms/visualStart';
-import ModalFormat from '@components/organisms/modal/modalFormat';
-import '@styles/styleAtoms.css';
-import PasswordInput from '@components/molecules/input/passwordInput';
+import { InputForm, ButtonFormat, ModalFormat, PasswordInput, LayoutOutside } from 'ui-mathilde-web';
+// import InputForm from '@components/molecules/input/inputForm';
+// import ButtonFormat from '@components/molecules/button/buttonFormat';
+// import VisualStart from '@components/organisms/visualStart';
+// import ModalFormat from '@components/organisms/modal/modalFormat';
+// import '@styles/styleAtoms.css';
+// import PasswordInput from '@components/molecules/input/passwordInput';
 import { useAuth } from '@services/autenticationService';
 // import { useAuth } from '~/services/authService';
 import LoginRedirect from '../dsp';
@@ -65,7 +66,7 @@ const LoginForm: React.FC = () => {
   return (
     <div className="min-h-screen flex w-full">
       <div className='w-2/4 border-container'>
-        <VisualStart />
+        <LayoutOutside />
       </div>
       <div className="w-2/4 flex items-center ">
 

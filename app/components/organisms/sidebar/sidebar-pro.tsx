@@ -1,9 +1,8 @@
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
 import { useState } from 'react';
-import ModalFormat from '@components/organisms/modal/modalFormat';
-import ImageFormat from '../../molecules/image/imageFormat';
-import CardFormat from '../card/cardFormat';
-import Logout from '~/components/molecules/button/logout';
+import { ModalFormat, ImageFormat, CardFormat} from 'ui-mathilde-web';
+
+import { useAuth } from '@services/autenticationService';
 const imagesPath = import.meta.env.VITE_MICROFRONENT_URL;
 import { FaListAlt } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
@@ -12,8 +11,10 @@ import { AiFillPieChart } from "react-icons/ai";
 import { BsFillFileTextFill } from "react-icons/bs";
 import { IoSettingsSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
+import { IoIosExit } from 'react-icons/io';
 
 const SidebarMth = () => {
+  const { logout } = useAuth();
   const [collapsed, setCollapsed] = useState(true);
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
@@ -137,7 +138,9 @@ const SidebarMth = () => {
           </Menu>
 
           <div className='mt-auto self-end p-4 w-full cursor-pointer'>
-            <Logout/>
+            <div className='flex justify-center bg-white rounded-lg p-2' onClick={logout}>
+              <button className='text-3xl' style={{ color: '#483FFF' }} ><IoIosExit /></button>
+          </div>
           </div>
         </Sidebar>
 

@@ -1,16 +1,13 @@
   import React, { useState } from "react";
-  import "@styles/styleAtoms.css";
+  import { InputForm, SidebarMth, ButtonFormat, SelectForm, TableOfContents } from 'ui-mathilde-web';
   import Sidebar from "@components/organisms/sidebar/sidebar-pro";
-  import InputForm from "@components/molecules/input/inputForm";
-  import SelectForm from "@components/molecules/select/selectForm";
+  
   import { RegisterFormService } from "@services/registerService";
-  import ButtonFormat from "@components/molecules/button/buttonFormat";
   // Icons buttons
   import { FaTiktok } from "react-icons/fa";
   import { FaMeta } from "react-icons/fa6";
   import { SiGoogleads } from "react-icons/si";
   // Menu de navegación
-  import TableOfContents from "@components/organisms/table/tableOfContens";
   import { dataThirdParty } from "@services/thirdPartyService";
   
   const thirdPartyCampaignForm: React.FC = () => {

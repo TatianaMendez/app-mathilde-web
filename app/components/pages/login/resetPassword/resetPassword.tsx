@@ -1,11 +1,9 @@
 import React from 'react';
-import VisualStart from '@components/organisms/visualStart';
-import '@styles/styleAtoms.css';
+import { LayoutOutside, ButtonFormat, ValidationPassword } from 'ui-mathilde-web';
 import { useNavigate } from 'react-router-dom';
-import ButtonFormat from '@components/molecules/button/buttonFormat';
-import ValidationPassword from '~/components/organisms/validationPassword/validationPassword';
+// QUITAR COMPONENTE VALIDATION PASSWORD
 import { Formik, Form } from 'formik';
-import resetPasswordSchema from '~/schema/passwordSchema';
+import resetPasswordSchema from '@schema/passwordSchema';
 
 interface ResetPasswordValues {
   password: string;
@@ -28,7 +26,7 @@ const ResetPass: React.FC = () => {
   return (
     <div className="min-h-screen flex w-full">
       <div className='w-2/4 border-container'>
-        <VisualStart />
+        <LayoutOutside />
       </div>
       <div className="w-2/4">
         <Formik

@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const login = async (user: string, pass: string) => {
         try {
             const response = await axios.post(
-                'http://ec2-54-145-77-26.compute-1.amazonaws.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/login',
+                'https://mthmocks.pruebasmathilde.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/login',
                 { user, pass }
             );
 

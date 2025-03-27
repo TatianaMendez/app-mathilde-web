@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import "@styles/styleAtoms.css";
-import Sidebar from "@components/organisms/sidebar/sidebar-pro";
-import InputForm from "@components/molecules/input/inputForm";
-import SelectForm from "@components/molecules/select/selectForm";
-import PasswordInput from "@components/molecules/input/passwordInput";
+// import "@styles/styleAtoms.css";
+import { InputForm, ButtonFormat, PasswordInput, SelectForm, ValidationPassword } from 'ui-mathilde-web';
+// Revisar este componente 
+import SidebarMth from "@components/organisms/sidebar/sidebar-pro";  
+
 import { RegisterFormService } from "@services/registerService";
-import ButtonFormat from "@components/molecules/button/buttonFormat";
 import usePasswordValidation from '@hooks/usePasswordValidation';
-import ValidationPassword from "@components/organisms/validationPassword/validationPassword";
+
 import { Formik, Form } from 'formik';
 import updateUserInfoSchema from '@schema/updateUser';
 import updatePasswordSchema from '@schema/updatePasswordSchema';
@@ -74,7 +73,7 @@ const SettingsUser: React.FC = () => {
 
   return (
     <div className="min-h-screen w-full flex">
-      <Sidebar />
+      <SidebarMth />
       <div className="min-h-screen w-full container-space">
         <h1 className="font-bold mb-3">CONFIGURACIÓN</h1>
         <div className="flex flex-col h-3/5">

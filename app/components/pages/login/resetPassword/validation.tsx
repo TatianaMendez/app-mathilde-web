@@ -1,12 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import VisualStart from '@components/organisms/visualStart';
-import '@styles/styleAtoms.css';
-import InputForm from '@components/molecules/input/inputForm';
+import { LayoutOutside, InputForm } from 'ui-mathilde-web';
 import { useNavigate } from 'react-router-dom';
-import { verifyOtp } from '~/services/codeOTPService'; 
-import { useAuth } from '~/services/autenticationService';
+import { verifyOtp } from '@services/codeOTPService'; 
+import { useAuth } from '@services/autenticationService';
 // import { useAuth } from '~/services/authService';
-
 
 const ValidationPass: React.FC = () => {
   const { login } = useAuth();
@@ -112,7 +109,7 @@ const ValidationPass: React.FC = () => {
   return (
     <div className="min-h-screen flex w-full">
       <div className='w-2/4 border-container'>
-        <VisualStart />
+        <LayoutOutside />
       </div>
       <div className="w-2/4">
         <form className="w-3/5 px-10 bg-white mx-auto rounded-lg flex flex-col justify-center h-full">

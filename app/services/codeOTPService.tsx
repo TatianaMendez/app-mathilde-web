@@ -17,5 +17,5 @@ export const sendOtp = async (email: string) => {
 
 // Función específica para verificar el OTP
 export const verifyOtp = async (code: number) => {
-  return postRequest('http://ec2-54-145-77-26.compute-1.amazonaws.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/reset', { code });
+  return postRequest('https://mthmocks.pruebasmathilde.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/reset', { code });
 };

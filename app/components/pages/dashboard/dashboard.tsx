@@ -1,11 +1,9 @@
 import React from "react";
-import "@styles/styleAtoms.css";
-import Sidebar from "@components/organisms/sidebar/sidebar-pro";
-import Chart from "~/components/organisms/chart/chart";
-import TableComponent from "~/components/organisms/table/table";
 import { useAuth } from "~/services/autenticationService";
+import { CardIndicator, TableComponent, MyDoughnutChart } from "ui-mathilde-web";
+import Sidebar from "@components/organisms/sidebar/sidebar-pro";
 
-import CardIndicator from "~/components/organisms/card/cardIndicator";
+// import CardIndicator from "~/components/organisms/card/cardIndicator";
 // import { useAuth } from "~/services/authService";
 
 const Dashboard: React.FC = () => {
@@ -92,7 +90,7 @@ const Dashboard: React.FC = () => {
                 <div className="border bg-white p-3 h-full flex flex-col">
                   <h2 className="my-3 font-bold">PRESUPUESTO</h2>
                   <div className="flex-1 flex items-end w-full">
-                    <Chart />
+                    <MyDoughnutChart />
                   </div>
                 </div>
               </div>
