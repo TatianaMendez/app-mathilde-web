@@ -6,12 +6,11 @@ import * as yup from 'yup';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 import Swal from 'sweetalert2';
-
+import { InputForm, SidebarMth, Checkbox, SelectForm } from 'ui-mathilde-web';
 // COMPONENTES CUSTOM
-import Button from 'app/components/molecules/button/buttonFormat';
-import Checkbox from 'app/components/molecules/checkbox/Checkbox';
-import Input from 'app/components/molecules/input/inputForm';
-import Select from 'app/components/molecules/select/selectForm';
+// import Checkbox from 'app/components/molecules/checkbox/Checkbox';
+// import Input from 'app/components/molecules/input/inputForm';
+// import Select from 'app/components/molecules/select/selectForm';
 
 // Importa tu módulo de CSS personalizado
 import styles from './FormSocial.module.css';
@@ -395,7 +394,7 @@ const CampaignForm: React.FC = () => {
           </div>
 
           {/* NOMBRE CAMPAÑA */}
-          <Input
+          <InputForm
             type="text"
             label="Nombre de la campaña"
             placeholder="nombre"
@@ -407,7 +406,7 @@ const CampaignForm: React.FC = () => {
 
           {/* FILA SELECTS: ESTADO, OBJETIVO, PAÍS */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Select
+            <SelectForm
               label="Estado Inicial"
               error={validatedFields.has('estadoInicial') ? errors.estadoInicial?.message : undefined}
               {...register('estadoInicial', {
@@ -420,7 +419,7 @@ const CampaignForm: React.FC = () => {
               ]}
             />
 
-            <Select
+            <SelectForm
               label="Objetivo de la campaña"
               error={validatedFields.has('objetivoCampaign') ? errors.objetivoCampaign?.message : undefined}
               {...register('objetivoCampaign', {
@@ -433,7 +432,7 @@ const CampaignForm: React.FC = () => {
               ]}
             />
 
-            <Select
+            <SelectForm
               label="Seleccione país"
               error={validatedFields.has('pais') ? errors.pais?.message : undefined}
               {...register('pais', {
@@ -451,13 +450,13 @@ const CampaignForm: React.FC = () => {
 
           {/* FECHAS */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input
+            <InputForm
               label="Fecha inicio"
               type="datetime-local"
               error={errors.fechaInicio?.message}
               {...register('fechaInicio')}
             />
-            <Input
+            <InputForm
               label="Fecha fin"
               type="datetime-local"
               error={errors.fechaFin?.message}
@@ -466,7 +465,7 @@ const CampaignForm: React.FC = () => {
           </div>
 
           {/* PRESUPUESTO */}
-          <Input
+          <InputForm
             label="Presupuesto COP"
             type="number"
             placeholder="Presupuesto COP"
@@ -528,7 +527,7 @@ const CampaignForm: React.FC = () => {
 
           {/* WEBSITE URL (CONDICIONAL) */}
           {showWebsiteUrl && (
-            <Input
+            <InputForm
               type="text"
               label="Website URL"
               placeholder="https://tusitio.com"
@@ -541,7 +540,7 @@ const CampaignForm: React.FC = () => {
 
           {/* PAGO & OBJETIVO DE OPTIMIZACIÓN */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Select
+            <SelectForm
               label="Pago por"
               error={errors.pagoPor?.message}
               {...register('pagoPor')}
@@ -551,7 +550,7 @@ const CampaignForm: React.FC = () => {
               ]}
             />
 
-            <Select
+            <SelectForm
               label="Objetivo de optimización"
               error={errors.objetivoOptimizacion?.message}
               {...register('objetivoOptimizacion')}

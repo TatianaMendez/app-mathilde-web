@@ -1,22 +1,22 @@
-import { useState } from "react";
-import InputForm from "@components/molecules/input/inputForm";
-import SelectForm from "@components/molecules/select/selectForm"; 
-import ButtonFormat from "@components/molecules/button/buttonFormat";
-import TermsCheckbox from "@components/molecules/checkbox/termsCheckbox";
-import VisualStart from "@components/organisms/visualStart";
+
+// import InputForm from "@components/molecules/input/inputForm";
+// import SelectForm from "@components/molecules/select/selectForm"; 
+// import ButtonFormat from "@components/molecules/button/buttonFormat";
+// import TermsCheckbox from "@components/molecules/checkbox/termsCheckbox";
+// import VisualStart from "@components/organisms/visualStart";
+import { InputForm, ButtonFormat, ModalFormat, PasswordInput, SelectForm, TermsCheckbox, LayoutOutside } from 'ui-mathilde-web';
 import {
   RegisterFormService,
   registerUser,
 } from "~/services/registerService";
-import "@styles/styleAtoms.css";
 import { Link, useNavigate } from "react-router-dom";
-import PasswordInput from "@components/molecules/input/passwordInput";
+// import PasswordInput from "@components/molecules/input/passwordInput";
 import usePasswordValidation from "@hooks/usePasswordValidation";
-import ModalFormat from "@components/organisms/modal/modalFormat";
+// import ModalFormat from "@components/organisms/modal/modalFormat";
 import useModal from "@hooks/useModalTerminos";
 import Swal from "sweetalert2";
 import { Formik, Form,  } from "formik";
-import { registerValidationSchema } from "~/validations/registerValidations";
+import { registerValidationSchema } from "@schema/registerSchema";
 
 const RegisterForm: React.FC = () => {
   const { roles } = RegisterFormService;
@@ -96,9 +96,9 @@ const RegisterForm: React.FC = () => {
   return (
     <div className="min-h-screen flex w-full">
       <div className="w-2/4 border-container">
-        <VisualStart />
+        <LayoutOutside />
       </div>
-      <div className="w-2/4">
+      <div className="w-2/4 flex items-center">
         <Formik
           initialValues={initialValues}
           validationSchema={registerValidationSchema}

@@ -1,19 +1,15 @@
   import React, { useState } from "react";
-  import "@styles/styleAtoms.css";
+  import { InputForm, SidebarMth, ButtonFormat, SelectForm, TableOfContents } from 'ui-mathilde-web';
   import Sidebar from "@components/organisms/sidebar/sidebar-pro";
-  import InputForm from "@components/molecules/input/inputForm";
-  import SelectForm from "@components/molecules/select/selectForm";
-  import { RegisterFormService } from "~/services/registerService";
-  import ButtonFormat from "~/components/molecules/button/buttonFormat";
+  
+  import { RegisterFormService } from "@services/registerService";
   // Icons buttons
   import { FaTiktok } from "react-icons/fa";
   import { FaMeta } from "react-icons/fa6";
   import { SiGoogleads } from "react-icons/si";
   // Menu de navegación
-  import TableOfContents from "@components/organisms/table/tableOfContens";
-  import { dataThirdParty } from "~/services/thirdPartyService";
-
-
+  import { dataThirdParty } from "@services/thirdPartyService";
+  
   const thirdPartyCampaignForm: React.FC = () => {
     const menuItems = dataThirdParty.getMenuItems();
     const { roles } = RegisterFormService;
@@ -26,7 +22,7 @@
       role: "",
       email: "",
     });
-    const [isChecked, setIsChecked] = useState(true);
+    const [isChecked, setIsChecked] = useState(false);
     const [isCheckedOrganizacion, setIsCheckedOrganizacion] = useState(true);
     const [isCheckedLimiteGasto, setIsCheckedLimiteGasto] = useState(true);
     const { name, firtsName, company, phone, role, email } = formSetting;
@@ -72,6 +68,10 @@
               </div>
               {isChecked && (
                 <>
+                 <h3>CAMPAÑAS MASIVAS</h3>
+                </>
+              )}
+
                   <h3>INFORMACIÓN DE CAMPAÑAS</h3>
                   <div className="block"> 
                     <InputForm
@@ -111,15 +111,13 @@
                       />
                     </div>
                   
-                  <div className="w-1/2">
-                      <SelectForm
-                          name="Categoría de anuncio especial"
-                          options={roles}
-                      />
+                    <div className="w-1/2">
+                        <SelectForm
+                            name="Categoría de anuncio especial"
+                            options={roles}
+                        />
+                    </div>
                   </div>
-                  </div>
-                </>
-              )}
 
               <div className="flex gap-4">
                 <div className="w-1/2">
@@ -202,6 +200,79 @@
                   </div>
               </section>
               )}
+
+              <section className="w-full">
+                    <div className="block"> 
+                      <h4>INFORMACIÓN CONJUNTO DE ANUNCIOS</h4>
+                      <InputForm
+                        type="text"
+                        placeholder="Nombre de conjunto de anuncios"
+                        name="name"
+                        value={name}
+                        onChange={(e) =>
+                          setformSetting({ ...formSetting, name: e.target.value })
+                        }
+                      />
+                  </div>
+              </section>
+
+              <div className="flex gap-4">
+                <div className="w-1/2">
+                  <h3>PRESUPUESTO DEL CONJUNTO DE ANUNCIOS</h3>
+                </div>
+                <div className="w-1/2 flex justify-end">
+                <label className="inline-flex items-center cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    className="sr-only peer"
+                    checked={isCheckedLimiteGasto}
+                    onChange={(e) => setIsCheckedLimiteGasto(e.target.checked)}
+                  />
+                  <div className="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                </label>
+                </div>
+              </div>
+              {isCheckedLimiteGasto && (
+              <section className="w-full">
+                    <div className="flex w-full gap-4">
+                      <div className="w-1/2">
+                      <h4>GASTO MÍNIMO</h4>
+                        <InputForm
+                          type="number"
+                          placeholder="0 COP"
+                          name="gastoMinimo"
+                        />
+                      </div>
+                    
+                      <div className="w-1/2">
+                      <h4>GASTO MÁXIMO</h4>
+                        <InputForm
+                          type="number"
+                          placeholder="0 COP"
+                          name="gastoMaximo"
+                        />
+                      </div>
+                  </div>
+                  <div className="flex w-full gap-4">
+                      <div className="w-1/2">
+                      <h4>FECHA INICIO</h4>
+                     
+
+                      </div>
+                    
+                      <div className="w-1/2">
+                      <h4>FECHA FINAL</h4>
+                        <InputForm
+                          type="number"
+                          placeholder="0 COP"
+                          name="gastoMaximo"
+                        />
+                      </div>
+                  </div>
+              </section>
+              )}
+
+
 
           </div>   
           <div className="flex w-2/5 flex-col pl-5 bg-gray-100 container-space-top">

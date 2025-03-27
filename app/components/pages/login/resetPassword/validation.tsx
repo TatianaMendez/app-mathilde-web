@@ -1,12 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import VisualStart from '@components/organisms/visualStart';
-import '@styles/styleAtoms.css';
-import InputForm from '@components/molecules/input/inputForm';
+import { LayoutOutside, InputForm } from 'ui-mathilde-web';
 import { useNavigate } from 'react-router-dom';
-import { verifyOtp } from '~/services/codeOTPService'; 
-import { useAuth } from '~/services/autenticationService';
+import { verifyOtp } from '@services/codeOTPService'; 
+import { useAuth } from '@services/autenticationService';
 // import { useAuth } from '~/services/authService';
-
 
 const ValidationPass: React.FC = () => {
   const { login } = useAuth();
@@ -15,6 +12,9 @@ const ValidationPass: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [redirectPath, setRedirectPath] = useState('/'); 
+  //Timer para reenviar el código
+  const [timeLeft, setTimeLeft] = useState(60); 
+  const [isActive, setIsActive] = useState(true);
 
   
   useEffect(() => {
@@ -27,6 +27,33 @@ const ValidationPass: React.FC = () => {
       setRedirectPath('/dashboard');
     }
   }, []);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | undefined = undefined;
+
+    if (isActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((time) => time - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      setIsActive(false);
+      if (interval) {
+        clearInterval(interval);
+      }
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [timeLeft, isActive]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
@@ -45,6 +72,7 @@ const ValidationPass: React.FC = () => {
       handleVerifyOtp(Number(otp));
     }
   };
+
 
   const handleVerifyOtp = async (otp: number) => {
     setLoading(true); 
@@ -72,10 +100,16 @@ const ValidationPass: React.FC = () => {
     }
   };
 
+  const handleResendCode = () => {
+    // Aquí lógica para reenviar el código
+    setTimeLeft(60);
+    setIsActive(true);
+  };
+
   return (
     <div className="min-h-screen flex w-full">
       <div className='w-2/4 border-container'>
-        <VisualStart />
+        <LayoutOutside />
       </div>
       <div className="w-2/4">
         <form className="w-3/5 px-10 bg-white mx-auto rounded-lg flex flex-col justify-center h-full">
@@ -87,7 +121,7 @@ const ValidationPass: React.FC = () => {
               <div className='w-14' key={index}>
                 <InputForm
                   type='text'
-                  classInclude='mth-input-code'
+                  classInclude='mth-input-code text-center'
                   maxLength={1}
                   onChange={(e) => handleInput(e, index)} 
                   ref={(el) => {
@@ -101,6 +135,20 @@ const ValidationPass: React.FC = () => {
           {errorMessage && <p className="text-red-500 text-center">{errorMessage}</p>}
           {loading && <p className="text-blue-500 text-center">Verificando OTP...</p>} 
 
+          <div className='flex justify-between'>
+            {isActive ? (
+              <span className="text-sm underline text-gray-600 cursor-pointer">
+                {formatTime(timeLeft)} para solicitar un nuevo código
+              </span>
+            ) : (
+              <button
+                onClick={handleResendCode}
+                className="text-sm underline text-gray-600 cursor-pointer"
+              >
+                Reenviar código
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

@@ -1,8 +1,10 @@
 import axios from 'axios';
-import type { optionSelect } from "@components/molecules/select/optionSelect";
-// import Swal from 'sweetalert2';
+export interface optionSelect {
+  value: string;
+  label: string;
+}
 
-const API_URL = 'http://ec2-54-145-77-26.compute-1.amazonaws.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/register';
+const API_URL = 'https://mthmocks.pruebasmathilde.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/register';
 
 export const registerUser = async (userData: { formRegister: any }) => {
   console.log(userData); 

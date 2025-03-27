@@ -1,60 +1,60 @@
 import React from 'react';
-import VisualStart from '@components/organisms/visualStart';
-import '@styles/styleAtoms.css';
+import { LayoutOutside, ButtonFormat, ValidationPassword } from 'ui-mathilde-web';
 import { useNavigate } from 'react-router-dom';
-import PasswordInput from '~/components/molecules/input/passwordInput';
-import usePasswordValidation from '~/hooks/usePasswordValidation';
-import ButtonFormat from '~/components/molecules/button/buttonFormat';
+// QUITAR COMPONENTE VALIDATION PASSWORD
+import { Formik, Form } from 'formik';
+import resetPasswordSchema from '@schema/passwordSchema';
+
+interface ResetPasswordValues {
+  password: string;
+  confirmPassword: string;
+}
 
 const ResetPass: React.FC = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();   
 
-  const {
-    password,
-    setPassword,
-    confirmPassword,
-    setConfirmPassword,
-    showError,
-  } = usePasswordValidation();
-  
-  const handleClickTo = () => {
-    console.log('Botón clickeado!');
-    navigate('/'); 
+  const handleSubmit = async (values: ResetPasswordValues) => {
+    try {
+      console.log('Valores del formulario:', values);
+      // Aquí puedes agregar tu lógica para enviar la nueva contraseña al servidor
+      navigate('/'); 
+    } catch (error) {
+      console.error('Error al actualizar la contraseña:', error);
+    }
   };
   
   return (
     <div className="min-h-screen flex w-full">
       <div className='w-2/4 border-container'>
-        <VisualStart />
+        <LayoutOutside />
       </div>
       <div className="w-2/4">
-        <form className="w-3/5 px-10 bg-white mx-auto rounded-lg flex flex-col justify-center h-full">
-          <p className="text-2xl text-center mb-6">Crea una nueva contraseña para ingresar a la plataforma.</p>
-          <div className='block'>
-              <PasswordInput 
-                placeholder='Contraseña'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-          </div>
-          <div className="block">
-              <PasswordInput 
-                placeholder='Confirmar contraseña'
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-          </div>
-              {
-                showError() && (
-                  <div className="mth-msg">
-                    <label>Las contraseñas no coinciden.</label>
-                  </div>
-                )
-              }
-          <div className='flex mt-3'>
-            <ButtonFormat txtBtn={'Confirmar'} typeButton={'default'} full={true} type={'button'} onClick={handleClickTo}/>
-          </div>
-        </form>
+        <Formik
+          initialValues={{
+            password: '',
+            confirmPassword: ''
+          }}
+          validationSchema={resetPasswordSchema}
+          onSubmit={handleSubmit}
+        >
+          {(formikProps) => (
+            <Form className="w-3/5 px-10 bg-white mx-auto rounded-lg flex flex-col justify-center h-full">
+              <p className="text-2xl text-center mb-6">
+                Crea una nueva contraseña para ingresar a la plataforma.
+              </p>
+              <ValidationPassword formik={formikProps} />
+              <div className='flex mt-3'>
+                <ButtonFormat 
+                  txtBtn={'Confirmar'} 
+                  typeButton={'default'} 
+                  full={true} 
+                  type={'submit'}
+                  disabled={!formikProps.isValid || formikProps.isSubmitting}
+                />
+              </div>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
