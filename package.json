@@ -26,7 +26,7 @@
     "react-router": "^7.1.3",
     "react-router-dom": "^7.1.3",
     "sweetalert2": "^11.15.10",
-    "ui-mathilde-web": "^0.0.6",
+    "ui-mathilde-web": "^0.1.6",
     "yup": "^1.6.1"
   },
   "devDependencies": {

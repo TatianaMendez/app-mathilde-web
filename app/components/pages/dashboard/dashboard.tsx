@@ -1,14 +1,16 @@
 import React from "react";
 import { useAuth } from "~/services/autenticationService";
-import { CardIndicator, TableComponent, MyDoughnutChart } from "ui-mathilde-web";
+import {
+  CardIndicator,
+  TableComponent,
+  MyDoughnutChart,
+} from "ui-mathilde-web";
 import Sidebar from "@components/organisms/sidebar/sidebar-pro";
 
 // import CardIndicator from "~/components/organisms/card/cardIndicator";
 // import { useAuth } from "~/services/authService";
 
 const Dashboard: React.FC = () => {
-  const { user } = useAuth();
-
   return (
     <div className="min-h-screen w-full flex">
       <Sidebar />
@@ -117,8 +119,68 @@ const Dashboard: React.FC = () => {
             <div className="flex">
               <div className="w-full p-3">
                 <div className="border bg-white h-full p-3">
-                <h2 className="my-3 font-bold">RESUMEN DE CAMPAÑAS</h2>
-                  <TableComponent />
+                  <h2 className="my-3 font-bold">RESUMEN DE CAMPAÑAS</h2>
+                  <TableComponent
+                    columns={[
+                      {
+                        header: "NOMBRE",
+                        relation: "name",
+                      },
+                      {
+                        header: "OBJETIVO",
+                        relation: "objective",
+                      },
+                      {
+                        header: "PRESUPUESTO",
+                        relation: "budget",
+                      },
+                      {
+                        header: "FECHA INICIO",
+                        relation: "startDate",
+                      },
+                      {
+                        header: "FECHA FIN",
+                        relation: "endDate",
+                      },
+                    ]}
+                    data={[
+                      {
+                        name: "CAMPAÑA_BDB_TC",
+                        objective: "CONVERSIÓN",
+                        budget: "$2.350.000",
+                        startDate: "01/02/2025",
+                        endDate: "30/03/2025",
+                      },
+                      {
+                        name: "CAMPAÑA_BDB_CLI",
+                        objective: "IMPRESIONES",
+                        budget: "$720.000",
+                        startDate: "10/02/2025",
+                        endDate: "15/02/2025",
+                      },
+                      {
+                        name: "CAMPAÑA_BDB_REFERIDOS",
+                        objective: "IMPRESIONES",
+                        budget: "$480.000",
+                        startDate: "10/02/2025",
+                        endDate: "15/02/2025",
+                      },
+                      {
+                        name: "CAMPAÑA_BDB_PREENROLADOS",
+                        objective: "CONVERSIÓN",
+                        budget: "$1.150.000",
+                        startDate: "05/02/2025",
+                        endDate: "18/02/2025",
+                      },
+                      {
+                        name: "CAMPAÑA_BDB_ALIADOS_TU_PLUS",
+                        objective: "IMPRESIONES",
+                        budget: "$560.000",
+                        startDate: "01/02/2025",
+                        endDate: "30/03/2025",
+                      },
+                    ]}
+                  />
                 </div>
               </div>
             </div>

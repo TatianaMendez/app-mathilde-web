@@ -1,0 +1,17 @@
+---
+description: Programming 
+globs: 
+alwaysApply: false
+---
+# File patterns: *.tsx, *.ts
+
+## React Guidelines
+- Use React with TypeScript
+- Use functional components
+- Implement proper prop types
+- Follow React best practices
+- Check the file directory to follow the logic already established
+
+## Style
+- Use Tailwind CSS V 3.4.17
+- Follow team's style guide
