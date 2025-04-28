@@ -1,4 +1,5 @@
 export interface Campaign {
+  status: boolean;
   name: string;
   platform: string;
   startDate: string;
@@ -15,9 +16,15 @@ export interface Campaign {
 export interface TableColumn {
   header: string;
   relation: keyof Campaign;
+  isToggle?: boolean;
 }
 
 export const tableColumns: TableColumn[] = [
+  {
+    header: "ESTADO",
+    relation: "status",
+    isToggle: true
+  },
   {
     header: "NOMBRE CAMPAÑAS",
     relation: "name",
@@ -66,6 +73,7 @@ export const tableColumns: TableColumn[] = [
 
 export const campaignData: Campaign[] = [
     {
+        status: false,
         name: "CAMPAÑA_BDB_TC",
         platform: "META",
         startDate: "01/02/2025",
@@ -78,7 +86,8 @@ export const campaignData: Campaign[] = [
         ctr: "10",
         cpc: "$10",
       },
-      {
+      { 
+        status: true,
         name: "CAMPAÑA_BDB_CLI",
         platform: "META",
         startDate: "10/02/2025",
@@ -91,7 +100,8 @@ export const campaignData: Campaign[] = [
         ctr: "10",
         cpc: "$10",
       },
-      {
+      { 
+        status: false,
         name: "CAMPAÑA_BDB_REFERIDOS",
         platform: "GOOGLE",
         startDate: "10/02/2025",
@@ -105,6 +115,7 @@ export const campaignData: Campaign[] = [
         cpc: "$10",
       },
       {
+        status: true,
         name: "CAMPAÑA_BDB_REFERIDOS",
         platform: "GOOGLE",
         startDate: "10/02/2025",
@@ -118,6 +129,7 @@ export const campaignData: Campaign[] = [
         cpc: "$10",
       },
       {
+        status: true,
         name: "CAMPAÑA_BDB_REFERIDOS",
         platform: "META",
         startDate: "10/02/2025",
@@ -131,6 +143,7 @@ export const campaignData: Campaign[] = [
         cpc: "$10",
       },
       {
+        status: true,
         name: "CAMPAÑA_BDB_REFERIDOS",
         platform: "TIKTOK",
         startDate: "10/02/2025",
@@ -144,6 +157,7 @@ export const campaignData: Campaign[] = [
         cpc: "$10",
       },
       {
+        status: true,
         name: "CAMPAÑA_BDB_REFERIDOS",
         platform: "META",
         startDate: "10/02/2025",
@@ -157,6 +171,7 @@ export const campaignData: Campaign[] = [
         cpc: "$10",
       },
       {
+        status: true,
         name: "CAMPAÑA_BDB_REFERIDOS",
         platform: "TIKTOK",
         startDate: "10/02/2025",
@@ -170,6 +185,7 @@ export const campaignData: Campaign[] = [
         cpc: "$10",
       },
       {
+        status: true,
         name: "CAMPAÑA_BDB_REFERIDOS",
         platform: "META",
         startDate: "10/02/2025",

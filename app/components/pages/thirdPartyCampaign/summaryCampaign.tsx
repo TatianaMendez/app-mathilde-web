@@ -9,6 +9,13 @@ import { BsStack } from 'react-icons/bs';
 // import { tableColumns, campaignData } from '@services/paidMediaService';
 import { tableColumns } from '@services/paidMediaService';
 
+interface CampaignWithId extends Record<string, any> {
+  id: string;
+  status: boolean;
+  name: string;
+  platform: string;
+}
+
 const summaryCampaign: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,27 +23,50 @@ const summaryCampaign: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'all' | 'META' | 'GOOGLE' | 'TIKTOK'>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [localData, setLocalData] = useState<CampaignWithId[]>([]);
   
   useEffect(() => {
     const locationData = location.state as { campaignData: any[] } | undefined;
-    const initialData = locationData?.campaignData || [];
-    console.log('Inicializando campaignData:', initialData);
-    setCampaignData(initialData);
+    const initialData = locationData?.campaignData || campaignData;
+    
+    // Asignar IDs únicos a cada campaña
+    const dataWithIds = initialData.map((item, index) => ({
+      ...item,
+      id: `${item.name}-${item.platform}-${index}`
+    }));
+    
+    setLocalData(dataWithIds);
   }, [location.state]);
   
   const toggleModal = () => setIsModalOpen(prev => !prev);
 
-  const getFilteredData = (): Record<string, any>[] => {
+  const getFilteredData = (): CampaignWithId[] => {
     if (activeFilter === 'all') {
-      return campaignData;
+      return localData;
     }
-    return campaignData.filter((item: any) => item.platform === activeFilter);
+    return localData.filter((item) => item.platform === activeFilter);
   };
 
-  // Modificamos la función de filtrado para resetear la página
   const handleFilterChange = (filter: 'all' | 'META' | 'GOOGLE' | 'TIKTOK') => {
     setActiveFilter(filter);
     setCurrentPage(1); 
+  };
+
+  const handleToggleChange = ({ rowId, checked, row, columnKey }: { rowId: string | number; checked: boolean; row: any; columnKey: string }) => {
+    console.table({
+      rowId,
+      field: columnKey,
+      oldValue: row[columnKey],
+      newValue: checked
+    });
+    
+    setLocalData(prev => 
+      prev.map(item => 
+        item.id === rowId
+          ? { ...item, [columnKey]: checked }
+          : item
+      )
+    );
   };
 
   return (
@@ -61,28 +91,28 @@ const summaryCampaign: React.FC = () => {
               <button 
                 type="button" 
                 className={`px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white ${activeFilter === 'all' ? 'bg-blue-50' : ''}`}
-                onClick={() => setActiveFilter('all')}
+                onClick={() => handleFilterChange('all')}
               >
                 <BsStack className={`text-2xl ${activeFilter === 'all' ? 'text-blue-700' : 'text-gray-500'}`}/>
               </button>
               <button 
                 type="button" 
                 className={`px-3 py-2 text-sm font-medium text-gray-900 bg-white border-r border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white ${activeFilter === 'META' ? 'bg-blue-50' : ''}`}
-                onClick={() => setActiveFilter('META')}
+                onClick={() => handleFilterChange('META')}
               >
                 <FaMeta className={`text-2xl ${activeFilter === 'META' ? 'text-blue-700' : 'text-gray-500'}`}/>
               </button>
               <button 
                 type="button" 
                 className={`px-3 py-2 text-sm font-medium text-gray-900 bg-white border-l border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white ${activeFilter === 'GOOGLE' ? 'bg-blue-50' : ''}`}
-                onClick={() => setActiveFilter('GOOGLE')}
+                onClick={() => handleFilterChange('GOOGLE')}
               >
                 <SiGoogleads className={`text-2xl ${activeFilter === 'GOOGLE' ? 'text-blue-700' : 'text-gray-500'}`}/>
               </button>
               <button 
                 type="button" 
                 className={`px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white ${activeFilter === 'TIKTOK' ? 'bg-blue-50' : ''}`}
-                onClick={() => setActiveFilter('TIKTOK')}
+                onClick={() => handleFilterChange('TIKTOK')}
               >
                 <FaTiktok className={`text-2xl ${activeFilter === 'TIKTOK' ? 'text-blue-700' : 'text-gray-500'}`}/>
               </button>
@@ -92,11 +122,12 @@ const summaryCampaign: React.FC = () => {
 
         <div className="flex">
           <TableComponent 
-            key={activeFilter}
+            key={`${activeFilter}-table`}
             showSearch={true} 
             itemsPerPage={4}
             columns={tableColumns}
             data={getFilteredData()}
+            onToggleChange={handleToggleChange}
           />
         </div>
       </div>
