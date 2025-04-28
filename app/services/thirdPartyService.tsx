@@ -1,8 +1,18 @@
 import { FaFlag, FaFacebook, FaPause } from "react-icons/fa";
 
-import type { MenuItem } from "@components/organisms/table/tableOfContens.types";
 import { IoMegaphone } from "react-icons/io5";
 import { BiSolidDashboard } from "react-icons/bi";
+
+import type { IconType } from 'react-icons';
+
+export interface MenuItem {
+  id: string;
+  title: string;
+  href: string;
+  isActive?: boolean;
+  icon?: IconType;
+  subItems?: MenuItem[];
+}
 
 
 export const dataThirdParty = {

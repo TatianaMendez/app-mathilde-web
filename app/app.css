@@ -33,15 +33,15 @@ h1, h2, h3, h4, h5, h6{
 }
 
 h1{
-  font-size: 28px;
+  font-size: 28px !important;
 }
 
 h2{
-  font-size: 20px;
+  font-size: 20px !important;
 }
 
 h3{
-  font-size: 15px;
+  font-size: 15px !important;
 }
 
 .title-dashboard{
@@ -54,10 +54,9 @@ h3{
 }
 
 .list>li{
-  font-size: 15px;
+  font-size: 13px;
   margin-bottom: 7px;
 }
-
 
 .container-space{
   padding: 20px 20px 20px 120px;
@@ -67,21 +66,6 @@ h3{
   padding-top: 20px;
 }
 
-.m-image-container {
-  position: absolute;
-  width: 500px;
-  height: 495px;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  bottom: 0;
-}
-
-.m-image {
-  position: relative;
-  bottom: -55px;
-  right: 64px;
-}
 
 .border-container{
   border-right: 2px solid #B5B5B5;

@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { InputForm, ButtonFormat, ModalFormat, PasswordInput, LayoutOutside } from 'ui-mathilde-web';
-// import InputForm from '@components/molecules/input/inputForm';
-// import ButtonFormat from '@components/molecules/button/buttonFormat';
-// import VisualStart from '@components/organisms/visualStart';
-// import ModalFormat from '@components/organisms/modal/modalFormat';
-// import '@styles/styleAtoms.css';
-// import PasswordInput from '@components/molecules/input/passwordInput';
 import { useAuth } from '@services/autenticationService';
 // import { useAuth } from '~/services/authService';
 import LoginRedirect from '../dsp';
@@ -125,17 +119,6 @@ const LoginForm: React.FC = () => {
               </Form>
             )}
           </Formik>
-          {/* <div className="flex items-center">
-            <hr className="mth-line mr-0.5"/><p> o </p><hr className="mth-line ml-0.5" />
-          </div>
-          <div className='flex justify-end mt-3'>
-            <ButtonFormat txtBtn={'Continuar con Google'} typeButton={'border'} full={true} type={'button'} disabled={false} className={''} />
-          </div>
-          <div className='flex justify-end my-3'>
-            <ButtonFormat txtBtn={'Continuar con Microsoft'} typeButton={'border'} full={true} type={'button'} disabled={false} className={''} />
-          </div> */}
-          {/* <LoginRedirect email="tatiana.mendez@avaldigitallabs.com" password="Chocorramo1974." /> */}
-
           <div className='flex'>
             <p>¿Aún no tienes una cuenta de Mathilde Ads? &nbsp; </p>
             <span className='font-medium text-base cursor-pointer underline'><Link to="/register">Regístrate</Link></span>

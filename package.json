@@ -24,9 +24,9 @@
     "react-icons": "^5.4.0",
     "react-pro-sidebar": "^1.1.0",
     "react-router": "^7.1.3",
-    "react-router-dom": "^7.1.3",
-    "sweetalert2": "^11.15.10",
-    "ui-mathilde-web": "^0.0.6",
+    "react-router-dom": "^7.5.2",
+    "sweetalert2": "^11.6.15",
+    "ui-mathilde-web": "^0.1.8",
     "yup": "^1.6.1"
   },
   "devDependencies": {
