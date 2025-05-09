@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "@components/organisms/sidebar/sidebar-pro";
-import { ButtonFormat, CardFormat, ModalFormat, TableComponent } from "ui-mathilde-web";
+import { ButtonFormat, Card, ModalFormat, TableComponent } from "ui-mathilde-web";
 import { SiGoogleads } from "react-icons/si";
 import { FaMeta } from "react-icons/fa6";
 import { FaTiktok } from "react-icons/fa";
@@ -16,7 +16,7 @@ interface CampaignWithId extends Record<string, any> {
   platform: string;
 }
 
-const summaryCampaign: React.FC = () => {
+const SummaryCampaign: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [campaignData, setCampaignData] = useState<any[]>([]);
@@ -26,15 +26,22 @@ const summaryCampaign: React.FC = () => {
   const [localData, setLocalData] = useState<CampaignWithId[]>([]);
   
   useEffect(() => {
+    let initialData: any[] = [];
     const locationData = location.state as { campaignData: any[] } | undefined;
-    const initialData = locationData?.campaignData || campaignData;
-    
+    if (locationData?.campaignData) {
+      initialData = locationData.campaignData;
+      sessionStorage.setItem('campaignDataResumen', JSON.stringify(initialData));
+    } else {
+      const stored = sessionStorage.getItem('campaignDataResumen');
+      if (stored) {
+        initialData = JSON.parse(stored);
+      }
+    }
     // Asignar IDs únicos a cada campaña
     const dataWithIds = initialData.map((item, index) => ({
       ...item,
       id: `${item.name}-${item.platform}-${index}`
     }));
-    
     setLocalData(dataWithIds);
   }, [location.state]);
   
@@ -60,13 +67,22 @@ const summaryCampaign: React.FC = () => {
       newValue: checked
     });
     
-    setLocalData(prev => 
-      prev.map(item => 
+    setLocalData(prev => {
+      const updated = prev.map(item => 
         item.id === rowId
           ? { ...item, [columnKey]: checked }
           : item
-      )
-    );
+      );
+      // Guardar en sessionStorage para persistencia
+      sessionStorage.setItem('campaignDataResumen', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const formatUSD = (value: any) => {
+    const num = Number(String(value).replace(/[^0-9]/g, ""));
+    if (isNaN(num)) return value;
+    return num.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
   };
 
   return (
@@ -124,9 +140,12 @@ const summaryCampaign: React.FC = () => {
           <TableComponent 
             key={`${activeFilter}-table`}
             showSearch={true} 
-            itemsPerPage={4}
+            itemsPerPage={20}
             columns={tableColumns}
-            data={getFilteredData()}
+            data={getFilteredData().map(item => ({
+              ...item,
+              budget: formatUSD(item.budget)+' USD'
+            }))}
             onToggleChange={handleToggleChange}
           />
         </div>
@@ -138,12 +157,12 @@ const summaryCampaign: React.FC = () => {
             <div className='flex'>
               <div className="w-3/6 p-2 flex">
               <Link to="/thirdPartyCampaign">
-                  <CardFormat image={{"type": "image", "name": 'window'}} title='Campañas manuales' description=''/>
+                  <Card imageUrl='https://ftp.mathilde-ads.com/151-605f91d40859d5d52379b6753401b68f.svg' title='Campañas manuales' description=''/>
               </Link>
               </div>
               <div className="w-3/6 p-2 flex">
               <Link to="/massiveCampaign">
-                  <CardFormat image={{"type": "image", "name": 'robot'}} title='Campañas masivas' description=''/>
+                  <Card imageUrl='https://ftp.mathilde-ads.com/151-d41c45a31a82b5e2519657b41a04ae94.svg' title='Campañas masivas' description=''/>
               </Link>
               </div>
             </div>
@@ -154,4 +173,4 @@ const summaryCampaign: React.FC = () => {
   );
 };
 
-export default summaryCampaign;
+export default SummaryCampaign;

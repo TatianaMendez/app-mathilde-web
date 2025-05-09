@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "@components/organisms/sidebar/sidebar-pro";
 import { ButtonFormat, ListFile, Dropzone, Spinner } from "ui-mathilde-web";
@@ -54,17 +54,22 @@ interface CampaignData {
   ads: Ad[];
 }
 
-const massiveCampaigns: React.FC = () => {
+const MassiveCampaigns: React.FC = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [campaignData, setCampaignData] = useState<any>(null);
   const navigate = useNavigate();
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const selectedFiles = Array.from(event.target.files);
-      setFiles((prevFiles) => [...prevFiles, ...selectedFiles]);
+  useEffect(() => {
+    const stored = sessionStorage.getItem('Campaign');
+    if (stored) {
+      setCampaignData(JSON.parse(stored));
     }
+  }, []);
+
+  const handleFileChange = (files: File[]) => {
+    setFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
   const handleDeleteFile = (fileToDelete: File) => {
@@ -149,28 +154,52 @@ const massiveCampaigns: React.FC = () => {
     const types = rows[0].map(type => type.trim().toLowerCase());
     const fields = rows[1].map(field => field.trim().toLowerCase());
     
+    // Guardar los nombres de los campos y tipos en localStorage
+    localStorage.setItem('csv_fields', JSON.stringify(fields));
+    localStorage.setItem('csv_types', JSON.stringify(types));
+    
     console.log('Tipos:', types);
     console.log('Campos:', fields);
 
     if (types.length !== fields.length) {
-      console.warn('El número de tipos no coincide con el número de campos');
-      throw new Error('El formato del archivo no es válido');
-    }
+        console.warn('El número de tipos no coincide con el número de campos');
+        throw new Error('El formato del archivo no es válido');
+      }
 
     // Detectar si es Google por el campo Platform en la primera fila de datos
     const isGoogle = rows[2][0]?.toLowerCase().includes('google');
     if (isGoogle) {
-      // Procesar cada fila de datos como una campaña
-      const googleCampaigns = [];
+      const googleCampaigns: any[] = [];
+      const googleAdSets: any[] = [];
+      const googleAds: any[] = [];
+
       for (let i = 2; i < rows.length; i++) {
         const values = rows[i];
         const campaignObj: any = {};
+        const adSetObj: any = {};
+        const adObj: any = {};
+
         fields.forEach((field, idx) => {
-          campaignObj[field] = values[idx];
+          const type = types[idx];
+          const value = values[idx];
+          if (!field) return;
+          if (type === 'campaign') {
+            campaignObj[field] = value;
+          } else if (type === 'ad set') {
+            adSetObj[field] = value;
+          } else if (type === 'ads') {
+            adObj[field] = value;
+          }
         });
-        googleCampaigns.push(campaignObj);
+
+        // Solo agrega si hay datos relevantes
+        if (Object.keys(campaignObj).length > 0) googleCampaigns.push(campaignObj);
+        if (Object.keys(adSetObj).length > 0) googleAdSets.push(adSetObj);
+        if (Object.keys(adObj).length > 0) googleAds.push(adObj);
       }
-      return { campaignData: googleCampaigns, adSetData: [], adData: [] };
+
+      console.log('Datos procesados:', { campaignData: googleCampaigns, adSetData: googleAdSets, adData: googleAds });
+      return { campaignData: googleCampaigns, adSetData: googleAdSets, adData: googleAds };
     }
 
     const campaignData: Campaign[] = [];
@@ -289,6 +318,9 @@ const massiveCampaigns: React.FC = () => {
     }
 
     console.log('Datos procesados:', { campaignData, adSetData, adData });
+    const Campaign = { campaignData, adSetData, adData };
+    sessionStorage.setItem('Campaign', JSON.stringify(Campaign));
+    setCampaignData(Campaign);
     return { campaignData, adSetData, adData };
   };
 
@@ -299,13 +331,13 @@ const massiveCampaigns: React.FC = () => {
         ? true
         : false,
     name: campaign.name,
-    platform: 'META',
+    platform: 'META', 
     startDate: adSet?.start_time_original || adSet?.start_time || '',
     endDate: adSet?.end_time_original || adSet?.end_time || '',
     budget: adSet?.budget?.toString() || '0',
     spent: '0',
     impressions: '0',
-    cmp: '0',
+    cpm: '0',
     clicksUrl: '0',
     ctr: '0',
     cpc: '0'
@@ -317,14 +349,14 @@ const massiveCampaigns: React.FC = () => {
       typeof row.status === 'string' && row.status.trim().toUpperCase() === 'ACTIVE'
         ? true
         : false,
-    name: row.name,
+    name: row.name || row.campaign_name || '',
     platform: 'GOOGLE',
     startDate: row['start date'] || '',
     endDate: row['end date'] || '',
     budget: row['budget']?.toString() || '0',
     spent: '0',
     impressions: '0',
-    cmp: '0',
+    cpm: '0',
     clicksUrl: '0',
     ctr: '0',
     cpc: '0'
@@ -367,6 +399,9 @@ const massiveCampaigns: React.FC = () => {
         throw new Error('No se encontraron datos válidos en los archivos');
       }
 
+      // Guardar SIEMPRE la data transformada en sessionStorage
+      sessionStorage.setItem('campaignDataResumen', JSON.stringify(allTransformedCampaigns));
+
       // Delay antes de la navegación
       await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -385,17 +420,15 @@ const massiveCampaigns: React.FC = () => {
   };
 
   const handleDownloadTemplate = (platform: string) => {
-    const fileName = platform === 'meta' 
-      ? 'meta_campaign_template.csv'
+    const fileUrl = platform === 'meta' 
+      ? 'https://d1h7f3ppz16fle.cloudfront.net/RecursosMathilde/Mathilde-web/files/meta_campaign_template.csv'
       : platform === 'google'
-      ? 'google_campaign_template.csv'
+      ? 'https://d1h7f3ppz16fle.cloudfront.net/RecursosMathilde/Mathilde-web/files/google_campaign_template.csv'
       : 'tiktok_campaign_template.csv';
-
-    const fileUrl = `/assets/files/${fileName}`;
 
     const link = document.createElement('a');
     link.href = fileUrl;
-    link.download = fileName;
+    link.download = fileUrl.split('/').pop() || 'template.csv';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -461,39 +494,43 @@ const massiveCampaigns: React.FC = () => {
                     disabled={false}
                     onClick={() => handleDownloadTemplate('google')}
                   />
-                  <ButtonFormat
-                    txtBtn="Plantilla Tiktok"
-                    leftIcon={FaTiktok}
-                    typeButton="border"
-                    full={false}
-                    type="button"
-                    disabled={false}
-                    onClick={() => handleDownloadTemplate('tiktok')}
-                  />
                 </div>
               </div>
-              {files.length > 0 && (
-                <div className="flex flex-col mb-4">
-                  <h3 className="my-4 font-bold">ARCHIVOS CARGADOS </h3>
-                  <ListFile files={files} onDelete={handleDeleteFile} />
-                  <div className="flex gap-3 w-full items-center justify-end">
-                    <ButtonFormat
-                      txtBtn="Cancelar"
-                      typeButton="border"
-                      full={false}
-                      type="button"
-                      onClick={() => setFiles([])}
-                    />
-                    <ButtonFormat
-                      txtBtn="Siguiente"
-                      typeButton="default"
-                      full={false}
-                      type="button"
-                      onClick={handleSendFiles}
-                    />
-                  </div>
-                </div>
-              )}
+                {
+                  files.length === 0 ? (
+                    <div className="flex gap-3 w-full items-center justify-end">
+                      <ButtonFormat
+                        txtBtn="Regresar"
+                        typeButton="border"
+                        full={false}
+                        type="button"
+                        onClick={() => navigate('/summaryCampaign')}
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex flex-col mb-4">
+                      <h3 className="my-4 font-bold">ARCHIVOS CARGADOS </h3>
+                      <ListFile files={files} onDelete={handleDeleteFile} />
+                      <div className="flex gap-3 w-full items-center justify-end">
+                        <ButtonFormat
+                          txtBtn="Cancelar"
+                          typeButton="border"
+                          full={false}
+                          type="button"
+                          onClick={() => setFiles([])}
+                        />
+                        <ButtonFormat
+                          txtBtn="Siguiente"
+                          typeButton="default"
+                          full={false}
+                          type="button"
+                          onClick={handleSendFiles}
+                        />
+                      </div>
+                    </div>
+                  )
+                }
+              
             </section>
           </div>
         </div>
@@ -502,4 +539,4 @@ const massiveCampaigns: React.FC = () => {
   );
 };
 
-export default massiveCampaigns;
+export default MassiveCampaigns;

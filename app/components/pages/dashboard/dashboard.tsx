@@ -4,6 +4,7 @@ import {
   CardIndicator,
   TableComponent,
   MyDoughnutChart,
+  DateRangePicker,
 } from "ui-mathilde-web";
 import Sidebar from "@components/organisms/sidebar/sidebar-pro";
 
@@ -15,7 +16,10 @@ const Dashboard: React.FC = () => {
     <div className="min-h-screen w-full flex">
       <Sidebar />
       <div className="min-h-screen container-space">
-        <h1 className="font-bold mb-3">DASHBOARD</h1>
+        <div className="flex w-full justify-between items-center">
+          <h1 className="font-bold mb-3">DASHBOARD</h1>
+          <DateRangePicker />
+        </div>
 
         <div className="bg-gray-50 h-full flex">
           <div className="flex flex-col w-2/5">
@@ -145,6 +149,7 @@ const Dashboard: React.FC = () => {
                     ]}
                     data={[
                       {
+                        id: "1",
                         name: "CAMPAÑA_BDB_TC",
                         objective: "CONVERSIÓN",
                         budget: "$2.350.000",
@@ -152,6 +157,7 @@ const Dashboard: React.FC = () => {
                         endDate: "30/03/2025",
                       },
                       {
+                        id: "2",
                         name: "CAMPAÑA_BDB_CLI",
                         objective: "IMPRESIONES",
                         budget: "$720.000",
@@ -159,6 +165,7 @@ const Dashboard: React.FC = () => {
                         endDate: "15/02/2025",
                       },
                       {
+                        id: "3",
                         name: "CAMPAÑA_BDB_REFERIDOS",
                         objective: "IMPRESIONES",
                         budget: "$480.000",
@@ -166,6 +173,7 @@ const Dashboard: React.FC = () => {
                         endDate: "15/02/2025",
                       },
                       {
+                        id: "4",
                         name: "CAMPAÑA_BDB_PREENROLADOS",
                         objective: "CONVERSIÓN",
                         budget: "$1.150.000",
@@ -173,6 +181,7 @@ const Dashboard: React.FC = () => {
                         endDate: "18/02/2025",
                       },
                       {
+                        id: "5",
                         name: "CAMPAÑA_BDB_ALIADOS_TU_PLUS",
                         objective: "IMPRESIONES",
                         budget: "$560.000",

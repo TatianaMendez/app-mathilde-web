@@ -1,6 +1,6 @@
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
 import { useState } from 'react';
-import { ModalFormat, ImageFormat, CardFormat} from 'ui-mathilde-web';
+import { ModalFormat, ImageFormat, Card} from 'ui-mathilde-web';
 
 import { useAuth } from '@services/autenticationService';
 const imagesPath = import.meta.env.VITE_MICROFRONENT_URL;
@@ -8,11 +8,11 @@ import { FaListAlt } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { FaUsers } from "react-icons/fa";
 import { AiFillPieChart } from "react-icons/ai";
-import { BsFillFileTextFill } from "react-icons/bs";
 import { IoSettingsSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { IoIosExit } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
+import { FaRobot } from "react-icons/fa6";
 
 const SidebarMth = () => {
   const { logout } = useAuth();
@@ -77,8 +77,37 @@ const SidebarMth = () => {
               Campañas 
             </MenuItem>
             <MenuItem 
+              icon={<FaRobot className="text-xl" />}
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'https://pruebasmathilde.com/chatbot-frontend/';
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.click();
+              }}
+              className="bg-white my-1 mb-2 mx-3 rounded-md hover:bg-opacity-90"
+              rootStyles={{
+                button: {
+                  width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
+                  margin: collapsed ? '0 0.25rem' : '0 0.5rem',
+                  color: '#483FFF',
+                  '&:hover': {
+                    color: '#483FFF',
+                  },
+                },
+              }}
+            > 
+              Asistente IA 
+            </MenuItem>
+            <MenuItem 
               icon={<BsFillBoxSeamFill className="text-xl" />}
-              onClick={() => window.open('https://ssp.mathilde-ads.com/login', '_blank')}
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'https://ssp.mathilde-ads.com/login';
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.click();
+              }}
               className="bg-white my-1 mb-2 mx-3 rounded-md hover:bg-opacity-90"
               rootStyles={{
                 button: {
@@ -95,7 +124,13 @@ const SidebarMth = () => {
             </MenuItem>
             <MenuItem 
               icon={<FaUsers className="text-xl" />} 
-              onClick={() => window.open('https://dsp.mathilde-ads.com/login', '_blank')}
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = 'https://dsp.mathilde-ads.com/login';
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.click();
+              }}
               className="bg-white my-1 mb-2 mx-3 rounded-md hover:bg-opacity-90"
               rootStyles={{
                 button: {
@@ -108,7 +143,9 @@ const SidebarMth = () => {
                 },
               }}
             > Audiencias </MenuItem>
-            <MenuItem icon={<AiFillPieChart className="text-xl"/>} onClick={() => handleModalToggle('reportes')} className="bg-white my-1 mb-2 mx-3 rounded-md hover:bg-opacity-90" rootStyles={{
+            <MenuItem icon={<AiFillPieChart className="text-xl"/>} 
+            onClick={() => navigate('/report')}
+            className="bg-white my-1 mb-2 mx-3 rounded-md hover:bg-opacity-90" rootStyles={{
               button: {
                 width: collapsed ? 'calc(100% - 0.5rem)' : 'calc(100% - 1rem)',
                 margin: collapsed ? '0 0.25rem' : '0 0.5rem',
@@ -136,7 +173,6 @@ const SidebarMth = () => {
               Configuración 
             </MenuItem>
           </Menu>
-
           <div className='mt-auto self-end p-4 w-full cursor-pointer'>
             <div className='flex justify-center bg-white rounded-md p-2' onClick={logout}>
               <button className='text-3xl' style={{ color: '#483FFF' }} ><IoIosExit /></button>
@@ -150,25 +186,18 @@ const SidebarMth = () => {
             <h2 className='text-center font-bold mb-3'>Selecciona el tipo de campaña que quieres crear</h2>
             <div className='flex'>
               <div className="w-3/6 p-2 flex" onClick={() => window.open('https://dsp.mathilde-ads.com/login', '_blank')}>
-                  <CardFormat image={{"type": "image", "name": 'medios-propios'}} title='Medios Propios' description='Crea y administra campañas a los usuarios que ingresan a tus canales.'/>
+                  <Card imageUrl='https://ftp.mathilde-ads.com/151-ace94cf43477f7394e72ff6819cc621a.svg' title='Medios Propios' description='Crea y administra campañas a los usuarios que ingresan a tus canales.'/>
               </div>
               <div className="w-3/6 p-2 flex">
-              <Link to="/summaryCampaign">
-                  <CardFormat image={{"type": "image", "name": 'medios-pagos'}}  title='Medios Pagos' description='Activa campañas de Marketing Digital usando inventario de Redes Sociales y Google.'/>
-              </Link>
+                <Link
+                  to="/summaryCampaign"
+                  onClick={() => setActiveModal(null)}
+                >
+                  <Card imageUrl='https://ftp.mathilde-ads.com/151-1625a87e98d0195b779465fd1e699481.svg' title='Medios Pagos' description='Activa campañas de Marketing Digital usando inventario de Redes Sociales y Google.'/>
+                  </Link>
               </div>
             </div>
           </div>
-        </ModalFormat>
-
-        <ModalFormat isOpen={activeModal === 'audiencias'} onClose={() => setActiveModal(null)}>
-          <h2>Audiencias</h2>
-          {/* Contenido del modal de audiencias */}
-        </ModalFormat>
-
-        <ModalFormat isOpen={activeModal === 'reportes'} onClose={() => setActiveModal(null)}>
-          <h2>Reportes</h2>
-          {/* Contenido del modal de reportes */}
         </ModalFormat>
       </div>
     </div>

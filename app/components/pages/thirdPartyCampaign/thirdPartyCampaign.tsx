@@ -1,5 +1,5 @@
   import React, { useState } from "react";
-  import { InputForm, SidebarMth, ButtonFormat, SelectForm, TableOfContents } from 'ui-mathilde-web';
+  import { InputForm, SidebarPro, ButtonFormat, SelectForm, TableOfContents } from 'ui-mathilde-web';
   import Sidebar from "@components/organisms/sidebar/sidebar-pro";
   
   import { RegisterFormService } from "@services/registerService";
@@ -10,7 +10,7 @@
   // Menu de navegación
   import { dataThirdParty } from "@services/thirdPartyService";
   
-  const thirdPartyCampaignForm: React.FC = () => {
+  const ThirdPartyCampaignForm: React.FC = () => {
     const menuItems = dataThirdParty.getMenuItems();
     const { roles } = RegisterFormService;
     const [isEditing, setIsEditing] = useState(false);
@@ -264,4 +264,4 @@
     );
   };
 
-  export default thirdPartyCampaignForm;
+  export default ThirdPartyCampaignForm;
