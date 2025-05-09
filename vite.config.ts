@@ -23,6 +23,7 @@ export default defineConfig({
         './ThirdPartyCampaign': './app/components/pages/thirdPartyCampaign/thirdPartyCampaign.tsx',
         './SettingsUser': './app/components/pages/settings/settings.tsx',
         './autenticationService': './app/services/autenticationService.tsx',
+        './Report': './app/components/pages/report/report.tsx',
       },
       remotes: {},
       shared: ['react', 'react-dom', 'react-router-dom', 'react-icons'],

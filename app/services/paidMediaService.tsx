@@ -7,7 +7,7 @@ export interface Campaign {
   budget: string;
   spent: string;
   impressions: string;
-  cmp: string;
+  cpm: string;
   clicksUrl: string;
   ctr: string;
   cpc: string;
@@ -17,13 +17,21 @@ export interface TableColumn {
   header: string;
   relation: keyof Campaign;
   isToggle?: boolean;
+  toggleText?: {
+    active: string;
+    inactive: string;
+  };
 }
 
 export const tableColumns: TableColumn[] = [
   {
     header: "ESTADO",
     relation: "status",
-    isToggle: true
+    isToggle: true,
+    toggleText: {
+      active: "ACTIVA",
+      inactive: "PAUSA"
+    }
   },
   {
     header: "NOMBRE CAMPAÑAS",
@@ -54,8 +62,8 @@ export const tableColumns: TableColumn[] = [
     relation: "impressions",
   },
   {
-    header: "CMP",
-    relation: "cmp",
+    header: "CPM",
+    relation: "cpm",
   },
   {
     header: "CLICS URL",
@@ -81,7 +89,7 @@ export const campaignData: Campaign[] = [
         budget: "$1.000.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -95,7 +103,7 @@ export const campaignData: Campaign[] = [
         budget: "$720.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -109,7 +117,7 @@ export const campaignData: Campaign[] = [
         budget: "$480.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -123,7 +131,7 @@ export const campaignData: Campaign[] = [
         budget: "$480.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -137,7 +145,7 @@ export const campaignData: Campaign[] = [
         budget: "$480.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -151,7 +159,7 @@ export const campaignData: Campaign[] = [
         budget: "$480.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -165,7 +173,7 @@ export const campaignData: Campaign[] = [
         budget: "$480.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -179,7 +187,7 @@ export const campaignData: Campaign[] = [
         budget: "$480.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",
@@ -193,7 +201,7 @@ export const campaignData: Campaign[] = [
         budget: "$480.000",
         spent: "$500.000",
         impressions: "100.000",
-        cmp: "10",
+        cpm: "10",
         clicksUrl: "100",
         ctr: "10",
         cpc: "$10",

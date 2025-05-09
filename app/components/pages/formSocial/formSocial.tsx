@@ -6,7 +6,7 @@ import * as yup from 'yup';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 import Swal from 'sweetalert2';
-import { InputForm, SidebarMth, Checkbox, SelectForm } from 'ui-mathilde-web';
+import { InputForm, SidebarPro, Checkbox, SelectForm } from 'ui-mathilde-web';
 // COMPONENTES CUSTOM
 // import Checkbox from 'app/components/molecules/checkbox/Checkbox';
 // import Input from 'app/components/molecules/input/inputForm';
@@ -278,7 +278,7 @@ const CampaignForm: React.FC = () => {
         text: 'Por favor espere',
         allowOutsideClick: false,
         didOpen: () => {
-          Swal.showLoading();
+          Swal.showLoading(Swal.getConfirmButton());
         }
       });
 

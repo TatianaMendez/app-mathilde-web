@@ -18,22 +18,25 @@ interface UseAuthentication {
 const AuthContext = createContext<UseAuthentication | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const getInitialUser = (): User | null => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             try {
                 const parsedUser = JSON.parse(storedUser);
-                setUser(parsedUser);
+                if (!parsedUser.expiresAt || parsedUser.expiresAt > Date.now()) {
+                    return { username: parsedUser.username };
+                }
             } catch (error) {
                 localStorage.removeItem('user');
-                setUser(null);
             }
         }
-    }, []);
+        return null;
+    };
+
+    const [user, setUserState] = useState<User | null>(getInitialUser);
 
     const login = async (user: string, pass: string) => {
         try {
@@ -43,8 +46,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             );
 
             if (response.data && response.data.username) {
-                setUser({ username: response.data.username });
-                localStorage.setItem('user', JSON.stringify({ username: response.data.username }));
+                const session = {
+                    username: response.data.username,
+                    expiresAt: Date.now() + 1000 * 60 * 60 * 24 // 24 horas
+                };
+                setUserState({ username: response.data.username });
+                localStorage.setItem('user', JSON.stringify(session));
                 navigate('/dashboard');
                 setError(null);
             } else {
@@ -73,8 +80,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     const logout = () => {
-        setUser(null);
+        setUserState(null);
         localStorage.removeItem('user'); 
+        sessionStorage.removeItem('Campaign');
+        sessionStorage.removeItem('campaignDataResumen');
     };
 
     return (
