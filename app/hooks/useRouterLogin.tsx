@@ -1,16 +1,11 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '~/services/autenticationService';
-// import { useAuth } from '~/services/authService';
+import type { RootState } from '@store/store';
+import { useSelector } from 'react-redux';
 
 const RouterLogueado: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { user } = useAuth(); 
-
-    if (!user) {
-        return <Navigate to="/" />;
-    }
-
-    return <>{children}</>; 
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  return isAuthenticated ? children : <Navigate to="/" replace />;
 };
 
 export default RouterLogueado;
