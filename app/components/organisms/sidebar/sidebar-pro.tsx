@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaRobot } from "react-icons/fa6";
 
 const SidebarMth = () => {
-  const { logout } = useAuth();
+  const { handleLogout } = useAuth();
   const [collapsed, setCollapsed] = useState(true);
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -174,7 +174,7 @@ const SidebarMth = () => {
             </MenuItem>
           </Menu>
           <div className='mt-auto self-end p-4 w-full cursor-pointer'>
-            <div className='flex justify-center bg-white rounded-md p-2' onClick={logout}>
+            <div className='flex justify-center bg-white rounded-md p-2' onClick={handleLogout}>
               <button className='text-3xl' style={{ color: '#483FFF' }} ><IoIosExit /></button>
           </div>
           </div>
@@ -189,12 +189,9 @@ const SidebarMth = () => {
                   <Card imageUrl='https://ftp.mathilde-ads.com/151-ace94cf43477f7394e72ff6819cc621a.svg' title='Medios Propios' description='Crea y administra campañas a los usuarios que ingresan a tus canales.'/>
               </div>
               <div className="w-3/6 p-2 flex">
-                <Link
-                  to="/summaryCampaign"
-                  onClick={() => setActiveModal(null)}
-                >
+                <Link to="/summaryCampaign" onClick={() => setActiveModal(null)} >
                   <Card imageUrl='https://ftp.mathilde-ads.com/151-1625a87e98d0195b779465fd1e699481.svg' title='Medios Pagos' description='Activa campañas de Marketing Digital usando inventario de Redes Sociales y Google.'/>
-                  </Link>
+                </Link>
               </div>
             </div>
           </div>

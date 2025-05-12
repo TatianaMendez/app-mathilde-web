@@ -40,6 +40,7 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, './app/assets'),
       '@style': path.resolve(__dirname, './app/styles'),
       '@services': path.resolve(__dirname, './app/services'), 
+      '@store': path.resolve(__dirname, './app/store'),
     }
   },
   build: {

@@ -157,12 +157,12 @@ const SummaryCampaign: React.FC = () => {
             <div className='flex'>
               <div className="w-3/6 p-2 flex">
               <Link to="/thirdPartyCampaign">
-                  <Card imageUrl='https://ftp.mathilde-ads.com/151-605f91d40859d5d52379b6753401b68f.svg' title='Campañas manuales' description=''/>
+                <Card imageUrl='https://ftp.mathilde-ads.com/151-605f91d40859d5d52379b6753401b68f.svg' title='Campañas manuales' description=''/>              
               </Link>
               </div>
               <div className="w-3/6 p-2 flex">
               <Link to="/massiveCampaign">
-                  <Card imageUrl='https://ftp.mathilde-ads.com/151-d41c45a31a82b5e2519657b41a04ae94.svg' title='Campañas masivas' description=''/>
+                <Card imageUrl='https://ftp.mathilde-ads.com/151-d41c45a31a82b5e2519657b41a04ae94.svg' title='Campañas masivas' description=''/>
               </Link>
               </div>
             </div>

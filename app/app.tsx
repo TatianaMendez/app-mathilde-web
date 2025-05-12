@@ -16,11 +16,15 @@ import ThirdPartyCampaign from "@components/pages/thirdPartyCampaign/thirdPartyC
 import SummaryCampaign from "@components/pages/thirdPartyCampaign/summaryCampaign";
 import MassiveCampaigns from '@components/pages/thirdPartyCampaign/massiveCampaign';
 import Report from '@components/pages/report/report';
+import { Provider } from 'react-redux';
+import { store } from '@store/store';
+
 const App = () => {
   return (
-    <AuthProvider>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
+    <Provider store={store}>
+      <AuthProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/reset" element={<ResetPass />} />
@@ -35,6 +39,7 @@ const App = () => {
         </Routes>
       </Suspense>
     </AuthProvider>
+    </Provider>
   );
 };
 
