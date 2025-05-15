@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { ButtonFormat, DateRangePicker } from "ui-mathilde-web";
 import SidebarMth from "~/components/organisms/sidebar/sidebar-pro";
+import { getReportData, type ReportResponse, type ReportRequest } from "@services/dashboardService";
+import Swal from 'sweetalert2';
 
 const ATTRIBUTE_OPTIONS = [
   "Campaign",
@@ -31,12 +33,8 @@ const Report: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
 
   // Estado para los datos del reporte
-  const [reportData, setReportData] = useState<{
-    date: string;
-    attributes: string[];
-    campaigns: string[];
-    metrics: string[];
-  } | null>(null);
+  const [reportData, setReportData] = useState<ReportResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const stored = sessionStorage.getItem("campaign_data");
@@ -98,11 +96,35 @@ const Report: React.FC = () => {
   const availableOptions = ATTRIBUTE_OPTIONS.filter(opt => !selectedAttributes.includes(opt) && (opt !== "Campaign" || selectedCampaigns.length === 0));
   const availableMetrics = METRIC_OPTIONS.filter(opt => !selectedMetrics.includes(opt));
 
+  const handleGenerateReport = async () => {
+    setIsLoading(true);
+    try {
+      const requestData: ReportRequest = {
+        advertiser: "BANCODEBOGOTA",
+        start_date: "01-04-2025",
+        end_date: "30-04-2025"
+      };
+
+      const response = await getReportData(requestData);
+      setReportData(response);
+      console.log("Respuesta del servicio:", response);
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: error instanceof Error ? error.message : 'Error al obtener el reporte',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen w-full flex">
       <SidebarMth />
-      <div className="min-h-screen w-full  bg-gray-100 container-space">
-        <div className="flex flex-col h-full ">
+      <div className="min-h-screen w-full bg-gray-100 container-space">
+        <div className="flex flex-col h-full">
           <h1 className="font-bold mb-3">REPORTES</h1>
 
           <div className="flex flex-col bg-white p-5 rounded-md mb-4">
@@ -273,60 +295,61 @@ const Report: React.FC = () => {
             </div>
 
             <div className="flex gap-3 w-full items-center justify-end">
-                <ButtonFormat
-                  txtBtn="Show report"
-                  typeButton="default"
-                  full={false}
-                  type="button"
-                  onClick={() =>
-                    setReportData({
-                      date: selectedDate,
-                      attributes: selectedAttributes,
-                      campaigns: selectedCampaigns,
-                      metrics: selectedMetrics,
-                    })
-                  }
-                />
+              <ButtonFormat
+                txtBtn={isLoading ? "Cargando..." : "Generar Reporte"}
+                typeButton="default"
+                full={false}
+                type="button"
+                onClick={handleGenerateReport}
+                disabled={isLoading}
+              />
             </div>
                     
           </div>
 
-          <div className="flex flex-col bg-white p-5 rounded-md mb-4">
-            {reportData && (
-              <div>
-                <h2 className="font-bold mb-2">Reporte generado</h2>
-                <table className="min-w-full border border-gray-300 rounded">
-                  <thead>
-                    <tr className="bg-gray-200">
-                      <th className="border px-4 py-2">Fecha</th>
-                      <th className="border px-4 py-2">Campaña</th>
-                      {reportData.metrics.map(metric => (
-                        <th key={metric} className="border px-4 py-2">{metric}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {reportData.campaigns.length > 0 ? (
-                      reportData.campaigns.map((campaign) => (
-                        <tr key={campaign}>
-                          <td className="border px-4 py-2">{reportData.date || "No seleccionada"}</td>
-                          <td className="border px-4 py-2">{campaign}</td>
-                          {reportData.metrics.map(metric => (
-                            <td key={campaign + metric} className="border px-4 py-2 text-center">0</td>
-                          ))}
-                        </tr>
-                      ))
-                    ) : (
-                      <tr>
-                        <td className="border px-4 py-2">{reportData.date || "No seleccionada"}</td>
-                        <td className="border px-4 py-2" colSpan={1 + reportData.metrics.length}>Ninguna campaña seleccionada</td>
-                      </tr>
-                    )}
-                  </tbody>
-                </table>
+          {reportData && (
+            <div className="flex flex-col bg-white p-5 rounded-md mb-4">
+              <h2 className="font-bold mb-2">Resumen</h2>
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="bg-gray-50 p-4 rounded">
+                  <h3 className="font-semibold">Impresiones</h3>
+                  <p className="text-2xl">{reportData.body.impressions.toLocaleString()}</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded">
+                  <h3 className="font-semibold">Clics</h3>
+                  <p className="text-2xl">{reportData.body.clicks.toLocaleString()}</p>
+                </div>
+                <div className="bg-gray-50 p-4 rounded">
+                  <h3 className="font-semibold">Conversiones</h3>
+                  <p className="text-2xl">{reportData.body.conversions.toLocaleString()}</p>
+                </div>
               </div>
-            )}
-          </div>
+
+              <h2 className="font-bold mb-2">Campañas</h2>
+              <table className="min-w-full border border-gray-300 rounded">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="border px-4 py-2">Campaña</th>
+                    <th className="border px-4 py-2">Plataforma</th>
+                    <th className="border px-4 py-2">Meta</th>
+                    <th className="border px-4 py-2">Presupuesto</th>
+                    <th className="border px-4 py-2">Cumplimiento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reportData.body.campaigns.map((campaign) => (
+                    <tr key={campaign.name}>
+                      <td className="border px-4 py-2">{campaign.name}</td>
+                      <td className="border px-4 py-2">{campaign.platform}</td>
+                      <td className="border px-4 py-2">{campaign.goal}</td>
+                      <td className="border px-4 py-2">{campaign.budget.toLocaleString()}</td>
+                      <td className="border px-4 py-2">{campaign.compliance}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>

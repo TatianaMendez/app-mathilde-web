@@ -10,9 +10,10 @@ export class AuthorizationService {
   
   /**
    * Realiza la autenticación y obtiene el token de autorización
+   * @param recaptchaToken Token de reCAPTCHA para verificación
    * @returns Promise con la respuesta de autenticación
    */
-  public static async authenticate(): Promise<AuthResponse> {
+  public static async authenticate(recaptchaToken?: string): Promise<AuthResponse> {
     try {
         if (!import.meta.env.VITE_AUTHORIZATION_COG) {
             console.log("post url no estan en variables");
@@ -23,7 +24,11 @@ export class AuthorizationService {
 
       const response = await axios.post(
         `${this.BASE_URL}/autorizacion`,
-        {},
+        {
+          'auth':{
+            'token': recaptchaToken 
+          }
+        },
         {
           headers: {
             'Content-Type': 'application/json',

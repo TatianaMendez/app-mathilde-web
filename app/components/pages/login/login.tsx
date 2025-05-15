@@ -10,20 +10,48 @@ import {
 import { useAuth } from '@services/autenticationService';
 import { Formik, Form } from 'formik';
 import { loginValidationSchema, forgotPasswordValidationSchema } from '@schema/loginSchema';
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import Swal from 'sweetalert2';
 
-const LoginForm: React.FC = () => {
+const LoginFormContent: React.FC = () => {
   const { handleLogin } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const initialValues = {
     username: '',
     password: '',
   };
 
-  const handleSubmit = (values: { username: string; password: string }) => {
-    handleLogin(values.username, values.password);
+  const handleSubmit = async (values: { username: string; password: string }) => {
+    if (!executeRecaptcha) {
+      Swal.fire({
+        title: 'Error',
+        text: 'No se pudo verificar la seguridad. Por favor, recarga la página e intenta nuevamente.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const token = await executeRecaptcha('login');
+      await handleLogin(values.username, values.password, token);
+    } catch (error) {
+      console.error('Error al ejecutar reCAPTCHA:', error);
+      Swal.fire({
+        title: 'Error de verificación',
+        text: 'No se pudo verificar la seguridad. Por favor, intenta nuevamente.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const toggleModal = () => setIsModalOpen(prev => !prev);
@@ -68,6 +96,7 @@ const LoginForm: React.FC = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       data-testid="input-username"
+                      disabled={isLoading}
                     />
                     {errors.username && touched.username && (
                       <div className="text-red-500 text-sm my-2">{errors.username}</div>
@@ -83,6 +112,7 @@ const LoginForm: React.FC = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       data-testid="password-password"
+                      disabled={isLoading}
                     />
                     {errors.password && touched.password && (
                       <div className="text-red-500 text-sm my-2">{errors.password}</div>
@@ -99,11 +129,11 @@ const LoginForm: React.FC = () => {
                 </div>
                 <div className="flex justify-end my-3">
                   <ButtonFormat
-                    txtBtn={'Continuar'}
+                    txtBtn={isLoading ? 'Verificando...' : 'Continuar'}
                     typeButton={'default'}
                     full={true}
                     type={'submit'}
-                    disabled={false}
+                    disabled={isLoading}
                     data-testid="button-Continuar"
                   />
                 </div>
@@ -165,6 +195,22 @@ const LoginForm: React.FC = () => {
         </ModalFormat>
       </div>
     </div>
+  );
+};
+
+const LoginForm: React.FC = () => {
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+      scriptProps={{
+        async: false,
+        defer: false,
+        appendTo: 'head',
+        nonce: undefined,
+      }}
+    >
+      <LoginFormContent />
+    </GoogleReCaptchaProvider>
   );
 };
 

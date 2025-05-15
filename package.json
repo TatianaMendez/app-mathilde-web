@@ -21,6 +21,7 @@
     "isbot": "^5.1.17",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-google-recaptcha-v3": "^1.10.1",
     "react-hook-form": "^7.54.2",
     "react-icons": "^5.4.0",
     "react-pro-sidebar": "^1.1.0",
@@ -28,7 +29,7 @@
     "react-router": "^7.1.3",
     "react-router-dom": "^7.5.2",
     "sweetalert2": "^11.6.15",
-    "ui-mathilde-web": "^0.1.12",
+    "ui-mathilde-web": "^0.1.13",
     "yup": "^1.6.1"
   },
   "devDependencies": {
