@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { type RootState, type AppDispatch, login, logout, loginFailure } from '@store/store';
 import Swal from 'sweetalert2';
+import { AuthorizationService } from './authorizationService';
 
 interface User {
     username: string;
@@ -13,7 +14,7 @@ interface User {
 
 interface UseAuthentication {
     user: User | null;
-    handleLogin: (user: string, pass: string) => Promise<void>;
+    handleLogin: (username: string, password: string, recaptchaToken?: string) => Promise<void>;
     handleLogout: () => void;
     error: string | null; 
 }
@@ -59,28 +60,61 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return () => clearInterval(interval);
     }, []);
 
-    const handleLogin = async (user: string, pass: string) => {
+    const handleLogin = async (username: string, password: string, recaptchaToken?: string) => {
         try {
+            console.log("recaptchaToken", recaptchaToken);
+            const authResponse = await AuthorizationService.authenticate(recaptchaToken);
+            
+            if (authResponse.error) {
+                throw new Error(authResponse.error);
+            }
+
+            if (!authResponse.token) {
+                throw new Error('No se pudo obtener el token de autorización');
+            }
+
+            console.log("Token obtenido:", authResponse.token);
+            sessionStorage.setItem('tokCog', authResponse.token);
+
             const response = await axios.post(
-                'https://mthmocks.pruebasmathilde.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/login',
-                { user, pass }
+                'https://ygskuqceol.execute-api.us-east-2.amazonaws.com/dev/mathilde-ads/servicios',
+                { username, password, 'action': 'login' },
+                { 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authResponse.token}`
+                    }
+                }
             );
 
-            if (response.data && response.data.username) {
+            console.log("Respuesta del servicio de login:", response.data);
+
+            if (response.data && response.data.ClientName) {
                 const session = {
-                    username: response.data.username,
+                    username: username,
+                    ClientName: response.data.ClientName,
                     expiresAt: Date.now() + 1000 * 60 * 60 * 24 // 24 horas
                 };
-                setUserState({ username: response.data.username, expiresAt: session.expiresAt });
+                console.log("Datos de sesión creados:", session);
+                
+                setUserState({ username: response.data.ClientName, expiresAt: session.expiresAt });
                 localStorage.setItem('user', JSON.stringify(session));
-                dispatch(login({ email: response.data.username, name: response.data.username }));
+                dispatch(login({ email: username, name: response.data.ClientName }));
                 navigate('/dashboard');
                 setError(null);
             } else {
-                throw new Error("El nombre de usuario no está disponible en la respuesta.");
+                throw new Error(response.data.detail);
             }
         } catch (error) {   
+            console.error("Error completo:", error);
+            
             if (axios.isAxiosError(error)) {
+                console.error("Detalles del error:", {
+                    status: error.response?.status,
+                    data: error.response?.data,
+                    message: error.message
+                });
+                
                 dispatch(loginFailure(error.message));
                 if (error.response) {
                     setError(`Error: ${error.response.status} - ${error.response.data}`);
@@ -96,7 +130,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
             Swal.fire({
                 title: 'Error de inicio de sesión',
-                text: 'Por favor verifica tus credenciales.',
+                text: error instanceof Error ? error.message : 'Por favor verifica tus credenciales.',
                 icon: 'error',
                 confirmButtonText: 'Aceptar'
             });

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { ModalFormat, ImageFormat, Card} from 'ui-mathilde-web';
 
 import { useAuth } from '@services/autenticationService';
-const imagesPath = import.meta.env.VITE_MICROFRONENT_URL;
 import { FaListAlt } from "react-icons/fa";
 import { BsFillBoxSeamFill } from "react-icons/bs";
 import { FaUsers } from "react-icons/fa";
