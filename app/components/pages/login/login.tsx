@@ -6,6 +6,7 @@ import {
   ModalFormat,
   PasswordInput,
   LayoutOutside,
+  Spinner,
 } from 'ui-mathilde-web';
 import { useAuth } from '@services/autenticationService';
 import { Formik, Form } from 'formik';
@@ -73,6 +74,7 @@ const LoginFormContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex w-full">
+        {isLoading && ( <div className="absolute flex items-center justify-center size-full z-10"> <div className='bg-white p-4' style={{ boxShadow: '0px 12px 30px 0px rgba(0, 0, 0, 0.2)' }}> <Spinner description='Iniciando...'/> </div></div> ) }
       <div className="w-2/4 border-container">
         <LayoutOutside data-testid="layout-outside" />
       </div>
@@ -129,7 +131,7 @@ const LoginFormContent: React.FC = () => {
                 </div>
                 <div className="flex justify-end my-3">
                   <ButtonFormat
-                    txtBtn={isLoading ? 'Verificando...' : 'Continuar'}
+                    txtBtn='Continuar'
                     typeButton={'default'}
                     full={true}
                     type={'submit'}
@@ -147,52 +149,54 @@ const LoginFormContent: React.FC = () => {
               <Link to="/register">Regístrate</Link>
             </span>
           </div>
-        </div>
 
-        <ModalFormat width="40%" isOpen={isModalOpen} onClose={toggleModal} data-testid="modal">
-          <div className="pt-6">
-            <p>
-              Si deseas cambiar tu contraseña ingresa el <b>correo eléctronico</b> registrado en la
-              plataforma.
-            </p>
-            <Formik
-              initialValues={forgotPasswordInitialValues}
-              validationSchema={forgotPasswordValidationSchema}
-              onSubmit={handleForgotPassword}
-            >
-              {({ errors, touched, handleChange, handleBlur, values }) => (
-                <Form>
-                  <div className="w-full my-3">
-                    <InputForm
-                      name="email"
-                      type="email"
-                      placeholder="Correo electronico"
-                      value={values.email}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      required
-                      data-testid="input-email"
-                    />
-                    {errors.email && touched.email && (
-                      <div className="text-red-500 text-sm my-2">{errors.email}</div>
-                    )}
-                  </div>
-                  <div className="flex justify-end">
-                    <ButtonFormat
-                      txtBtn={'Continuar'}
-                      typeButton={'default'}
-                      full={false}
-                      type={'submit'}
-                      disabled={false}
-                      className={''}
-                      data-testid="button-Continuar-modal"
-                    />
-                  </div>
-                </Form>
-              )}
-            </Formik>
-          </div>
-        </ModalFormat>
+          <ModalFormat width="40%" isOpen={isModalOpen} onClose={toggleModal} data-testid="modal">
+            <div className="pt-6">
+              <p>
+                Si deseas cambiar tu contraseña ingresa el <b>correo eléctronico</b> registrado en la
+                plataforma.
+              </p>
+              <Formik
+                initialValues={forgotPasswordInitialValues}
+                validationSchema={forgotPasswordValidationSchema}
+                onSubmit={handleForgotPassword}
+              >
+                {({ errors, touched, handleChange, handleBlur, values }) => (
+                  <Form>
+                    <div className="w-full my-3">
+                      <InputForm
+                        name="email"
+                        type="email"
+                        placeholder="Correo electronico"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        required
+                        data-testid="input-email"
+                      />
+                      {errors.email && touched.email && (
+                        <div className="text-red-500 text-sm my-2">{errors.email}</div>
+                      )}
+                    </div>
+                    <div className="flex justify-end">
+                      <ButtonFormat
+                        txtBtn={'Continuar'}
+                        typeButton={'default'}
+                        full={false}
+                        type={'submit'}
+                        disabled={false}
+                        className={''}
+                        data-testid="button-Continuar-modal"
+                      />
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </ModalFormat>
+
+        
+        </div>
       </div>
     </div>
   );

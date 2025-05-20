@@ -4,7 +4,7 @@ import { ButtonFormat, Card, ModalFormat, TableComponent } from "ui-mathilde-web
 import { SiGoogleads } from "react-icons/si";
 import { FaMeta } from "react-icons/fa6";
 import { FaTiktok } from "react-icons/fa";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { BsStack } from 'react-icons/bs';
 // import { tableColumns, campaignData } from '@services/paidMediaService';
 import { tableColumns } from '@services/paidMediaService';
@@ -17,15 +17,43 @@ interface CampaignWithId extends Record<string, any> {
 }
 
 const SummaryCampaign: React.FC = () => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const [campaignData, setCampaignData] = useState<any[]>([]);
   const [activeFilter, setActiveFilter] = useState<'all' | 'META' | 'GOOGLE' | 'TIKTOK'>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [localData, setLocalData] = useState<CampaignWithId[]>([]);
   
   useEffect(() => {
+    let dataCampaign = sessionStorage.getItem('dataCampaign'); 
+    const allTransformedCampaigns: any[] = [];
+
+    function getRandomIntInRange(min: number, max: number): number {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    } 
+
+    const transformMetaCampaign = (dataCampaign: any) => ({
+      status: true,
+      name: dataCampaign.name || '',
+      platform: dataCampaign.platform || '',
+      startDate: dataCampaign.start_date || '',
+      endDate: dataCampaign.end_date || '',
+      budget: dataCampaign.budget || '0',
+      spent: getRandomIntInRange(1, 99999),
+      impressions: getRandomIntInRange(1, 99999),
+      cpm: getRandomIntInRange(1, 99999),
+      clicksUrl: getRandomIntInRange(1, 99999),
+      ctr: getRandomIntInRange(1, 99999),
+      cpc: getRandomIntInRange(1, 99999)
+    });
+
+    if (dataCampaign) {
+      const parsedData = JSON.parse(dataCampaign);
+      const dataEnd = parsedData.body.campaigns; 
+      for (let i = 0; i < 6; i++) {
+        allTransformedCampaigns.push(transformMetaCampaign(dataEnd[i]));
+      }
+    }
+ 
     let initialData: any[] = [];
     const locationData = location.state as { campaignData: any[] } | undefined;
     if (locationData?.campaignData) {
@@ -37,13 +65,18 @@ const SummaryCampaign: React.FC = () => {
         initialData = JSON.parse(stored);
       }
     }
+
+    // Combinar los datos transformados con los datos existentes
+    const combinedData = [...initialData, ...allTransformedCampaigns];
+
     // Asignar IDs únicos a cada campaña
-    const dataWithIds = initialData.map((item, index) => ({
+    const dataWithIds = combinedData.map((item, index) => ({
       ...item,
       id: `${item.name}-${item.platform}-${index}`
     }));
     setLocalData(dataWithIds);
   }, [location.state]);
+
   
   const toggleModal = () => setIsModalOpen(prev => !prev);
 

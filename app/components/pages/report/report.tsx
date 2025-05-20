@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ButtonFormat, DateRangePicker } from "ui-mathilde-web";
-import SidebarMth from "~/components/organisms/sidebar/sidebar-pro";
+import SidebarMth from "@components/organisms/sidebar/sidebar-pro";
 import { getReportData, type ReportResponse, type ReportRequest } from "@services/dashboardService";
 import Swal from 'sweetalert2';
 
@@ -37,20 +37,43 @@ const Report: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const stored = sessionStorage.getItem("campaign_data");
+    const stored = sessionStorage.getItem("campaignDataResumen");
+    const dataCampaign = sessionStorage.getItem('dataCampaign');
+    let combinedData: any[] = [];
+
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        // Accede a la propiedad campaignData
-        if (Array.isArray(parsed.campaignData)) {
-          setCampaignsFromStorage(parsed.campaignData.filter((c: any) => c.name));
-        } else {
-          setCampaignsFromStorage([]);
+        if (Array.isArray(parsed)) {
+          combinedData = [...combinedData, ...parsed];
         }
       } catch (e) {
-        setCampaignsFromStorage([]);
+        console.error('Error parsing stored data:', e);
       }
     }
+
+    if (dataCampaign) {
+      try {
+        const parsedData = JSON.parse(dataCampaign);
+        const dataEnd = parsedData.body.campaigns;
+        if (Array.isArray(dataEnd)) {
+          const transformedData = dataEnd.map(campaign => ({
+            name: campaign.name || '',
+            platform: campaign.platform || '',
+            startDate: campaign.start_date || '',
+            endDate: campaign.end_date || '',
+            budget: campaign.budget || '0'
+          }));
+          combinedData = [...combinedData, ...transformedData];
+        }
+      } catch (e) {
+        console.error('Error parsing campaign data:', e);
+      }
+    }
+
+    // Filtrar campañas únicas por nombre
+    const uniqueCampaigns = Array.from(new Map(combinedData.map(item => [item.name, item])).values());
+    setCampaignsFromStorage(uniqueCampaigns);
   }, []);
 
   const handleSelect = (option: string) => {
