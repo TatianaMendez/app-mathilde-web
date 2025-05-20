@@ -9,8 +9,9 @@ import useModal from "@hooks/useModalTerminos";
 import Swal from "sweetalert2";
 import { Formik, Form,  } from "formik";
 import { registerValidationSchema } from "@schema/registerSchema";
+import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
-const RegisterForm: React.FC = () => {
+const RegisterFormContent: React.FC = () => {
   const { roles } = RegisterFormService;
   const navigate = useNavigate();
 
@@ -1165,6 +1166,22 @@ const RegisterForm: React.FC = () => {
         </ModalFormat>
       </div>
     </div>
+  );
+};
+
+const RegisterForm: React.FC = () => {
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+      scriptProps={{
+        async: false,
+        defer: false,
+        appendTo: 'head',
+        nonce: undefined,
+      }}
+    >
+      <RegisterFormContent />
+    </GoogleReCaptchaProvider>
   );
 };
 

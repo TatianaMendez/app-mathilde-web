@@ -141,7 +141,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         dispatch(logout());
         setUserState(null);
         localStorage.removeItem('user'); 
-        sessionStorage.removeItem('Campaign');
         sessionStorage.removeItem('campaignDataResumen');
         navigate('/');
     };

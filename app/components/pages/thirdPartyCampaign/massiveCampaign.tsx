@@ -150,14 +150,9 @@ const MassiveCampaigns: React.FC = () => {
       throw new Error('El archivo debe contener al menos los tipos, campos y un registro de datos');
     }
 
-    // Obtener tipos y campos
     const types = rows[0].map(type => type.trim().toLowerCase());
     const fields = rows[1].map(field => field.trim().toLowerCase());
-    
-    // Guardar los nombres de los campos y tipos en localStorage
-    localStorage.setItem('csv_fields', JSON.stringify(fields));
-    localStorage.setItem('csv_types', JSON.stringify(types));
-    
+       
     console.log('Tipos:', types);
     console.log('Campos:', fields);
 
@@ -319,7 +314,6 @@ const MassiveCampaigns: React.FC = () => {
 
     console.log('Datos procesados:', { campaignData, adSetData, adData });
     const Campaign = { campaignData, adSetData, adData };
-    sessionStorage.setItem('Campaign', JSON.stringify(Campaign));
     setCampaignData(Campaign);
     return { campaignData, adSetData, adData };
   };

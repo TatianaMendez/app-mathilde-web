@@ -14,7 +14,6 @@ export default defineConfig({
       name: 'appmathildeweb', // Nombre del remoto
       filename: 'remoteEntry.js',
       exposes: {
-        './CampaignForm': './app/components/pages/formSocial/formSocial.tsx',
         './LoginForm': './app/components/pages/login/login.tsx',
         './RegisterForm': './app/components/pages/register/register.tsx',
         './ResetPass': './app/components/pages/login/resetPassword/resetPassword.tsx',

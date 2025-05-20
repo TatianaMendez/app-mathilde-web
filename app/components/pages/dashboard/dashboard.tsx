@@ -13,7 +13,9 @@ import Swal from 'sweetalert2';
 import { format, parse } from 'date-fns';
 
 interface DateRangePickerProps {
-  onChange?: (start: string, end: string) => void;
+  onChange?: (start: Date, end: Date) => void;
+  minData?: Date;
+  maxData?: Date;
 }
 
 interface DoughnutChartProps {
@@ -28,32 +30,31 @@ const Dashboard: React.FC = () => {
   const [reportData, setReportData] = useState<ReportResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState({
-    startDate: format(new Date(), 'dd-MM-yyyy'),
-    endDate: format(new Date(), 'dd-MM-yyyy')
+    startDate: parse('01-04-2025', 'dd-MM-yyyy', new Date()),
+    endDate: parse('30-04-2025', 'dd-MM-yyyy', new Date())
   });
 
   const handleDateChange = (start: Date, end: Date) => {
+    setDateRange({ startDate: start, endDate: end });
     const formattedStart = format(start, 'dd-MM-yyyy');
     const formattedEnd = format(end, 'dd-MM-yyyy');
-    setDateRange({ startDate: formattedStart, endDate: formattedEnd });
+    fetchReportData(formattedStart, formattedEnd);
   };
 
-  const fetchReportData = useCallback(async () => {
+  const fetchReportData = useCallback(async (startDate?: string, endDate?: string) => {
     try {
       setLoading(true);
       const requestData: ReportRequest = {
         advertiser: selectedAdvertiser,
-        start_date: dateRange.startDate,
-        end_date: dateRange.endDate
+        start_date: startDate || '01-04-2025',
+        end_date: endDate || '30-04-2025'
       };
-      
-      console.log('Fechas enviadas al API:', {
-        start_date: requestData.start_date,
-        end_date: requestData.end_date
-      });
-      
+
       const response = await getReportData(requestData);
       setReportData(response);
+      console.log(response); 
+      sessionStorage.setItem('dataCampaign',  JSON.stringify(response));
+
     } catch (error) {
       Swal.fire({
         title: 'Error',
@@ -63,7 +64,7 @@ const Dashboard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [selectedAdvertiser, dateRange.startDate, dateRange.endDate]);
+  }, [selectedAdvertiser, dateRange]);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -250,7 +251,9 @@ const Dashboard: React.FC = () => {
               value={selectedAdvertiser}
               onChange={(e) => setSelectedAdvertiser(e.target.value)}
             />
-            <DateRangePicker onChange={handleDateChange} />
+            <DateRangePicker 
+              onChange={handleDateChange}
+            />
           </div>
         </div>
         {renderDashboardContent()}
