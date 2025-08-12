@@ -63,33 +63,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const handleLogin = async (username: string, password: string, recaptchaToken?: string) => {
         try {
             console.log("recaptchaToken", recaptchaToken);
-            const authResponse = await AuthorizationService.authenticate(recaptchaToken);
+            // const authResponse = await AuthorizationService.authenticate(recaptchaToken);
             
-            if (authResponse.error) {
-                throw new Error(authResponse.error);
-            }
+            // if (authResponse.error) {
+            //     throw new Error(authResponse.error);
+            // }
 
-            if (!authResponse.token) {
-                throw new Error('No se pudo obtener el token de autorización');
-            }
+            // if (!authResponse.token) {
+            //     throw new Error('No se pudo obtener el token de autorización');
+            // }
 
-            console.log("Token obtenido:", authResponse.token);
-            sessionStorage.setItem('tokCog', authResponse.token);
+            // console.log("Token obtenido:", authResponse.token);
+            // sessionStorage.setItem('tokCog', authResponse.token);
 
             const response = await axios.post(
-                'https://ygskuqceol.execute-api.us-east-2.amazonaws.com/dev/mathilde-ads/servicios',
+                // 'https://ygskuqceol.execute-api.us-east-2.amazonaws.com/dev/mathilde-ads/servicios',
+                'https://mthmocks.pruebasmathilde.com/castlemock/mock/rest/project/nIVSsr/application/YPlsJX/login',
                 { username, password, 'action': 'login' },
                 { 
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${authResponse.token}`
+                        // 'Authorization': `Bearer ${authResponse.token}`
                     }
                 }
             );
 
             console.log("Respuesta del servicio de login:", response.data);
 
-            if (response.data && response.data.ClientName) {
+            // if (response.data && response.data.ClientName) {
+            if (response.data) {
                 const session = {
                     username: username,
                     ClientName: response.data.ClientName,
